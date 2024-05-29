@@ -2,7 +2,7 @@ package day02;
 
 import java.util.Iterator;
 
-public class variableEx03 {
+public class VariableEx03 {
 	// 변수명 작성 규칙 예제
 	public static void main(String[] args) {
 		int num;

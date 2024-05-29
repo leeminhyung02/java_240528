@@ -1,6 +1,6 @@
 package day02;
 
-public class variableEx02 {
+public class VariableEx02 {
 
 	public static void main(String[] args) {
 		int num1 = 0x11;  //16진수-17

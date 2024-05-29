@@ -1,6 +1,6 @@
 package day01;
 
-public class variableEX01 {
+public class VariableEX01 {
 
 	public static void main(String[] args) {
 		
