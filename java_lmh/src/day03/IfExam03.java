@@ -2,7 +2,7 @@ package day03;
 
 import java.util.Scanner;
 
-public class IfEx03 {
+public class IfExam03 {
 	public static void main(String[] args) {
 	//산술 연산자와 두 정수를 입력받아 산술연산자에 맞는 연산 결과를 출력하는 코드를 작성하세요 
 	Scanner scan = new Scanner(System.in);
