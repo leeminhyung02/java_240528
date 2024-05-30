@@ -21,10 +21,13 @@ public class IfExam03 {
 		System.out.println(""+num1+op+num2 + "="+ (num1*num2));
 	}
 	else if (op == '/') {
-		System.out.println(""+num1+op+num2 + "="+ (num1/num2));
+		System.out.println(""+num1+op+num2 + "="+ ((double)num1/num2));
+	}
+	else if (op == '%') {
+		System.out.println(""+num1+op+num2 + "="+ (num1%num2));
 	}
 	else {
-		System.out.println("잘못된 입력");
+		System.out.println(op+"는 산술 연산자가 아닙니다.");
 	}
 	}
 }
