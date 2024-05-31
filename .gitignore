@@ -5,3 +5,4 @@
 .settings/
 
 java_lmh/.gitignore
+/bin/

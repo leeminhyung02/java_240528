@@ -12,7 +12,7 @@ public class BreakEx02 {
 				System.out.print(num1+"과 "+num2+"의 최대 공약수 : "+i);
 				break;
 			}
-			i--;
+			i--;         
 		}
 	}
 }
