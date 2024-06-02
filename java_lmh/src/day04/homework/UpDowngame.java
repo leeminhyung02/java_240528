@@ -18,7 +18,7 @@ public class UpDowngame {
 		Scanner scan = new Scanner(System.in);
 		int num = 0;
 		int min = 1, max = 100; 
-		int random = get_random(min, max);
+		int random = (int)(Math.random() * (max - min + 1) + min);
 		while (num != random) {
 			System.out.print("정수 입력 :");
 			num = scan.nextInt();
@@ -32,9 +32,5 @@ public class UpDowngame {
 				System.out.println("정답입니다!");
 			}
 		}
-	} 
-	public static int get_random(int min, int max) {
-		int random = (int)(Math.random() * (max - min + 1) + min);
-		return random;
 	}
 }
