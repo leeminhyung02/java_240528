@@ -16,7 +16,7 @@ public class UpDowngame {
 		 * 
 		 */
 		Scanner scan = new Scanner(System.in);
-		int num = 0;
+		int num;
 		int min = 1, max = 100; 
 		int random = (int)(Math.random() * (max - min + 1) + min);
 				/*
