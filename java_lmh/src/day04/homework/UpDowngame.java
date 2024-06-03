@@ -19,7 +19,22 @@ public class UpDowngame {
 		int num = 0;
 		int min = 1, max = 100; 
 		int random = (int)(Math.random() * (max - min + 1) + min);
-		while (num != random) {
+				/*
+				 * while (num != random) {
+					System.out.print("정수 입력 :");
+					num = scan.nextInt();
+					if (num > random) {
+						System.out.println("DOWN!");
+					}
+					else if(num < random) {
+						System.out.println("UP!");
+					}
+					else {
+						System.out.println("정답입니다!");
+					}
+				}
+		 */
+		do {
 			System.out.print("정수 입력 :");
 			num = scan.nextInt();
 			if (num > random) {
@@ -31,6 +46,6 @@ public class UpDowngame {
 			else {
 				System.out.println("정답입니다!");
 			}
-		}
+		} while(num != random);
 	}
 }
