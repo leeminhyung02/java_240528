@@ -18,7 +18,7 @@ public class ArrayEx09 {
 				  System.out.println(input+"은 배열의 "+i+"번지에 있습니다.");
 				  break;
 			  } 
-			  else {
+			  else { //false
 				  count++;
 			  }
 		  }
