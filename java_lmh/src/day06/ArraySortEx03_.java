@@ -1,6 +1,6 @@
 package day06;
 
-public class Simsimhe {
+public class ArraySortEx03_ {
 
 	public static void main(String[] args) {
 		// 배열생성
