@@ -91,6 +91,13 @@ public class BaseballGame {
 				}
 			}
 			// 아웃 체크 //일치하는 숫자 X
+			for (i = 0; i < inputarr.length; i++) {
+				for (int j = 0; j < inputarr.length; j++) {
+					if (arr[i] != inputarr[j]) {
+						
+					}
+				}
+			}
 		}
 
 	}
