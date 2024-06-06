@@ -31,7 +31,7 @@ public class BaseballGame {
 		// 입력부분
 		int input;
 		int inputarr[] = new int[3];
-		int strike = 0, ball = 0, out = 0;
+
 
 		Scanner scan = new Scanner(System.in);
 
@@ -51,6 +51,7 @@ public class BaseballGame {
 		// 입력부분
 		while (true) {
 			System.out.print("입력 : ");
+			int strike = 0, ball = 0, out = 0;
 			for (int j = 0; j < 3; j++) {
 				inputarr[j] = scan.nextInt();
 			}
@@ -59,8 +60,16 @@ public class BaseballGame {
 				for (int j = 0; j < inputarr.length; j++) {
 					if (arr[i] == inputarr[i]) {
 						strike++;
+						break;
 					}
 				}
+			}
+			if (strike >= 1) {
+			System.out.print(strike+" 스트라이크  ");
+			}	
+			if (strike == 3) {
+				System.out.println("\n 정답입니다.");
+				break;
 			}
 			// 볼 체크 //숫자 같음
 			/*
@@ -90,16 +99,24 @@ public class BaseballGame {
 					}
 				}
 			}
+			if (ball >= 1) {
+			System.out.print(ball+" 볼  ");
+			}
 			// 아웃 체크 //일치하는 숫자 X
 			for (i = 0; i < inputarr.length; i++) {
 				for (int j = 0; j < inputarr.length; j++) {
 					if (arr[i] != inputarr[j]) {
-						
+						out++;
 					}
 				}
-			}
-		}
 
+			}
+			if (out == 9) {
+				System.out.println("아웃");
+			}
+			System.out.println();
+		}
+		
 	}
 
 }
