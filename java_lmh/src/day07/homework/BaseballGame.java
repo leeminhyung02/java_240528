@@ -48,6 +48,7 @@ public class BaseballGame {
 			}
 		}
 		System.out.println("임시\n" + Arrays.toString(arr));
+		System.out.println("생성 완료");
 		// 입력부분
 		while (true) {
 			System.out.print("입력 : ");
