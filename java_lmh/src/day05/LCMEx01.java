@@ -26,7 +26,6 @@ public class LCMEx01 {
 		 */ 
 		
 		//num1이 num2보다 작으면 num1과 num2를 바꾸는 코드
-		
 		int tmp;
 		if (num1 <num2) {
 			tmp = num1;
