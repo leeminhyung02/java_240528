@@ -22,7 +22,7 @@ public class MethodEx03 {
 		//배열의 원소가 중복이 아닐때 까지 확인 변경
 		int count = 0;  
 		int i = 0;
-		while (count < 3) {
+		while (count < list.length) {
 			int random = (int) (Math.random() * (max - min + 1) + min);
 			for (i = 0; i < count; i++) {
 				if (arr[i] == random) {
@@ -30,7 +30,7 @@ public class MethodEx03 {
 				}
 			}
 			if (i == count) {
-				arr[count] = random;
+				list[count] = random;
 				count++;
 			}
 		}
