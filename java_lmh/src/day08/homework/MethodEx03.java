@@ -23,9 +23,9 @@ public class MethodEx03 {
 		int count = 0;  
 		int i = 0;
 		while (count < list.length) {
-			int random = (int) (Math.random() * (max - min + 1) + min);
+			int random = randint(min,max);
 			for (i = 0; i < count; i++) {
-				if (arr[i] == random) {
+				if (list[i] == random) {
 					break;
 				}
 			}
