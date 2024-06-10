@@ -26,7 +26,7 @@ public class StudentEx01 {
 		/*
 		 * 프로그램 관리를 위한 Student 클래스를 추가하세요.
 		 * - 학년, 반, 번호, 이름, 국어, 영어, 수학
-		 * 	멤버 변수는 private으로 하고 getter/setter를 추가
+		 * 	멤버 변수는 private 으로 하고 getter/setter 를 추가
 		 * 	기본 생성자와 학년,반,번호,이름을 이용한 생성자를 추가
 		 * 	국어, 영어,수학 성적을 변경하는 기능을 추가
 		 */
@@ -58,7 +58,7 @@ public class StudentEx01 {
 				int num = scan.nextInt();
 				System.out.print("이름 : ");
 				String name = scan.next(); 
-				std[count] = new Student();
+				std[count] = new Student(grade,classNum,num,name);
 				count++;
 				for (Student tmp : std) {
 					if (tmp != null) {
@@ -240,13 +240,5 @@ public class StudentEx01 {
 			this.eng = eng;
 			this.math = math;
 		}
-		/** 기능 : 학년, 반, 번호가 일치하는 학생이 있으면
-		 * 
-		 * @param std
-		 * @param grade
-		 * @param classNum
-		 * @param num
-		 * @return
-		 */
 	}
 }
