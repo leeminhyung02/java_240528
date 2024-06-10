@@ -8,20 +8,21 @@ public class MethodEx01 {
 	 * 메서드를 이용
 	 */
 	public static void main(String[] args) {
+		System.out.print("배열 크기 입력 :");
 		Scanner scan = new Scanner(System.in);
-		System.out.print("입력 :");
-		int input = scan.nextInt();
-		int list[] = null;
-		list = arrlength(input);
-		System.out.println(Arrays.toString(list));
+		int size = scan.nextInt();
+		int [] arr = createArray(size);
+		System.out.println(Arrays.toString(arr));
 	}
-	/**기능 : 정수를 입력받은 정수 n 을 크기로 하는 배열을 반환
-	 *  매개변수 : int n
-	 *  리턴타입 :int[]
-	 *  메서드명 :arrlength
+	/** 기능 : 배열의 크기가 주어지면 주어진 배열 크기의 정수 배열을 생성해서 알려주는 메서드
+	 * 매개변수 : 배열 크기 = >int size
+	 * 리턴타입 : 생성된 정수 배열 = > int[]
+	 * 메서드명 : createArray
 	 */
-	public static int[] arrlength(int n) {
-		int arr[] = new int[n];
-		return arr;
+	public static int [] createArray(int size) {
+		if (size < 0) {
+			return null;
+		}
+		return new int[size];
 	}
 }
