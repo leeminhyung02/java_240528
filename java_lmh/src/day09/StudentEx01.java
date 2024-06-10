@@ -1,5 +1,6 @@
 package day09;
 
+import java.awt.Checkbox;
 import java.util.Scanner;
 
 public class StudentEx01 {
@@ -38,7 +39,7 @@ public class StudentEx01 {
 		//학생 배열
 		int count = 0;
 		int check = 0;
-		Student std[] = new Student[10];
+		Student std[] = new Student[2];
 		do {
 			printMenu();
 			menu = scan.nextInt();
@@ -70,27 +71,21 @@ public class StudentEx01 {
 					System.out.print("번호 : ");
 					int num = scan.nextInt();
 					//입력받은 학년, 반, 번호를 이용하여 일치하는 학생이 있는지 확인
-					for (int i = 0; i < std.length; i++) {
-						//있다면, 국어, 영어, 수학 성적을 입력받아 학생 성적을 수정
-						if (std[i].getGrade() == grade && std[i].getClassNum() == classNum && std[i].getNum() == num) {
-							System.out.print("국어 : ");
-							int kor = scan.nextInt();
-							System.out.print("영어 : ");
-							int eng = scan.nextInt();
-							System.out.print("수학 : ");
-							int math = scan.nextInt();
-							std[i].updateScore(kor, eng, math);
-							System.out.println(std[i].getName()+" 의 성적을 수정했습니다.");
-							check = 1;
-							break;
-						}
-	
+					int i = checknum(std, grade, classNum, num);
+					if (i != -1) {
+						System.out.print("국어 : ");
+						int kor = scan.nextInt();
+						System.out.print("영어 : ");
+						int eng = scan.nextInt();
+						System.out.print("수학 : ");
+						int math = scan.nextInt();
+						std[i].updateScore(kor, eng, math);
+						System.out.println(std[i].getName()+" 의 성적을 수정했습니다.");
 					}
-					if (check == 1) {
-						break;
+					else {
+						//없다면 일치하는 학생이 없다고 출력하고 종료
+						System.out.println("일치하는 학생이 없습니다.");
 					}
-					//없다면 일치하는 학생이 없다고 출력하고 종료
-					System.out.println("일치하는 학생이 없습니다.");
 					break;
 				}
 				case 3:{
@@ -102,22 +97,17 @@ public class StudentEx01 {
 					System.out.print("번호 : ");
 					int num = scan.nextInt();
 					//입력받은 학년, 반, 번호를 이용하여 일치하는 학생이 있는지 확인
-					for (int i = 0; i < std.length; i++) {
-						//있다면 해당 학생의 성적을 출력
-						if (std[i].getGrade() == grade && std[i].getClassNum() == classNum && std[i].getNum() == num) {
-							System.out.print("국어 : "+std[i].getKor());
-							System.out.print("  영어 : "+std[i].getEng());
-							System.out.println("  수학 : "+std[i].getMath());
-							check = 1;
-							break;
-						}
-	
+					int i = checknum(std, grade, classNum, num);
+					if (i != -1) {
+						System.out.println(std[i].getName()+"의 성적 :  ");
+						System.out.print("국어 : "+std[i].getKor());
+						System.out.print("  영어 : "+std[i].getEng());
+						System.out.println("  수학 : "+std[i].getMath());
 					}
-					if (check == 1) {
-						break;
+					else {
+						//없다면 일치하는 학생이 없다고 출력하고 종료	
+						System.out.println("일치하는 학생이 없습니다.");
 					}
-					//없다면 일치하는 학생이 없다고 출력하고 종료
-					System.out.println("일치하는 학생이 없습니다.");
 					break;
 				}
 				case 4:{
@@ -167,8 +157,26 @@ public class StudentEx01 {
 			System.out.println("잘못된 메뉴입니다.");
 		}
 	}
-
-
+	
+	/**  기능 : 학년,반,번호가 맞는지 체크하고 맞으면 해당 index 반환, 아니면 -1 반환
+	 * 
+	 * @param std
+	 * @param grade
+	 * @param classNum
+	 * @param num
+	 * @return
+	 */
+	public static int checknum(Student std[],int grade, int classNum, int num) {
+		for (int i = 0; i < std.length; i++) {
+			if(std[i] == null) {
+				return -1;
+			}
+			if(std[i].getGrade() == grade && std[i].getClassNum() == classNum && std[i].getNum() == num) {
+			return i;
+		}
+	}
+		return -1;
+	}
 }
 class Student {
 	private int grade, classNum, num;
