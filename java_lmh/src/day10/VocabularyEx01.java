@@ -7,6 +7,8 @@ public class VocabularyEx01 {
 	private static Scanner scan = new Scanner(System.in);
 	
 	public static void main(String[] args) {
+		String s = "1234567";
+		System.out.println(s.charAt(0));
 		/*메뉴
 		 * 1. 단어 등록
 		 * 2. 단어 수정
