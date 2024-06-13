@@ -20,6 +20,17 @@ public class RandomEx02 {
 			System.out.print(num+" ");
 			
 		}
+		System.out.println();
+		for (int i = 0; i<20; i++) {
+			int num = r.nextInt(min, max+1);
+			System.out.print(num+" ");
+			
+	
+		}
+		int [] A = {1,23,5,6};
+		int a = A.length;
+		System.out.println();
+		System.out.println(a);
 		
 	}
 
