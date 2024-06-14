@@ -14,16 +14,28 @@ public class Ex01 {
 		System.out.print("원하는 단어를 입력하세요 : ");
 		String word = scan.next();
 		int count = 0;
+		/*
+		for (String book : books) {
+			if (book.contains(word)) {
+				System.out.println(book+" ");
+				count++;
+			}
+		}
+		if (count == 0) {
+			System.out.println("일치하는 책이 없습니다");
+			
+		}
+		*/
 		for (int i = 0; i < books.length; i++) {
 			int j = books[i].indexOf(word);
 			if (j != -1) {   //해당 단어가 문자열에 있다면
 				System.out.print(books[i]+"   ");
 			}
-			else {
+			else {  //없으면 갯수를 세서 
 				count++;
 			}
 		}
-		if (count  == books.length) {
+		if (count  == books.length) { //갯수가 배열의 크기와 같아지면( 다 없으면) 출력
 			System.out.println("일치하는 책이 없습니다.");
 		}
 		else {
