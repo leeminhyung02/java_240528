@@ -9,7 +9,7 @@ public class ClassEx02 {
 		
 		
 	}
-
+ 
 }
 
 class Student2{

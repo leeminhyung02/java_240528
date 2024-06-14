@@ -17,7 +17,7 @@ public class MethodEx3_ {
 	}
 	public static int [] createArray(int size) {
 		if (size < 0) {
-			return null;
+			return null; 
 		}
 		return new int[size];
 	}
