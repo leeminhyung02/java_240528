@@ -13,7 +13,7 @@ public class Ex01 {
 		Scanner scan = new Scanner(System.in);
 		System.out.print("원하는 단어를 입력하세요 : ");
 		String word = scan.next();
-		int count = 0;
+	
 		/*
 		for (String book : books) {
 			if (book.contains(word)) {
@@ -26,6 +26,7 @@ public class Ex01 {
 			
 		}
 		*/
+		int count = 0;
 		for (int i = 0; i < books.length; i++) {
 			int j = books[i].indexOf(word);
 			if (j != -1) {   //해당 단어가 문자열에 있다면
