@@ -8,6 +8,11 @@ public class Contact {
 		private String name;
 		private String number;
 		
+		public Contact(String name, String number) throws Exception {
+			this.name = name;
+			setNumber(number);
+		}
+		
 		//hashCode equals는 전화번호가 같으면 등록이 되면 안되고, 수정할 때도 있는 번호는 등록되면 안되기 때문에
 		//equals를 오버라이딩 하면 같은 번호인지 아닌지 비교하기가 쉽다
 		@Override
@@ -51,10 +56,7 @@ public class Contact {
 			this.number = number;
 		}
 		
-		public Contact(String name, String number) throws Exception {
-			this.name = name;
-			setNumber(number);
-		}
+
 		
 		
 	}

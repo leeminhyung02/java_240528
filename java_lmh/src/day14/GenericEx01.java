@@ -6,6 +6,7 @@ public class GenericEx01 {
 		Array<String> list1 = new Array<>(10);
 		list1.set(0, "안녕하세요");
 		list1.set(1, "사과");
+		list1.print();
 		/*
 		for (String tmp : list1.getlist()) {
 			if (tmp !=null) {
@@ -13,7 +14,6 @@ public class GenericEx01 {
 			}
 		}
 		*/
-		list1.print();
 		Array<Integer> list2 = new Array<>(10);
 		list2.set(0, 1);
 		list2.set(1, 10);
@@ -25,14 +25,15 @@ public class GenericEx01 {
 		}
 		*/
 		list2.print();
-		String [] list3 = new String[10];
 		
+		String [] list3 = new String[10];
 		list3[0] = "안녕";
 		list3[1] = "귤";
 		
 		Integer [] list4 = new Integer[10];
 		list4[0] = 100;
 		list4[1] = 1000;
+		
 		printArray(list3);
 		printArray(list4);
 	}

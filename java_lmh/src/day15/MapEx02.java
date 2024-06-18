@@ -1,7 +1,6 @@
 package day15;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -19,7 +18,7 @@ public class MapEx02 {
 		
 		//방법1. keySet을 이용하여 set을 만든 후 set을 반복문을 이용하여 원하는 작업
 		
-		HashSet<String> set = (HashSet)map.keySet();
+		Set<String> set = map.keySet();
 		Iterator<String>it = set.iterator();
 		while(it.hasNext()) {
 			String key = it.next();
