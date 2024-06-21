@@ -19,7 +19,7 @@ public class RegexEx01 {
 		String str1 = "abc123";
 		System.out.println(str1+"은 정규표현식"+regex1+"에 맞습니까 ?"+ Pattern.matches(regex1, str1));
 		String str2 = "abc123!";
-		System.out.println(str1+"은 정규표현식"+regex1+"에 맞습니까 ?"+ Pattern.matches(regex1, str2));
+		System.out.println(str2+"은 정규표현식"+regex1+"에 맞습니까 ?"+ Pattern.matches(regex1, str2));
 		
 		String regex2 = "[a-zA-A0-9!@#?]{5,8}";
 		System.out.println(str1+"은 정규표현식"+regex2+"에 맞습니까 ?"+ Pattern.matches(regex2, str2));

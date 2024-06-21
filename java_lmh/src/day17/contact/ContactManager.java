@@ -20,7 +20,7 @@ public class ContactManager implements Program{
 	
 	private final int INSERT = 1;
 	private final int UPDATE = 2;
-	private final int DELELTE = 3;
+	private final int DELETE = 3;
 	private final int SEARCH = 4;
 	private final int EXIT = 5;
 	
@@ -30,7 +30,7 @@ public class ContactManager implements Program{
 		System.out.print("메뉴\n1. 연락처 추가\n2. 연락처 수정\n3. 연락처 삭제\n4. 연락처 검색\n5. 프로그램 종료\n메뉴 선택  : ");
 	}
 
-
+	
 
 	@Override
 	public void run() {
@@ -91,7 +91,7 @@ public class ContactManager implements Program{
 		case UPDATE:
 			update();
 			break;
-		case DELELTE:
+		case DELETE:
 			delete();
 			break;
 		case SEARCH:
