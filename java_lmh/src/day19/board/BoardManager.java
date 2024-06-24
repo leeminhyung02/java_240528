@@ -224,11 +224,21 @@ public class BoardManager implements Program {
 		System.out.print("검색어 (전체는 엔터) : ");
 		String s = scan.nextLine();
 		//게시글에서 검색어가 제목 또는 내용에 들어간 게시글리스트를 가져옴
-		
+		List<Board>tmplist = new ArrayList<Board>();
+		for (Board tmp : list) {
+			if(tmp.getTitle().contains(s)||tmp.getContents().contains(s)) {
+				tmplist.add(tmp);
+			}
+		}
 		//게시글 리스트가 비어 있으면 안내문구 출력 후 종료
-		
+		if (tmplist.size() == 0) {
+			System.out.println("검색어가 해당된 게시글이 없습니다.");
+			return;
+		}
 		//가져온 게시글 리스트를 출력
-		
+		for (Board tmp : tmplist) {
+			System.out.println(tmp);
+		}
 		//게시글을 확인할건지 선택
 		
 		//확인하지 않겠다고 하면 종료
