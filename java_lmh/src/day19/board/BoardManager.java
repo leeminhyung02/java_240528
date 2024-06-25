@@ -8,6 +8,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import program.Program;
 
@@ -165,10 +166,14 @@ public class BoardManager implements Program {
 		if (board == null) {
 			return;
 		}
+		/*
 		System.out.println(board.getNum()+"번 게시글을 삭제 했습니다.");
 		list.remove(board);
-		
-		
+		*/
+		if(list.remove(board)) {
+			printBar();
+			System.out.println(board.getNum()+"번 게시글이 삭제되었습니다.");
+		}
 		
 		
 		/*
@@ -219,45 +224,53 @@ public class BoardManager implements Program {
 
 	private void search() {
 		//검색어 입력
-		printBar();
 		scan.nextLine();
 		System.out.print("검색어 (전체는 엔터) : ");
 		String s = scan.nextLine();
+		printBar();
 		//게시글에서 검색어가 제목 또는 내용에 들어간 게시글리스트를 가져옴
-		List<Board>tmplist = new ArrayList<Board>();
-		for (Board tmp : list) {
-			if(tmp.getTitle().contains(s)||tmp.getContents().contains(s)) {
-				tmplist.add(tmp);
-			}
-		}
+		List<Board>tmplist = getTmplist(s);
 		//게시글 리스트가 비어 있으면 안내문구 출력 후 종료
 		if (tmplist.size() == 0) {
-			System.out.println("검색어가 해당된 게시글이 없습니다.");
+			System.out.println("검색어와 일치하는 게시글이 없습니다.");
 			return;
 		}
 		//가져온 게시글 리스트를 출력
-		for (Board tmp : tmplist) {
-			System.out.println(tmp);
-		}
+		printlist(tmplist);
+		printBar();
 		//게시글을 확인할건지 선택
+		System.out.println("게시글을 확인하겠습니까? (y/n)");
+		char ok = scan.next().charAt(0);
 		
 		//확인하지 않겠다고 하면 종료
-		
+		if( ok !='y') {
+			return;
+		}
 		//확인하면 게시글 번호를 입력
-		
+		printBar();
+		System.out.println("검색 결과중 확인할 게시글 번호: ");
+		int num = scan.nextInt();
 		//입력받은 게시글 번호로 객체를 생성
-		
+		Board board = new Board(num);
 		//검색 리스트에서 생성된객체와 일치하는 번지를 확인해서
+		int index = tmplist.indexOf(board);
 		
 		//번지가 유효하지 않으면 안내문구 출력후 종료
-		
+		printBar();
+		if(index < 0) {
+			System.out.println("검색 결과에는 없는 게시글입니다.");
+			return;
+		}
 		//번지에 있는 게시글을 가져옴
-		
+		board = tmplist.get(index);
 		//가져온 게시글을 출력
-		
+		board.print();
 		//메뉴로 돌아가려면... 문구 출력
-		
+		printBar();
+		System.out.println("메뉴로 돌아가려면 엔터를 치세요.");
 		//엔터를 입력받도록 처리
+		scan.nextLine();
+		scan.nextLine();// 입력한 엔터 처리
 		/*
 		System.out.println("--------------------------");
 		System.out.print("검색어 (전체는 엔터) : ");
@@ -288,6 +301,20 @@ public class BoardManager implements Program {
 		*/
 	}
 
+	private void printlist(List<Board> tmplist) {
+		for(Board board : tmplist) {
+			System.out.println(board);
+		}
+		
+	}
+
+	private List<Board> getTmplist(String s) {
+		//스트림을 이용하여 검색어와 일치하는 게시글 리스트를 가져옴
+		return list.stream()
+				.filter(b->b.getTitle().contains(s)|| b.getContents().contains(s))
+				.collect(Collectors.toList());
+	}
+
 	@Override
 	public void run() {
 		int menu;
@@ -314,6 +341,7 @@ public class BoardManager implements Program {
 	public void save(String fileName) {
 		try (FileOutputStream fos = new FileOutputStream(fileName);
 				ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+			oos.write(Board.getCount());
 			oos.writeObject(list);
 		} catch (IOException e) {
 			System.out.println("저장실패");
@@ -324,7 +352,9 @@ public class BoardManager implements Program {
 	@Override
 	public void load(String fileName) {
 		try (FileInputStream fis = new FileInputStream(fileName);
-				ObjectInputStream ois = new ObjectInputStream(fis)) {
+			ObjectInputStream ois = new ObjectInputStream(fis)) {
+			int count = ois.read();
+			Board.setCount(count);
 			list = (List<Board>) ois.readObject();
 		} catch (Exception e) {
 			System.out.println("불러오기실패");
