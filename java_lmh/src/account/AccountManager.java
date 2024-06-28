@@ -132,7 +132,8 @@ public class AccountManager implements Program {
 	}
 
 	public void sortlist(List<Account> list) {
-		//
+		//날짜를 이용하여 정렬
+		
 	}
 	
 	@Override
