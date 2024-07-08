@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		.contents{
+			border: 5px solid black;
+		}
+		.contents::after{
+			clear: both; display: block;
+			content: '';
+		}
+		.contentsbox{
+			padding: 20px;
+		}
+		.box1{
+			width: calc(50% - 5px);
+			height: 400px; border: 5px solid green;
+			float: left;
+			box-sizing: border-box;
+			margin-bottom: 20px;
+		}
+		
+		.box2{
+			width: calc(50% - 5px);
+			height: 400px; border: 5px solid red;
+			float: right;
+			box-sizing: border-box;
+			margin-bottom: 20px;
+		}
+		.box1-1{
+			width: 100%;
+			border: 5px solid blue;
+			height: 25%;
+			box-sizing: border-box;
+		}
+		.e{
+			height: 10%;
+		}
+		.box1-2{
+			
+			width: 100%;
+			border: 5px solid blue;
+			height: calc(100% - 35%);
+			box-sizing: border-box;
+		}
+	</style>
+</head>
+<body>
+	<div class="contents">
+		<div class="contentsbox">
+			<div class="box1">
+				<div class="box1-1"></div>
+				<div class="e"></div>
+				<div class="box1-2"></div>
+			</div>
+			<div class="box2">
+				<div class="box1-1"></div>
+				<div class="e"></div>
+				<div class="box1-2"></div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
