@@ -20,7 +20,7 @@ public class Manager implements Program {
 
 	public void creatroom() {
 		for (int i = 0; i < 10; i++) {
-			roomlist.add(new Room(i + 1));
+			roomlist.add(new Room(i + 1,false));
 		}
 	}
 
@@ -81,15 +81,28 @@ public class Manager implements Program {
 			String name = scan.next();
 			System.out.println("비밀번호 4자리를 생성(입력)해주세요 :");
 			String pw = scan.next();
+			
 		}
 		System.out.println("예약하실 날짜를 선택해주세요 :");
 		String date = scan.next();
 		printroom();
 		System.out.print("원하시는 방 번호를 선택해 주세요 : ");
 		int roomnumber = scan.nextInt();
-		System.out.println(roomnumber + "로 예약 하겠습니다.");
+		checkinIn();
+		if(roomlist.get(roomnumber-1).isIn() == true){
+			System.out.println("해당 방은 이미 예약되었습니다.");
+			
+		}
+		System.out.println(roomnumber + "번방 으로 예약 하겠습니다.");
 		System.out.println("숙박 일수를 입력해주세요");
 		int day = scan.nextInt();
+		System.out.println(roomnumber+"호실 "+date+"~"+day+"일간 예약했습니다.");
+		roomlist.get(roomnumber-1).setIn(true);
+		
+	}
+
+	private void checkinIn() {
+		//날짜가 지난 후 true인지false인지 판별
 		
 	}
 
@@ -99,7 +112,7 @@ public class Manager implements Program {
 	}
 
 	private void check_reservation() { // 예약 확인
-
+		
 	}
 
 	private void exit() {
