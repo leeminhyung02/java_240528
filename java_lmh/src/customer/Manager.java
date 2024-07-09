@@ -142,6 +142,7 @@ public class Manager implements Program {
 		System.out.println(roomnumber + "번방 으로 예약 하겠습니다.");
 		System.out.println("숙박 일수를 입력해주세요");
 		int day = scan.nextInt();
+		//결제
 		System.out.println(roomnumber+"호실 "+date+"~"+day+"일간 예약했습니다.");
 		roomlist.get(roomnumber-1).setIn(true);
 		
