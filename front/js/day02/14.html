@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		.border{
+			border: 1px solid black;
+		}
+		.bg-red{
+			background-color: red;
+		}
+		#box{
+			height: 200px;
+		}
+	</style>
+</head>
+<body>
+	<button id="btn1">테두리 추가</button>
+	<button id="btn2">테두리 제거</button>
+	<button id="btn3">테두리 토글</button>
+	<button id="btn4">테두리를 배경색으로</button>
+
+	<div id="box"></div>
+	<script>
+		const btn1 = document.getElementById('btn1');
+		const btn2 = document.getElementById('btn2');
+		const btn3 = document.getElementById('btn3');
+		const btn4 = document.getElementById('btn4');
+		const box = document.getElementById('box');
+
+		btn1.addEventListener('click', ()=>{
+			box.classList.add('border');
+		});
+		btn2.addEventListener('click', ()=>{
+			box.classList.remove('border');
+		});
+		btn3.addEventListener('click', ()=>{
+			box.classList.add('border');
+		});
+		btn4.addEventListener('click', ()=>{
+			if(box.classList.contains('border')){
+				box.classList.add('border','bg-red');
+			}else{
+				box.classList.remove('bg-red');
+			}
+		});
+	</script>
+</body>
+</html>

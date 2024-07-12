@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<boud id="btn" data-num="10">버튼</boud>
+	<script>
+		var btn = document.getElementById('btn');
+		//버튼의 data-num 속성 값을 10에서 30으로 수정
+		btn.setAttribute('data-num',30);
+		//버튼의 data-num 속성 값을 가져와서 num에 저장
+		var num = btn.getAttribute('data-num');
+		document.write(num);
+	</script>
+</body>
+</html>
