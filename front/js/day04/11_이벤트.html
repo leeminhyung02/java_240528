@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script src="/static/jquery.min.js"></script>
+	<style>
+		.box2{border: 1px solid black; padding: 20px;
+	}
+	.box3{
+		border: 1px solid black; padding: 20px ;margin-top: 20px;
+	}
+	.inner-box{background-color: yellow; height: 50px;}
+	.border-red{border-color: red;}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<input type="text" id="input1">
+	</div>
+	<div class="box2">
+		<div class="inner-box">enter/leave : <span id="enter">0</span></div>
+	</div>
+	<div class="box3">
+		<div class="inner-box">over/out : <span id="over">0</span></div>
+	</div>
+
+
+	<script>
+	/*
+	이벤트 등록
+		- $('선택자').이벤트명(콜백함수);
+	이벤트 호출
+		- $('선택자').이벤트명();
+	focus();
+		- 요소가 포커스를 받을 때 발생
+	focusin()
+		- 요소가 포커스를 받을 때 발생
+		- focus와 달리 버블링이 발생
+	blur
+		- 요소의 포커스가 해제될때 발생
+	focusout()
+		- 요소의 focus가 해제될 때 발생
+		- blur와 달리 버블링 동작
+	*/		
+	$('#input1').focus(function(){
+		$(this).css('background','yellow');
+	});
+	$('#input1').blur(function(){
+		$(this).css('background','#fff');
+	})
+	/*
+	keyup()
+		- 키보드를 땠을 때
+	keydown()
+		- 키보드를 눌렀을 때
+		- 모든 키를 감지
+		- 대소문자 구별 가능
+	keypres()
+		- 키보드를 눌렀을 때
+		- 특수키(alt, ctrl등 ) 감지 X
+		- 대소문자 구별 불가능
+	*/ 
+	$('#input1').keydown(()=>console.log("keydown"));
+	$('#input1').keyup(()=>console.log("keyup"));
+	$('#input1').keypress(()=>console.log("keypress"));
+	/*
+	hover(콜백함수)
+		- 요소에 마우스가 들어올 떄와 나갈때 같은 콜백함수를 실행
+	hover(콜백함수1, 콜백함수2)
+		- 요소에 마우스가 들어올 때 콜백함수1을 실행
+		- 요소에 마우스가 나갈떄 콜백함수2를 실행
+	mouseenter(콜백함수)
+		- 요소에 마우스가 들어올 때 이벤ㅌ 발생
+		- 자식 요소로 이동해도 이벤트가 유지
+	mouseleave(콜백함수)
+		- 요소에 마우스가 나갈 때 이벤트 발생
+		- 자식 요소로 이동해도 이벤트가 유지
+		
+	mouseover(콜백함수)
+		- 요소에 마우스가 나갈 때 이벤트 발생
+		- 자식 요소로 이동해도 이벤트가 유지
+	mouseout(콜백함수)
+		- 요소에 마우스가 나갈 때 이벤트 발생
+		- 자식 요소로 이동하면 이벤트가 발생
+
+	mousemove(콜백함수)
+		- 마우스가 이동할 때 발생
+	
+	mousedown(콜백함수)
+		- 마우스를 누르고 있을 때 발생
+	mouseup(콜백함수)
+		- 마우스를 땔 때 발생
+	*/ 
+	$('.box2').mouseenter(function(){
+		var count =	$('#enter').text();
+		++count;
+		$('#enter').text();
+	})
+	$('.box3').mouseover(function(){
+		var count =	$('#over').text();
+		++count;
+		$('#enter').text();
+	})
+
+	$('.box2').hover(function(){
+		$(this).toggleClass('border-red');
+	})
+	</script>
+</body>
+</html>
