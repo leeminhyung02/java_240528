@@ -1,7 +1,9 @@
 package db.student.controller;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
+import db.student.model.vo.SubjectVO;
 import db.student.service.SubjectServiceImp;
 
 public class SubjectController {
@@ -44,6 +46,31 @@ public class SubjectController {
 		}
 		else {
 			System.out.println("없는 과목이거나 있는 과목으로 수정하려해서 과목을 수정하지 못했습니다.");
+		}
+	}
+
+	public void deletesubject() {
+		//삭제할 과목명을 입력
+		System.out.print("과목 : ");
+		scan.nextLine();
+		String subject = scan.nextLine();
+		
+		if(subjectService.deleteSubject(subject)) {
+			System.out.println("과목을 삭제했습니다.");
+		}else {
+			System.out.println("등록되지 않은 과목입니다.");
+		}
+	}
+
+	public void selectsubject() {
+		
+		ArrayList<SubjectVO> list = subjectService.selectSubjectNameList();
+		if(list.size() == 0) {
+			System.out.println("등록된 과목이 없습니다.");
+			return;
+		}
+		for(SubjectVO subject : list) {
+			System.out.println(subject.getSu_name());
 		}
 	}
 }

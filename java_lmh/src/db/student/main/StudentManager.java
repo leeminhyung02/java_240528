@@ -200,9 +200,11 @@ public class StudentManager implements Program{
 			//updateSubject();
 			break;
 		case 3:
+			subjectController.deletesubject();
 			//deleteSubject();
 			break;
 		case 4:
+			subjectController.selectsubject();
 			//searchSubject();
 			break;
 		case 5:
@@ -431,14 +433,6 @@ public class StudentManager implements Program{
 		System.out.println("등록되지 않은 과목입니다.");
 	}
 
-
-	private void searchSubject() {
-		System.out.println("과목 목록");
-		for(String subject : subjectList) {
-			System.out.println(subject);
-		}
-		
-	}
 
 
 	
