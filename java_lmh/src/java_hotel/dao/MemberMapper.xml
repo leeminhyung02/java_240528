@@ -3,5 +3,41 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="java_hotel.dao.MemberDAO">
-
+	<select id="selectMember" resultType="MemberVO">
+		select
+			*
+		from
+			member
+		where
+			mb_no = #{cus.mb_no}
+			and mb_id = #{cus.mb_id}
+			and mb_name = #{cus.mb_name}
+			and mb_password = #{cus.mb_password}
+			and mb_email = #{cus.mb_email}
+			and mb_is_admin = #{cus.mb_mb_is_admin}
+	</select>
+	<insert id="insertMember">
+		insert into member(mb_id, mb_name, mb_password, mb_email)
+		values(#{cus.mb_id},#{cus.mb_name},#{cus.mb_password},#{cus.mb_email})
+	</insert>
+	<update id="updateMember">
+		upate member
+		set
+			mb_id = #{new.mb_id},
+			mb_name = #{new.mb_name},
+			mb_password = #{new.mb_password},
+			mb_email = #{new.mb_email}
+		where
+			mb_no = #{new.mb_no}
+	</update>
+	<delete id="deleteMember">
+		delete from member
+		where
+			mb_no = #{cus.mb_no}
+			and mb_id = #{cus.mb_id}
+			and mb_name = #{cus.mb_name}
+			and mb_password = #{cus.mb_password}
+			and mb_email = #{cus.mb_email}
+			and mb_is_admin = #{cus.mb_mb_is_admin}
+	</delete>
 </mapper>

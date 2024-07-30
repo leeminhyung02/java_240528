@@ -31,14 +31,14 @@ FROM
 group by PR_CODE;
 
 # 옷 제품들 중에서 가격이 높은순으로 제품을 조회하는 쿼리
-select 
-	me_id, ifnull(format(sum(pr_price * bu_amount),0),0) 누적구매금액
-from
-	member
-		left join
-	(select * from buy where bu_state in ('구매', '구매확정'))b on me_id = bu_me_id
-		left join
-	product on pr_code = bu_pr_code
-group by me_id;
+select * from product join category on pr_ca_num = ca_num
+where
+	ca_name = '옷'
+order by pr_price desc;
 
-# 회원별 누적 금액을 조회하는 쿼리
+# abc123회원이 구매 목록을 조회하는 쿼리
+select 
+distinct bu_pr_code
+ from buy where bu_me_id = 'abc123' and bu_state in ('구매', '구매확정');
+ 
+ # abc123회원의 누적 구매금액을 조회하는 쿼리

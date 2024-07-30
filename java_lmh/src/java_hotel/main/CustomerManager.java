@@ -1,17 +1,16 @@
 package java_hotel.main;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 import java_hotel.controller.MemberController;
+import java_hotel.model.vo.CustomerVO;
 
 
 public class CustomerManager {
 	private Scanner scanner = new Scanner(System.in);
 
 	private MemberController memberController = new MemberController(scanner);
-
+	private CustomerVO loginmember;
     public void run() {
         userMenu();
     }
@@ -26,8 +25,14 @@ public class CustomerManager {
             scanner.nextLine();
 
             switch (choice) {
-                case 1:
-                    userLogin();
+                case 1: 
+                    loginmember = memberController.userLogin();
+                    if(loginmember == null) {
+                  	  System.out.println("로그인 실패");
+                    }
+                    else {
+                  	  userLoggedInMenu();
+                    }
                     break;
                 case 2:
                     memberController.userRegister();
@@ -40,53 +45,9 @@ public class CustomerManager {
         }
     }
 
-    private void userLogin() {
-        System.out.print("아이디: ");
-        String userId = scanner.nextLine();
-        System.out.print("비밀번호: ");
-        String userPw = scanner.nextLine();
 
-        for (CustomerVO customer : customers) {
-            if (customer.getUserId().equals(userId) && customer.getUserPw().equals(userPw)) {
-                System.out.println("로그인 성공!");
-                userLoggedInMenu();
-                return;
-            }
-        }
-        System.out.println("아이디 또는 비밀번호가 잘못되었습니다.");
-    }
 
-    private void userRegister() {
-        System.out.print("아이디: ");
-        String userId = scanner.nextLine();
-        
-        if(isUserIdTaken(userId)) {
-        	System.out.println("이미 존재하는 Id입니다.");
-        	return;
-        }
-        
-        System.out.print("비밀번호: ");
-        String userPw = scanner.nextLine();
-        System.out.print("이름: ");
-        String name = scanner.nextLine();
-        System.out.print("전화번호: ");
-        String phoneNumber = scanner.nextLine();
 
-        CustomerVO newCustomer = new CustomerVO(userId, userPw, name, phoneNumber);
-        customers.add(newCustomer);
-        System.out.println("회원가입 성공!");
-    }
-    
-   
-
-    private boolean isUserIdTaken(String userId) {
-    	for(CustomerVO customer : customers) {
-    		if(customer.getUserId().equals(userId)) {
-    			return true;
-    		}
-    	}
-		return false;
-	}
 
 	private void userLoggedInMenu() {
         while (true) {
@@ -173,20 +134,13 @@ public class CustomerManager {
     }
 
     private void searchUserInfo() {
-        System.out.print("검색 (아이디 비밀번호): ");
-        String userId = scanner.nextLine();
-        String userPw = scanner.nextLine();
-        // 검색 로직 추가
-        System.out.println("검색 결과:");
-        // 결과 출력 로직 추가
+        memberController.searchUser();
+
     }
 
     private void modifyUserInfo() {
-        System.out.print("검색 (아이디 비밀번호): ");
-        String userId = scanner.nextLine();
-        String userPw = scanner.nextLine();
-        // 검색 로직 추가
-        // 수정 로직 추가
+        System.out.print("입력 (아이디 비밀번호): ");
+        memberController.updateuser();
     }
 
     private void deleteUserInfo() {
