@@ -39,3 +39,7 @@ INSERT INTO PRODUCT(PR_CODE, PR_NAME, PR_CONTENT, PR_PRICE, PR_CA_NUM)
 SELECT 'ACC001', '금 목걸이', '부의 상징.', '100000', CA_NUM 
 FROM CATEGORY 
 WHERE CA_NAME = '악세서리';
+
+# abc123 회원이 1번 제품을 장바구니에 3개 담았을 때 쿼리
+
+# abc123 회원이 1번 제품을 장바구니에 2개 담았을 때 쿼리
