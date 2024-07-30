@@ -1,4 +1,4 @@
-package javehotel.main;
+package java_hotel.main;
 
 
 import java.util.Scanner;

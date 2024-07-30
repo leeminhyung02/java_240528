@@ -1,4 +1,4 @@
-package javehotel.dao;
+package java_hotel.dao;
 
 public interface MemberDAO {
 

@@ -1,4 +1,4 @@
-package javehotel.model.vo;
+package java_hotel.model.vo;
 
 import java.util.Objects;
 

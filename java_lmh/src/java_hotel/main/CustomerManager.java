@@ -1,11 +1,11 @@
-package javehotel.main;
+package java_hotel.main;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import javehotel.controller.MemberController;
-import javehotel.model.vo.CustomerVO;
+import java_hotel.controller.MemberController;
+
 
 public class CustomerManager {
 	private Scanner scanner = new Scanner(System.in);

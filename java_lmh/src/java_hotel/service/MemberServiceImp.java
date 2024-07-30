@@ -1,4 +1,4 @@
-package javehotel.service;
+package java_hotel.service;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,7 +8,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-import javehotel.dao.MemberDAO;
+import java_hotel.dao.MemberDAO;
+
 
 public class MemberServiceImp implements MemberService{
 

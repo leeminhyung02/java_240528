@@ -40,6 +40,18 @@ SELECT 'ACC001', '금 목걸이', '부의 상징.', '100000', CA_NUM
 FROM CATEGORY 
 WHERE CA_NAME = '악세서리';
 
-# abc123 회원이 1번 제품을 장바구니에 3개 담았을 때 쿼리
 
+use shoppingmall;
+# abc123 회원이 1번 제품을 장바구니에 3개 담았을 때 쿼리
+insert into BASKET(BA_PR_CODE, BA_ME_ID, BA_AMOUNT) VALUES('CLO001','abc123', 3);
 # abc123 회원이 1번 제품을 장바구니에 2개 담았을 때 쿼리
+UPDATE BASKET SET BA_AMOUNT = 2 WHERE BA_PR_CODE = 'CLO001' AND BA_ME_ID = 'abc123';
+
+# abc123회원이 ACC001 제품을 장바구니에 1개 담았을 쿼리
+insert into BASKET(BA_PR_CODE, BA_ME_ID, BA_AMOUNT) VALUES('ACC001','abc123', 1);
+
+# abc123회원이 장바구니에 있는 모든 제품을 구매했을때 필요한 모든 쿼리
+insert into BUY(BU_PR_CODE, BU_ME_ID, BU_AMOUNT, BU_STATE, BU_DATE)
+VALUES('CLO001', 'abc123', 3, '구매', now()),('ACC001', 'abc123', 1, '구매', now());
+
+DELETE FROM BASKET WHERE BA_PR_CODE = 'CLO001' AND BA_ME_ID = 'abc123';
