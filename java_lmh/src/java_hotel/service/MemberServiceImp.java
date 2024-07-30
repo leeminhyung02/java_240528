@@ -66,8 +66,17 @@ public class MemberServiceImp implements MemberService{
 		System.out.println("찾기 실패");
 	}
 
-	public void updatemember(CustomerVO cus) {
-		
+	public boolean updatemember(CustomerVO cus, CustomerVO newCustomer) {
+		if (cus == null || newCustomer == null) {
+			return false;
+		}
+		cus = memberDao.selectMember(cus);
+		CustomerVO dbcus = memberDao.selectMember(newCustomer);
+		if(dbcus != null && !cus.equals(dbcus)) {
+			return false;
+		}
+		newCustomer.setMb_no(cus.getMb_no());
+		return memberDao.updateMember(newCustomer);
 	}
 
 	public boolean contains(CustomerVO cus) {
@@ -76,5 +85,10 @@ public class MemberServiceImp implements MemberService{
 		}
 		CustomerVO dbcus = memberDao.selectMember(cus);
 		return dbcus != null;
+	}
+
+	public void deleteMember(CustomerVO cus) {
+		memberDao.deleteMember(cus);
+		
 	}
 }

@@ -10,4 +10,8 @@ public interface MemberDAO {
 
 	boolean insertMember(@Param("cus")CustomerVO cus);
 
+	boolean updateMember(@Param("new")CustomerVO newCustomer);
+
+	void deleteMember(@Param("cus")CustomerVO cus);
+
 }
