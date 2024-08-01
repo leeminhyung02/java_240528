@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import db.community.model.vo.CommunityVO;
 import db.community.model.vo.PostVO;
+import db.community.pagination.Criteria;
 
 public interface PostDAO {
 
@@ -20,5 +21,11 @@ public interface PostDAO {
 	List<CommunityVO> selectCommunityList();
 
 	boolean insertPost(@Param("po")PostVO post);
+
+	List<PostVO> selectPostList(@Param("cri")Criteria cri);
+
+	PostVO selectPost(@Param("po_num")int poNum);
+
+	int selectPostListCount(@Param("cri")Criteria cri);
 
 }

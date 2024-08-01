@@ -34,7 +34,7 @@ public class CustomerManager {
 				}
 				break;
 			case 2:
-				memberController.userRegister();
+				userRegister();
 				break;
 			case 3:
 				return;
@@ -44,7 +44,17 @@ public class CustomerManager {
 		}
 	}
 
+	private void userRegister() {
+		if(memberController.userRegister()) {
+			System.out.println("회원가입 성공");
+		}else {
+			System.out.println("회원가입 실패");
+		}
+		
+	}
+
 	private void userLoggedInMenu() {
+		System.out.println(loginmember.getMb_name()+"님 환영합니다.");
 		while (true) {
 			System.out.println("사용자 메뉴");
 			System.out.println("1. 예약");
@@ -129,17 +139,27 @@ public class CustomerManager {
 	}
 
 	private void searchUserInfo() {
-		memberController.searchUser();
-
+		System.out.println(loginmember);
+		System.out.println("넘어가려면 엔터를 눌러주세요.");
+		scanner.nextLine();
 	}
 
 	private void modifyUserInfo() {
-		System.out.print("입력 (아이디 비밀번호): ");
-		memberController.updateuser();
+		System.out.print("아이디: ");
+		String mb_id = scanner.nextLine();
+		if(memberController.updatemember(mb_id, loginmember)) {
+			System.out.println("수정 성공");
+			loginmember = memberController.refresh(mb_id);
+			return;
+		} 
+		System.out.println("수정 실패");
+		return;
 	}
 
 	private void deleteUserInfo() {
-		memberController.deleteUser();
+		memberController.deleteMember(loginmember); 
+		//실행 종료
+		System.exit(0);
 	}
 
 	private void makeReservation() {

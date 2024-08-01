@@ -6,12 +6,15 @@ import java_hotel.model.vo.CustomerVO;
 
 public interface MemberDAO {
 
-	CustomerVO selectMember(@Param("cus")CustomerVO cus);
+	CustomerVO selectMember(@Param("mb_id")String mb_id);
 
-	boolean insertMember(@Param("cus")CustomerVO cus);
+	boolean insertMember(@Param("mb_id")String mb_id, @Param("mb_password")String mb_password, @Param("mb_name")String mb_name, @Param("mb_email")String mb_email);
 
-	boolean updateMember(@Param("new")CustomerVO newCustomer);
 
-	void deleteMember(@Param("cus")CustomerVO cus);
+	boolean updateMember(@Param("new")CustomerVO newUser);
+
+	boolean deleteMember(@Param("mb_id")String mb_id);
+
+
 
 }

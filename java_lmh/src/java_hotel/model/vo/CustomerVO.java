@@ -16,13 +16,6 @@ public class CustomerVO {
 	private String mb_email;
 	private boolean mb_is_admin;
 
-	public CustomerVO(String mb_id, String mb_name, String mb_password, String mb_email, boolean mb_is_admin) {
-		this.mb_id = mb_id;
-		this.mb_name = mb_name;
-		this.mb_password = mb_password;
-		this.mb_email = mb_email;
-		this.mb_is_admin = mb_is_admin;
-	}
 	// id, password만 같으면 true;
 	@Override
 	public boolean equals(Object obj) {
@@ -40,12 +33,21 @@ public class CustomerVO {
 	public int hashCode() {
 		return Objects.hash(mb_id, mb_password);
 	}
-	
-	
+
 	@Override
 	public String toString() {
-		return "[고유번호 : " + mb_no + "이름 " + mb_name + "]";
+		return "회원번호 :" + mb_no + " 아이디 :" + mb_id + " 이름 :" + mb_name + " 이메일 :" + mb_email;
 	}
+
+	public CustomerVO(String mb_id, String mb_name, String mb_password, String mb_email) {
+		this.mb_id = mb_id;
+		this.mb_name = mb_name;
+		this.mb_password = mb_password;
+		this.mb_email = mb_email;
+	}
+	
+	
+
 
 	
 }

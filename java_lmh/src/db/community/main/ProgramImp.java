@@ -6,6 +6,9 @@ import db.community.controller.MemberController;
 import db.community.controller.PostController;
 import db.community.controller.PrintController;
 import db.community.model.vo.MemberVO;
+import db.community.pagination.Criteria;
+import db.community.pagination.PageMaker;
+import db.community.pagination.PostCriteria;
 import program.Program;
 
 public class ProgramImp implements Program {
@@ -93,7 +96,7 @@ public class ProgramImp implements Program {
 			PrintController.printBar();
 			
 			runUser(menu);
-		}while(menu != '5');
+		}while(menu != '3');
 	}
 
 	private void runUser(char menu) {
@@ -102,7 +105,7 @@ public class ProgramImp implements Program {
 			postController.insertPost(member.getMe_id());
 			break;
 		case '2':
-			
+			search();
 			break;
 		case '3':
 			PrintController.logout();
@@ -111,6 +114,82 @@ public class ProgramImp implements Program {
 			PrintController.wrongMenu();
 		}
 		
+	}
+
+	private void search() {
+		char menu = '0';
+		//커뮤니티 선택
+		//커뮤니티 출력
+		postController.printCommunityList();
+		PrintController.printBar();
+		//커뮤니티 선택
+		System.out.print("커뮤니티 번호 선택 : ");
+		int coNum = scan.nextInt();
+		Criteria cri = new PostCriteria(1, "", coNum);
+		cri.setPerPageNum(2);
+		do {
+			PrintController.printBar();
+			System.out.println(cri.getPage() + "페이지 결과입니다.(검색어 : '" + cri.getSearch() + "')");
+			PrintController.printBar();
+			PageMaker pm = postController.getPageMaker(cri, Integer.MAX_VALUE);
+			//컨트롤러가 페이저 정보(검색어, 커뮤니티 번호)에 맞는 게시글 리스트를 출력
+			postController.printPostList(cri);
+			//메뉴를 출력
+			PrintController.printPostMenu();
+			//메뉴를 선택
+			menu = scan.next().charAt(0);
+			PrintController.printBar();
+			//선택한 메뉴를 실행
+			runPostMenu(menu, pm);
+			PrintController.printBar();
+		}while(menu != '5');
+		
+	}
+
+	private void runPostMenu(char menu, PageMaker pm) {
+		switch(menu) {
+		case '1':
+			page(pm, -1);
+			break;
+		case '2':
+			page(pm, 1);
+			break;
+		case '3':
+			search(pm);
+			break;
+		case '4':
+			postController.printPostDetail();
+			break;
+		case '5':
+			PrintController.prev();
+			break;
+		default:
+			PrintController.wrongMenu();
+		}
+		
+	}
+
+	private void search(PageMaker pm) {
+		//검색어 입력
+		System.out.print("검색어 : ");
+		scan.nextLine();
+		String search = scan.nextLine();
+		//페이지메이커의 검색어를 입력받은 검색어로 수정
+		pm.getCri().setSearch(search);
+		
+	}
+
+	private void page(PageMaker pm, int add) {
+		int page = pm.getCri().getPage(); 
+		if(add > 0 && pm.isNext()) {
+			pm.getCri().setPage(page + 1);
+		}else if(add < 0 && pm.isPrev()) {
+			pm.getCri().setPage(page - 1);
+		}else if(add > 0){
+			System.out.println("마지막 페이지입니다.");
+		}else {
+			System.out.println("처음 페이지입니다.");
+		}
 	}
 
 	private void admin() {

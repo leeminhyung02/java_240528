@@ -2,6 +2,7 @@ package java_hotel.service;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.regex.Pattern;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -30,65 +31,67 @@ public class MemberServiceImp implements MemberService{
 		}
 	}
 
-	public boolean insertMember(CustomerVO cus) {
-		if(cus == null) {
-			return false;
+	@Override
+	public CustomerVO loginmember(String mb_id, String mb_password) {
+		CustomerVO user = memberDao.selectMember(mb_id);
+		if(user == null) {
+			//로그인 실패
+			return null;
 		}
-		CustomerVO dbcus = memberDao.selectMember(cus);
-		if(dbcus != null) {
-			return false;
+		if(user.getMb_password().equals(mb_password)) {
+			//로그인 성공
+			return user;
 		}
-		return memberDao.insertMember(cus);
+		//로그인 실패
+		return null;
 	}
 
-	public boolean loginmember(CustomerVO cus) {
-		if(cus == null) {
+	@Override
+	public boolean Register(String mb_id, String mb_password, String mb_name, String mb_email) {
+		CustomerVO user = memberDao.selectMember(mb_id);
+		if(user != null) {
 			return false;
 		}
-		CustomerVO dbcus = memberDao.selectMember(cus);
-		if(dbcus.getMb_id().equals(cus.getMb_id()) && dbcus.getMb_password().equals(cus.getMb_password())){
-			return true;
-		}
-		return false;
+//		String idRegex = "^\\w{6,13}$";
+//		if(!Pattern.matches(idRegex, mb_id)) {
+//			return false;
+//		}
+//		//비번이 정규 표현식에 맞지 않으면 false를 리턴
+//		String pwRegex = "^[a-zA-Z0-9!@#$]{6,15}$";
+//		if(!Pattern.matches(pwRegex, mb_password)) {
+//			return false;
+//		}
+		return memberDao.insertMember(mb_id,mb_password,mb_name,mb_email);
 	}
 
-	public void searchmember(CustomerVO cus) {
-		if(cus == null) {
-			System.out.println("찾기 실패");
-			return;
-		}
-		CustomerVO dbcus = memberDao.selectMember(cus);
-		if(dbcus.getMb_id().equals(cus.getMb_id())){
-			System.out.println("검색 결과:");
-			System.out.println(dbcus);
-			return;
-		}
-		System.out.println("찾기 실패");
-	}
-
-	public boolean updatemember(CustomerVO cus, CustomerVO newCustomer) {
-		if (cus == null || newCustomer == null) {
+	@Override
+	public boolean update(CustomerVO loginmember, CustomerVO newUser) {
+		if (loginmember == null || newUser == null) {
 			return false;
 		}
-		cus = memberDao.selectMember(cus);
-		CustomerVO dbcus = memberDao.selectMember(newCustomer);
-		if(dbcus != null && !cus.equals(dbcus)) {
+		loginmember = memberDao.selectMember(loginmember.getMb_id());
+		CustomerVO dbuser = memberDao.selectMember(newUser.getMb_id());
+		if(dbuser != null && !loginmember.equals(dbuser)) {
 			return false;
 		}
-		newCustomer.setMb_no(cus.getMb_no());
-		return memberDao.updateMember(newCustomer);
+		newUser.setMb_no(loginmember.getMb_no());
+		return memberDao.updateMember(newUser);
 	}
 
-	public boolean contains(CustomerVO cus) {
-		if(cus == null) {
+	@Override
+	public CustomerVO refresh(String mb_id) {
+
+		return memberDao.selectMember(mb_id);
+	}
+
+	@Override
+	public boolean deleteMember(CustomerVO loginmember) {
+		if(loginmember == null) {
 			return false;
 		}
-		CustomerVO dbcus = memberDao.selectMember(cus);
-		return dbcus != null;
+		return memberDao.deleteMember(loginmember.getMb_id());
 	}
 
-	public void deleteMember(CustomerVO cus) {
-		memberDao.deleteMember(cus);
-		
-	}
+
+	
 }
