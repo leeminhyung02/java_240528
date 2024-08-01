@@ -3,12 +3,14 @@ package java_hotel.main;
 import java.util.Scanner;
 
 import java_hotel.controller.MemberController;
+import java_hotel.controller.ReservationController;
 import java_hotel.model.vo.CustomerVO;
 
 public class CustomerManager {
 	private Scanner scanner = new Scanner(System.in);
 
 	private MemberController memberController = new MemberController(scanner);
+	private ReservationController reservationController = new ReservationController(scanner);
 	private CustomerVO loginmember;
 
 	public void run() {
@@ -163,7 +165,7 @@ public class CustomerManager {
 	}
 
 	private void makeReservation() {
-		// 예약 로직 추가
+		reservationController.makeReservation(loginmember);
 	}
 
 	private void confirmReservation() {
