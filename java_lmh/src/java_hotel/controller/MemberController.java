@@ -39,7 +39,7 @@ public class MemberController {
 		return user;
 	}
 
-	public boolean updatemember(String mb_id, CustomerVO loginmember) {
+	public boolean updatemember(CustomerVO loginmember) {
 
 		System.out.print("비밀번호: ");
 		String mb_password = scanner.nextLine();
@@ -47,13 +47,9 @@ public class MemberController {
 		String mb_name = scanner.nextLine();
 		System.out.print("이메일: ");
 		String mb_email = scanner.nextLine();
-		CustomerVO newUser = new CustomerVO(mb_id, mb_name, mb_password, mb_email);
-		return memberService.update(loginmember, newUser);
+		return memberService.update(mb_password, mb_name, mb_email, loginmember.getMb_id());
 	}
 
-	public CustomerVO refresh(String mb_id) {
-		return memberService.refresh(mb_id);
-	}
 
 	public void deleteMember(CustomerVO loginmember) {
 		System.out.println("정말로 탈퇴하시겠습니까? (Y | N)");
@@ -65,6 +61,15 @@ public class MemberController {
 			}
 			System.out.println("탈퇴 실패");
 		}
+	}
+
+	public void searchuser(CustomerVO loginmember) {
+		CustomerVO user = memberService.searchuser(loginmember.getMb_no());
+		System.out.println(user);
+	}
+
+	public CustomerVO getUser(CustomerVO loginmember) {
+		return memberService.getUser(loginmember.getMb_no());
 	}
 
 

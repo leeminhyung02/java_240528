@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
+import db.community.model.vo.MemberVO;
 import java_hotel.dao.MemberDAO;
 import java_hotel.model.vo.CustomerVO;
 
@@ -64,25 +65,6 @@ public class MemberServiceImp implements MemberService{
 		return memberDao.insertMember(mb_id,mb_password,mb_name,mb_email);
 	}
 
-	@Override
-	public boolean update(CustomerVO loginmember, CustomerVO newUser) {
-		if (loginmember == null || newUser == null) {
-			return false;
-		}
-		loginmember = memberDao.selectMember(loginmember.getMb_id());
-		CustomerVO dbuser = memberDao.selectMember(newUser.getMb_id());
-		if(dbuser != null && !loginmember.equals(dbuser)) {
-			return false;
-		}
-		newUser.setMb_no(loginmember.getMb_no());
-		return memberDao.updateMember(newUser);
-	}
-
-	@Override
-	public CustomerVO refresh(String mb_id) {
-
-		return memberDao.selectMember(mb_id);
-	}
 
 	@Override
 	public boolean deleteMember(CustomerVO loginmember) {
@@ -90,6 +72,24 @@ public class MemberServiceImp implements MemberService{
 			return false;
 		}
 		return memberDao.deleteMember(loginmember.getMb_id());
+	}
+
+	@Override
+	public boolean update(String mb_password, String mb_name, String mb_email, String mb_id_ori) {
+		if(memberDao.updateMember(mb_id_ori,mb_password, mb_name, mb_email)) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public CustomerVO searchuser(int mb_no) { 
+		return memberDao.searchuser(mb_no);
+	}
+
+	@Override
+	public CustomerVO getUser(int mb_no) {
+		return memberDao.searchuser(mb_no);
 	}
 
 

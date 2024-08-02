@@ -9,10 +9,12 @@ public interface MemberService {
 	boolean Register(String mb_id, String mb_password, String mb_name, String mb_email);
 
 
-	boolean update(CustomerVO loginmember, CustomerVO newUser);
-
-	CustomerVO refresh(String mb_id);
-
 	boolean deleteMember(CustomerVO loginmember);
+
+	boolean update(String mb_id, String mb_password, String mb_name, String mb_email);
+
+	CustomerVO searchuser(int mb_no);
+
+	CustomerVO getUser(int mb_no);
 
 }

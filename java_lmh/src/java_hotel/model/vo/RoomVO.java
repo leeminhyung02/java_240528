@@ -15,7 +15,7 @@ public class RoomVO {
 	private String ro_name;
 	@Override
 	public String toString() {
-		return  ro_name+ ". " +  ro_num + " 가격 :" + ro_price + " 최대 인원 :" + ro_max_person;
+		return   ro_name+ "  방 번호 :" +  ro_num + " 가격 :" + ro_price + " 최대 인원 :" + ro_max_person;
 	}
 	
 	

@@ -4,13 +4,16 @@ import java.util.Scanner;
 
 import java_hotel.controller.MemberController;
 import java_hotel.controller.ReservationController;
+import java_hotel.controller.RoomController;
 import java_hotel.model.vo.CustomerVO;
+import java_hotel.model.vo.ReservationVO;
 
 public class CustomerManager {
 	private Scanner scanner = new Scanner(System.in);
 
 	private MemberController memberController = new MemberController(scanner);
 	private ReservationController reservationController = new ReservationController(scanner);
+	
 	private CustomerVO loginmember;
 
 	public void run() {
@@ -127,7 +130,7 @@ public class CustomerManager {
 				searchUserInfo();
 				break;
 			case 2:
-				modifyUserInfo();
+				loginmember = modifyUserInfo();
 				break;
 			case 3:
 				deleteUserInfo();
@@ -141,21 +144,18 @@ public class CustomerManager {
 	}
 
 	private void searchUserInfo() {
-		System.out.println(loginmember);
+		memberController.searchuser(loginmember);
 		System.out.println("넘어가려면 엔터를 눌러주세요.");
 		scanner.nextLine();
 	}
 
-	private void modifyUserInfo() {
-		System.out.print("아이디: ");
-		String mb_id = scanner.nextLine();
-		if(memberController.updatemember(mb_id, loginmember)) {
+	private CustomerVO modifyUserInfo() {
+		if(memberController.updatemember(loginmember)) {
 			System.out.println("수정 성공");
-			loginmember = memberController.refresh(mb_id);
-			return;
+			return memberController.getUser(loginmember);
 		} 
 		System.out.println("수정 실패");
-		return;
+		return loginmember;
 	}
 
 	private void deleteUserInfo() {
@@ -165,18 +165,28 @@ public class CustomerManager {
 	}
 
 	private void makeReservation() {
-		reservationController.makeReservation(loginmember);
+		if(reservationController.makeReservation(loginmember)) {
+			
+		}
 	}
 
 	private void confirmReservation() {
-		// 예약 확인 로직 추가
+		//false이면 예약 없음
+		if(!reservationController.confirmReservation(loginmember)) {
+			System.out.println("예약이 내역이 없습니다.");
+		}
 	}
 
 	private void modifyReservation() {
-		// 예약 수정 로직 추가
+		// 예약 수정
+		if(!reservationController.modityReservation(loginmember)) {
+		}
 	}
 
 	private void cancelReservation() {
 		// 예약 취소 로직 추가
+		if(!reservationController.cancelReservation(loginmember)) { 
+			
+		}
 	}
 }
