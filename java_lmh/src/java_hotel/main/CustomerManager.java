@@ -174,7 +174,6 @@ public class CustomerManager {
 	private void confirmReservation() {
 		//false이면 예약 없음
 		if(!reservationController.confirmReservation(loginmember)) {
-			System.out.println("예약이 내역이 없습니다.");
 		}
 	}
 

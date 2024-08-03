@@ -102,9 +102,14 @@ public class ReservationController {
 	public boolean confirmReservation(CustomerVO loginmember) {
 		// true는 예약 있음, false는 예약내역 없음
 		List<ReservationVO> res = reservationService.search_reservation_id(loginmember.getMb_id());
+		int count = 0;
 		if (res != null) {
 			for (ReservationVO r : res) {
 				System.out.println(r);
+				count++;
+			}
+			if(count == 0) {
+				System.out.println("예약 내역이 없습니다.");
 			}
 			return true;
 		}
