@@ -173,19 +173,19 @@ public class CustomerManager {
 
 	private void confirmReservation() {
 		//false이면 예약 없음
-		if(!reservationController.confirmReservation(loginmember)) {
+		if(reservationController.confirmReservation(loginmember)) {
 		}
 	}
 
 	private void modifyReservation() {
 		// 예약 수정
-		if(!reservationController.modityReservation(loginmember)) {
+		if(reservationController.modityReservation(loginmember)) {
 		}
 	}
 
 	private void cancelReservation() {
 		// 예약 취소 로직 추가
-		if(!reservationController.cancelReservation(loginmember)) { 
+		if(reservationController.cancelReservation(loginmember)) { 
 			
 		}
 	}

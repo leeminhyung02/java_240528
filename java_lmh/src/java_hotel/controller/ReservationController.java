@@ -110,6 +110,7 @@ public class ReservationController {
 			}
 			if(count == 0) {
 				System.out.println("예약 내역이 없습니다.");
+				return false;
 			}
 			return true;
 		}
@@ -119,7 +120,6 @@ public class ReservationController {
 	public boolean modityReservation(CustomerVO loginmember) {
 		//수정실패 false; 성공 true;
 		if(!confirmReservation(loginmember)) {
-			System.out.println("예약 내역이 없습니다.");
 			return false;
 		}
 		//수정
@@ -216,7 +216,6 @@ public class ReservationController {
 
 	public boolean cancelReservation(CustomerVO loginmember) {
 		if (!confirmReservation(loginmember)) {
-			System.out.println("예약 내역이 없습니다.");
 			return false;
 		}
 		// 삭제
