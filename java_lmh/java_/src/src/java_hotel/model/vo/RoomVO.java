@@ -1,4 +1,4 @@
-package java_hotel.model.vo;
+package src.java_hotel.model.vo;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

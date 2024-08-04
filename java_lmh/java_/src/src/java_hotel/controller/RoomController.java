@@ -1,4 +1,4 @@
-package java_hotel.controller;
+package src.java_hotel.controller;
 
 import java.util.Date;
 import java.util.List;

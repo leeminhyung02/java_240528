@@ -1,4 +1,4 @@
-package java_hotel.controller;
+package src.java_hotel.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

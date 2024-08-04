@@ -1,4 +1,4 @@
-package java_hotel.service;
+package src.java_hotel.service;
 
 import java_hotel.model.vo.CustomerVO;
 
