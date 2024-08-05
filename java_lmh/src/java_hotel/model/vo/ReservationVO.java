@@ -17,10 +17,10 @@ public class ReservationVO {
 	private Date rv_start_date;
 	private Date rv_end_date;
 	private String rv_status;
-	private int rv_total_price; 
-	private int rv_stay_person; 
+	private int rv_total_price;
+	private int rv_stay_person;
 	private String mb_id;
-	
+
 	public ReservationVO(Date startdate, Date enddate, int rv_room_num, String mb_id) {
 		this.rv_date = new Date();
 		this.rv_start_date = startdate;
@@ -35,9 +35,9 @@ public class ReservationVO {
 		String date = sdf2.format(rv_date);
 		String start_date = sdf2.format(rv_start_date);
 		String end_date = sdf2.format(rv_end_date);
-		return "[예약번호 :"+rv_id+"| 예약한 날짜: " + date + "| 방 번호: " + rv_room_num + "| 시작일:"
-				+ start_date + "| 종료일 :" + end_date + "| 가격: " + rv_total_price +"| 상태 : "+ rv_status
-				+ "| 인원수: " + rv_stay_person + "명]";
+		return "[예약번호 :" + rv_id + "| 예약한 날짜: " + date + "| 방 번호: " + rv_room_num + "| 시작일:" + start_date
+				+ "| 종료일 :" + end_date + "| 가격: " + rv_total_price + "| 상태 : " + rv_status + "| 인원수: "
+				+ rv_stay_person + "명]";
 	}
 
 	@Override
@@ -58,6 +58,5 @@ public class ReservationVO {
 	public int hashCode() {
 		return Objects.hash(mb_id, rv_date, rv_end_date, rv_id, rv_room_num, rv_start_date);
 	}
-	
-	
+
 }

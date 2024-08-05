@@ -13,5 +13,4 @@ public interface RoomService {
 
 	List<RoomVO> showroom_all();
 
-
 }

@@ -8,12 +8,11 @@ import java_hotel.model.vo.RoomVO;
 import java_hotel.service.RoomService;
 import java_hotel.service.RoomServiceImp;
 
-
 public class RoomController {
 
 	private RoomService roomService = new RoomServiceImp();
 	private Scanner scanner;
-	
+
 	public RoomController(Scanner scan) {
 		this.scanner = scan;
 	}
@@ -33,20 +32,15 @@ public class RoomController {
 	}
 
 	public void AllRooms() {
-		List<RoomVO> roomlist = roomService.showroom_all(); 
-		if(roomlist.size()== 0 || roomlist.get(0) == null) {
+		List<RoomVO> roomlist = roomService.showroom_all();
+		if (roomlist.size() == 0 || roomlist.get(0) == null) {
 			System.out.println("방이 없음");
-		}else {
-			for(RoomVO room : roomlist) {
+		} else {
+			for (RoomVO room : roomlist) {
 				System.out.println(room);
 				System.out.println();
 			}
 		}
 	}
-
-
-
-
-
 
 }

@@ -11,7 +11,8 @@ public interface ReservationService {
 
 	ReservationVO is_reservated(int rv_room_num, Date startdate, Date enddate);
 
-	boolean insert_reservation(Date startdate, Date enddate, int rv_room_num, String mb_id, Date date, int rv_stay_person, long room_price);
+	boolean insert_reservation(Date startdate, Date enddate, int rv_room_num, String mb_id, Date date,
+			int rv_stay_person, long room_price);
 
 	ReservationVO selectroom(Date startdate, Date enddate, int i);
 
@@ -31,9 +32,5 @@ public interface ReservationService {
 	boolean can_checkOut(int rv_id);
 
 	void checkOut(int rv_id);
-
-
-
-
 
 }

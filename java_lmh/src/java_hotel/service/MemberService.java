@@ -8,7 +8,6 @@ public interface MemberService {
 
 	boolean Register(String mb_id, String mb_password, String mb_name, String mb_email);
 
-
 	boolean deleteMember(CustomerVO loginmember);
 
 	boolean update(String mb_id, String mb_password, String mb_name, String mb_email);
