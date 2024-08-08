@@ -1,4 +1,4 @@
-package servlet1.controller;
+package kr.kh.app.controller;
 
 import java.io.IOException;
 
@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.vo.Person;
+import kr.kh.app.model.vo.Person;
 
 
 @WebServlet("/")
@@ -21,12 +21,22 @@ public class Main extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		Person p = new Person("홍길동", 21);
-		request.setAttribute("person", p);
-		
 //		request.setAttribute("화면에서 사용할 변수명", "보낼 값");
 		request.setAttribute("name", "홍길동");
 		request.setAttribute("age", "21");
+		
+		Person p = new Person("홍길동", 21);
+		request.setAttribute("person", p);
+		
+		String name = request.getParameter("name");
+		System.out.println("화면에서 보낸 이름:" + name);
+		Integer age = null;
+		try {
+			age =Integer.parseInt(request.getParameter("age"));
+			System.out.println("화면에서 보낸 나이:" + age);
+		} catch (Exception e) {
+			System.out.println("화면에서 보낸 나이 : null");
+		}
 		
 		request.getRequestDispatcher("/WEB-INF/views/main.jsp").forward(request, response);
 	}
