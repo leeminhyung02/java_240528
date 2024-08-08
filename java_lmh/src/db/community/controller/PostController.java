@@ -3,6 +3,7 @@ package db.community.controller;
 import java.util.List;
 import java.util.Scanner;
 
+import db.community.model.vo.CommentVO;
 import db.community.model.vo.CommunityVO;
 import db.community.model.vo.PostVO;
 import db.community.pagination.Criteria;
@@ -138,10 +139,12 @@ public class PostController {
 		
 	}
 
-	public void printPostDetail() {
+	public PostVO printPostDetail() {
 		//게시글 번호 입력
 		System.out.print("번호 : ");
 		int poNum = scan.nextInt();
+		//서비스에게 조회하려는 게시글의 조회수를 증가 시키라고 요청
+		postService.updatePostView(poNum);
 		//서비스에게 게시글 번호를 주면서 게시글을 가져오라고 요청
 		PostVO post = postService.getPost(poNum);
 		//가져온 게시글을 출력
@@ -154,11 +157,81 @@ public class PostController {
 			scan.nextLine();//사용자가 입력한 엔터 처리
 			PrintController.printBar();
 		}
+		return post;
 	}
 
 	public PageMaker getPageMaker(Criteria cri, int maxValue) {
 		int totalCount = postService.selectPostListTotalCount(cri);
 		return new PageMaker(totalCount, maxValue, cri);
+	}
+
+	public boolean deletePost(int po_num) {
+		return postService.deletePost(po_num);
+	}
+
+	public boolean updatePost(int po_num) {
+		//새 제목 입력
+		System.out.print("새 제목 : ");
+		scan.nextLine();
+		String title = scan.nextLine();
+		//새 내용 입력
+		System.out.print("새 내용 : ");
+		String content = scan.nextLine();
+		//게시글 번호, 새제목, 내용을 이용하여 게시글VO를 생성
+		PostVO post = new PostVO(po_num, title, content);
+		//서비스에게 게시글VO를 주면서 수정하라고 요청 후 수정 여부를 반환
+		return postService.updatePost(post);
+	}
+
+	public void insertComment(PostVO post, String id) {
+		//post null이면 댓글을 추가할 수 없습니다를 출력하고 종료
+		if(post == null) {
+			System.out.println("댓글을 추가할 수 없습니다.");
+			return;
+		}
+		//댓글 입력
+		System.out.print("댓글 : ");
+		scan.nextLine();
+		String content = scan.nextLine();
+		//게시글 번호, 댓글 내용, 작성자를 이용하여 댓글VO를 생성
+		CommentVO comment = new CommentVO(post.getPo_num(), content, id);
+		//서비스에게 댓글VO를 주면서 추가하라고 요청후 성공하면 댓글 추가 성공!을 출력
+		if(postService.insertCommnet(comment)) {
+			System.out.println("댓글 추가 성공!");
+		}
+		//실패하면 댓글 추가 실패!를 출력
+		else {
+			System.out.println("댓글 추가 실패!");
+		}
+	}
+
+	public void printCommentList(PostVO post) {
+		//서비스에게 게시글 번호를 주면서 댓글 리스트를 가져오라고 요청
+		List<CommentVO> list = null;
+		try {
+			list = postService.getCommentList(post.getPo_num());
+		}
+		//예외 발생 시 등록되지 않은 게시글이거나 삭제된 게시글입니다.라고 출력
+		catch(Exception e) {
+			System.out.println("등록되지 않은 게시글이거나 삭제된 게시글입니다.");
+			return;
+		}
+		
+		//댓글 리스트가 0개이면 등록된 댓글이 없습니다.라고 출력
+		if(list.size() == 0) {
+			System.out.println("등록된 댓글이 없습니다.");
+			return;
+		}
+		System.out.println("댓글 목록");
+		//있으면 댓글 리스트에서 하나씩 꺼내 출력.(CommentV의 toString을 오버라이딩)
+		for(CommentVO comment : list) {
+			System.out.println(comment);
+		}
+		PrintController.printBar();
+		System.out.println("엔터를 치세요.");
+		scan.nextLine();//버퍼에 남은 엔터 처리
+		scan.nextLine();//사용자가 입력한 엔터 처리
+		PrintController.printBar();
 	}
 	
 	

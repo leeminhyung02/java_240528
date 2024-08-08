@@ -9,7 +9,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
+import db.community.dao.MemberDAO;
 import db.community.dao.PostDAO;
+import db.community.model.vo.CommentVO;
 import db.community.model.vo.CommunityVO;
 import db.community.model.vo.PostVO;
 import db.community.pagination.Criteria;
@@ -148,5 +150,43 @@ public class PostServiceImp implements PostService {
 			return 0;
 		}
 		return postDao.selectPostListCount(cri);
+	}
+
+	@Override
+	public boolean deletePost(int po_num) {
+		return postDao.deletePost(po_num);
+	}
+
+	@Override
+	public boolean updatePost(PostVO post) {
+		if(post == null) {
+			return false;
+		}
+		if(!checkString(post.getPo_title()) || !checkString(post.getPo_content())) {
+			return false;
+		}
+		return postDao.updatePost(post);
+	}
+
+	@Override
+	public boolean insertCommnet(CommentVO comment) {
+		if(comment == null) {
+			return false;
+		}
+		if(!checkString(comment.getCm_content())) {
+			return false;
+		}
+		return postDao.insertComment(comment);
+	}
+
+	@Override
+	public List<CommentVO> getCommentList(int po_num) {
+		return postDao.selectCommentList(po_num);
+	}
+
+	@Override
+	public void updatePostView(int poNum) {
+		postDao.updatePostView(poNum);
+		
 	}
 }

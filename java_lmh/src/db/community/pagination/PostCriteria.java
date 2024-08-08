@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class PostCriteria extends Criteria{
+public class PostCriteria extends Criteria {
 
 
 	private int coNum;

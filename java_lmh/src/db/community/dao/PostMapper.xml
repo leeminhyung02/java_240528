@@ -36,4 +36,27 @@
 		select count(*) from post 
 		where po_co_num = #{cri.coNum} and po_title like concat('%', #{cri.search} ,'%')
 	</select>
+	<delete id="deletePost">
+		delete from post where po_num = #{po_num}
+	</delete>
+	<update id="updatePost">
+		update post set
+			po_title = #{po.po_title},
+			po_content = #{po.po_content}
+		where
+			po_num = #{po.po_num}
+	</update>
+	<insert id="insertComment">
+		INSERT INTO COMMENT(CM_NUM, CM_CONTENT, CM_PO_NUM, CM_ORI_NUM, CM_ME_ID)
+		SELECT 
+			IFNULL(MAX(CM_NUM), 0) + 1, #{co.cm_content}, #{co.cm_po_num}, 
+			IFNULL(MAX(CM_NUM), 0) + 1 , #{co.cm_me_id} 
+		FROM COMMENT
+	</insert>
+	<select id="selectCommentList" resultType="CommentVO">
+		select * from comment where cm_po_num = #{po_num}
+	</select>
+	<update id="updatePostView">
+		update post set po_view = po_view + 1 where po_num = #{po_num}
+	</update>
 </mapper>
