@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MemberVO {
 	
+
 	private String me_id;
 	private String me_pw;
 	private String me_email;
@@ -20,4 +21,9 @@ public class MemberVO {
 	private String me_ms_name; 
 	private Date me_stop;
 	
+	
+	public MemberVO(String id, String pw) {
+		this.me_id = id;
+		this.me_pw = pw;
+	}
 }
