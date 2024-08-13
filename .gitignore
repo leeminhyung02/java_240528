@@ -3,6 +3,8 @@
 .classpath
 .project
 .settings/
-
 java_lmh/.gitignore
-/bin/
+
+MANIFEST.MF
+
+*.jar
