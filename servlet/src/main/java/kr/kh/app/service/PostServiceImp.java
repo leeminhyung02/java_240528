@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
+import kr.kh.app.dao.MemberDAO;
 import kr.kh.app.dao.PostDAO;
 import kr.kh.app.model.vo.CommentVO;
 import kr.kh.app.model.vo.CommunityVO;
@@ -206,6 +207,51 @@ public class PostServiceImp implements PostService {
 		}
 		int totalCount = postDao.selectCommentTotalCount(cri);
 		return new PageMaker(totalCount, 2, cri);
+	}
+
+	@Override
+	public boolean insertComment(CommentVO comment) {
+		if(comment == null) {
+			return false;
+		}
+		if(comment.getCm_content()== null || comment.getCm_content().trim().length() == 0) {
+			return false;
+		}
+		return postDao.insertComment(comment);
+	}
+
+	@Override
+	public boolean deleteComment(int co_num, MemberVO user) {
+		if(user == null) {
+			return false;
+		}
+		//작성자가 맞는지 확인
+		CommentVO comment = postDao.selectComment(co_num);
+		if(comment == null) {
+			return false;
+		}
+		if(!comment.getCm_me_id().equals(user.getMe_id())) {
+			return false;
+		}
+		//맞으면 삭제 요청
+		return postDao.deleteComment(co_num);
+	}
+
+	@Override
+	public boolean updateComment(CommentVO comment, MemberVO user) {
+		if(user == null || comment == null) {
+			return false;
+		}
+		//작성자가 맞는지 확인
+		CommentVO dbComment = postDao.selectComment(comment.getCm_num());
+		if(dbComment == null) {
+			return false;
+		}
+		if(!dbComment.getCm_me_id().equals(user.getMe_id())) {
+			return false;
+		}
+		//맞으면 삭제 요청
+		return postDao.updateComment(comment);
 	}
 
 }
