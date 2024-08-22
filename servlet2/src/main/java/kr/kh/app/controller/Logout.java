@@ -7,12 +7,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/")
-public class main extends HttpServlet {
+
+@WebServlet("/logout")
+public class Logout extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+       
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/views/home.jsp").forward(request, response);
+		//세션에 있는 회원 정보를 지움
+		request.getSession().removeAttribute("user");
+		//알림
+		request.setAttribute("msg", "로그아웃을 했습니다.");
+		request.setAttribute("url", "/");
+		request.getRequestDispatcher("/WEB-INF/views/message.jsp").forward(request, response);
 	}
+
 
 }
