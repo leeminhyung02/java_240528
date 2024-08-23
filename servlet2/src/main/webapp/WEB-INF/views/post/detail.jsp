@@ -15,6 +15,7 @@
 
 <div class="container" style="min-height: calc(100vh - 240px)">
 	<h1>게시글 상세</h1>
+	<c:if test="${post != null }">
 	<div class="form-group">
 		<label>제목 : </label>
 		<div class="form-control">${post.po_title }</div>
@@ -37,7 +38,12 @@
 	</div>
 	<c:if test="${user.me_id == post.po_me_id }">
 		<a href="<c:url value="/post/update?po_num=${post.po_num }"/>" class="btn btn-outline-dark">수정</a>
+		<a href="<c:url value="/post/delete?po_num=${post.po_num }"/>"class="btn btn-outline-danger">삭제</a>
 		</c:if>
+	</c:if>
+	<c:if test="${post == null }">
+		<h3>삭제되거나 등록되지 않은 게시글입니다.</h3>
+	</c:if>
 </div>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

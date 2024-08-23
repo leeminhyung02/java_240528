@@ -8,7 +8,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-import kr.kh.app.dao.MemberDAO;
 import kr.kh.app.dao.PostDAO;
 import kr.kh.app.model.vo.CommunityVO;
 import kr.kh.app.model.vo.MemberVO;
@@ -104,5 +103,26 @@ public class PostServiceImp implements PostService {
 		} catch (Exception e) {
 			return false;
 		}
+	}
+
+	@Override
+	public boolean deletePost(String po_num, MemberVO user) {
+		if(po_num == null) {
+			return false;
+		}
+		PostVO dbPost = postDao.selectPost(po_num);
+		if(dbPost == null || !dbPost.getPo_me_id().equals(user.getMe_id())) {
+			return false;
+		}
+		try {
+			return postDao.deletePost(po_num);
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	@Override
+	public String getCo_num(String po_num) {
+		return postDao.selectPost(po_num).getPo_co_num()+"";
 	}
 }
