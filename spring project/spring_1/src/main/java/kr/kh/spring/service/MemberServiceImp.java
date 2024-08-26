@@ -11,8 +11,4 @@ public class MemberServiceImp implements MemberService{
 	@Autowired
 	private MemberDAO memberDao;
 
-	@Override
-	public String getEmail(String id) {
-		return memberDao.selectEmail(id);
-	}
 }
