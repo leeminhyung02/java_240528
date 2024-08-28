@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
@@ -14,7 +15,7 @@
 			<li class="nav-item"><a class="navbar-brand"
 				href="<c:url value="/"/>">Home</a></li>
 			<li class="nav-item"><a class="nav-link"
-				href="<c:url value="/community"/>">커뮤니티</a></li>
+				href="<c:url value="/post/list"/>">커뮤니티</a></li>
 			<li class="nav-item dropdown"><a
 				class="nav-link dropdown-toggle" href="#" id="navbardrop"
 				data-toggle="dropdown"> 커뮤니티 </a>
