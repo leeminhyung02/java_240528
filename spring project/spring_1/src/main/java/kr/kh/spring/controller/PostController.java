@@ -13,10 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.kh.spring.model.vo.CommunityVO;
+import kr.kh.spring.model.vo.FileVO;
 import kr.kh.spring.model.vo.MemberVO;
 import kr.kh.spring.model.vo.PostVO;
-import kr.kh.spring.pagenation.PageMaker;
-import kr.kh.spring.pagenation.PostCriteria;
+import kr.kh.spring.pagination.PageMaker;
+import kr.kh.spring.pagination.PostCriteria;
 import kr.kh.spring.service.PostService;
 
 //게시글과 관련된 URL을 처리하는 컨트롤러.
@@ -31,11 +32,12 @@ public class PostController {
 	@GetMapping("/list")
 	public String list(Model model, PostCriteria cri) {
 		//커뮤니티 리스트를 가져옴
-		List<CommunityVO>list = postService.getCommunityList();
+		List<CommunityVO> list = postService.getCommunityList();
 		//현재 페이지 정보를 주면서 게시글 리스트를 가져오라고 시킴
 		cri.setPerPageNum(2);
 		List<PostVO> postList = postService.getPostList(cri);
-		//현재 페이지 정보를 주면서 페이지네이션 정보를 가져오라고 시킴
+		
+		//현제 페이지 정보를 주면서 페이지네이션 정보를 가져오라고 시킴
 		PageMaker pm = postService.getPageMaker(cri);
 		//화면에 전송
 		model.addAttribute("list", list);
@@ -43,26 +45,39 @@ public class PostController {
 		model.addAttribute("pm", pm);
 		return "/post/list";
 	}
-	
 	@GetMapping("/insert")
 	public String insert(Model model, Integer co_num) {
 		model.addAttribute("co_num", co_num);
-		
 		return "/post/insert";
 	}
-	
 	@PostMapping("/insert")
-	public String insertPost(Model model, PostVO post, MultipartFile [] fileList, HttpSession session) {
+	public String insertPost(Model model, PostVO post, MultipartFile [] fileList, 
+			HttpSession session) {
 		MemberVO user = (MemberVO)session.getAttribute("user");
-		if(postService.insertPost(post, user,  fileList)) {
+		if(postService.insertPost(post, user, fileList)) {
 			model.addAttribute("url", "/post/list?co_num="+post.getPo_co_num());
 			model.addAttribute("msg", "게시글을 등록했습니다.");
 		}else {
 			model.addAttribute("url", "/post/insert?co_num="+post.getPo_co_num());
 			model.addAttribute("msg", "게시글을 등록하지 못했습니다.");
-			
 		}
 		
 		return "/main/message";
+	}
+	
+	@GetMapping("/detail")
+	public String detail(Model model, Integer po_num, PostCriteria cri) {
+		
+		//조회수 증가
+		postService.updateView(po_num);
+		//게시글 가져옴
+		PostVO post = postService.getPost(po_num);
+		//첨부파일 가져옴
+		List<FileVO> fileList = postService.getFileList(po_num);
+		//화면에 전송 
+		model.addAttribute("post", post);
+		model.addAttribute("list", fileList);
+		model.addAttribute("cri", cri);
+		return "/post/detail";
 	}
 }

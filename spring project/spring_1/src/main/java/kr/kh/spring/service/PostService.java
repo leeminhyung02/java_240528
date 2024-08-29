@@ -1,5 +1,6 @@
 package kr.kh.spring.service;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -13,8 +14,8 @@ import kr.kh.spring.model.vo.CommunityVO;
 import kr.kh.spring.model.vo.FileVO;
 import kr.kh.spring.model.vo.MemberVO;
 import kr.kh.spring.model.vo.PostVO;
-import kr.kh.spring.pagenation.PageMaker;
-import kr.kh.spring.pagenation.PostCriteria;
+import kr.kh.spring.pagination.PageMaker;
+import kr.kh.spring.pagination.PostCriteria;
 import kr.kh.spring.utils.UploadFileUtils;
 
 @Service
@@ -40,7 +41,7 @@ public class PostService {
 		if(cri == null) {
 			return null;
 		}
-		int totalCount = postDao.selectPostTotalCount(cri);
+		int totalCount =  postDao.selectPostTotalCount(cri);
 		return new PageMaker(3, cri, totalCount);
 	}
 
@@ -52,7 +53,7 @@ public class PostService {
 		try {
 			post.setPo_me_id(user.getMe_id());
 			res = postDao.insertPost(post);
-		} catch (Exception e) {
+		}catch(Exception e) {
 			e.printStackTrace();
 			return false;
 		}
@@ -60,6 +61,7 @@ public class PostService {
 		if(!res) {
 			return false;
 		}
+
 		if(fileList == null || fileList.length == 0) {
 			return true;
 		}
@@ -71,7 +73,7 @@ public class PostService {
 	}
 
 	private void uploadFile(MultipartFile file, int po_num) {
-		
+
 		if(file == null || file.getOriginalFilename().length() == 0) {
 			return;
 		}
@@ -87,5 +89,18 @@ public class PostService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+	}
+
+	public void updateView(Integer po_num) {
+		postDao.updateView(po_num);
+	}
+
+	public PostVO getPost(Integer po_num) {
+		return postDao.selectPost(po_num);
+	}
+
+	public List<FileVO> getFileList(Integer po_num) {
+		return postDao.selectFileList(po_num);
 	}
 }

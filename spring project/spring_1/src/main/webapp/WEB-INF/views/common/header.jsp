@@ -6,7 +6,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 </head>
 <body>
 	<nav class="navbar navbar-expand-sm bg-dark navbar-dark"
@@ -19,7 +18,12 @@
 			<li class="nav-item dropdown"><a
 				class="nav-link dropdown-toggle" href="#" id="navbardrop"
 				data-toggle="dropdown"> 커뮤니티 </a>
-				<div class="dropdown-menu" id="community-list"></div></li>
+				<div class="dropdown-menu" id="community-list">
+					<a class="dropdown-item" href="#">123</a>
+					<a class="dropdown-item" href="#">456</a>
+					<a class="dropdown-item" href="#">789</a>
+				</div>
+			</li>
 		</ul>
 		<ul class="navbar-nav">
 			<c:if test="${user == null}">

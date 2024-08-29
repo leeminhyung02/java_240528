@@ -1,4 +1,4 @@
-package kr.kh.spring.pagenation;
+package kr.kh.spring.pagination;
 
 import lombok.Data;
 

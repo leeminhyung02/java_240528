@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import kr.kh.spring.model.vo.CommunityVO;
 import kr.kh.spring.model.vo.FileVO;
 import kr.kh.spring.model.vo.PostVO;
-import kr.kh.spring.pagenation.PostCriteria;
+import kr.kh.spring.pagination.PostCriteria;
 
 public interface PostDAO {
 
@@ -20,5 +20,11 @@ public interface PostDAO {
 	boolean insertPost(@Param("post")PostVO post);
 
 	void insertFile(@Param("file")FileVO fileVo);
+
+	void updateView(@Param("po_num")Integer po_num);
+
+	PostVO selectPost(@Param("po_num")Integer po_num);
+
+	List<FileVO> selectFileList(@Param("po_num")Integer po_num);
 
 }

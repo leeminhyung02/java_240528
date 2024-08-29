@@ -9,17 +9,17 @@
 	<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/additional-methods.min.js"></script>
 	<style type="text/css">
 	.error{
-	color : red;
+		color : red;
 	}
 	.error.id-ok{
 		color : green;
 	}
 	</style>
-<title>Insert title here</title>
 </head>
 <body>
-<h1>회원가입</h1>
-<form action="<c:url value="/signup"/>" method="post" id="form">
+	
+	<h1>회원가입</h1>
+	<form action="<c:url value="/signup"/>" method="post" id="form">
 		<div class="form-group">
 			<label for="id">아이디:</label>
 			<input type="text" class="form-control" id="id" name="me_id">
@@ -37,61 +37,62 @@
 			<input type="text" class="form-control" id="email" name="me_email">
 		</div>
 		<button type="submit" class="btn btn-outline-success col-12">회원가입</button>
-</form>
+	</form>
 	<script type="text/javascript">
-var flag = false;
-
-$('#form').validate({
-	rules : {
-		me_id : {
-			required : true,
-			regex : /^\w{6,13}$/
+	var flag = false;
+	
+	$('#form').validate({
+		rules : {
+			me_id : {
+				required : true,
+				regex : /^\w{6,13}$/
+			},
+			me_pw : {
+				required : true,
+				regex : /^[a-zA-Z0-9!@#$]{6,15}$/
+			},
+			me_pw2 : {
+				equalTo : pw
+			},
+			me_email : {
+				required : true,
+				email : true
+			}
 		},
-		me_pw : {
-			required : true,
-			regex : /^[a-zA-Z0-9!@#$]{6,15}$/
+		messages : {
+			me_id : {
+				required : '필수 항목입니다.',
+				regex : '아이디는 영어, 숫자만 가능하며, 6~13자이어야 합니다.'
+			},
+			me_pw : {
+				required : '필수 항목입니다.',
+				regex : '아이디는 영어, 숫자, 특수문자(!@#$)만 가능하며, 6~15자이어야 합니다.'
+			},
+			me_pw2 : {
+				equalTo : '비번과 일치하지 않습니다.'
+			},
+			me_email : {
+				required : '필수 항목입니다.',
+				email : '이메일 형식이 아닙니다'
+			}
 		},
-		me_pw2 : {
-			equalTo : pw
-		},
-		me_email : {
-			required : true,
-			email : true
+		submitHandler : function(){
+			var id = $("#id").val();
+			var res = checkId(id);
+			if(res == 0){
+				displayCheckId(res);
+				alert('이미 사용 중인 아이디입니다.');
+				return false;
+			}
+			return true;
 		}
-	},
-	messages : {
-		me_id : {
-			required : '필수 항목입니다.',
-			regex : '아이디는 영어, 숫자만 가능하며, 6~13자이어야 합니다.'
-		},
-		me_pw : {
-			required : '필수 항목입니다.',
-			regex : '아이디는 영어, 숫자, 특수문자(!@#$)만 가능하며, 6~15자이어야 합니다.'
-		},
-		me_pw2 : {
-			equalTo : '비번과 일치하지 않습니다.'
-		},
-		me_email : {
-			required : '필수 항목입니다.',
-			email : '이메일 형식이 아닙니다'
-		}
-	},
-	submitHandler : function(){
-		var re = $("#id").val();
-		var res = checkId(id);
-		if(res == 0){
-			displayCheckId(res);
-			alert('이미 사용중인 아이디입니다.');
-			return false;
-		}
-		return true;
-	}
-});
-$.validator.addMethod('regex', function(value, element, regex){
-	var re = new RegExp(regex);
-	return this.optional(element) || re.test(value);
-}, "정규표현식을 확인하세요.");
-</script>
+	});
+	$.validator.addMethod('regex', function(value, element, regex){
+		var re = new RegExp(regex);
+		return this.optional(element) || re.test(value);
+	}, "정규표현식을 확인하세요.");
+	
+	</script>
 	<script type="text/javascript">
 		//아이디 중복 확인
 		$("#id").keyup(function(){
@@ -105,7 +106,7 @@ $.validator.addMethod('regex', function(value, element, regex){
 		@return 1이면 사용 가능, 0이면 사용 불가능, -1이면 전송하지 않음
 		*/
 		function checkId(id){
-			//정규 표현식 확인
+			//정규표현식 확인
 			var regex = /^\w{6,13}$/;
 			if(!regex.test(id)){
 				return -1;
@@ -113,12 +114,11 @@ $.validator.addMethod('regex', function(value, element, regex){
 			var res = 0;
 			//맞으면 서버에 확인 요청
 			$.ajax({
-				async : false, //비동기 : true(비동기), false(동기)
+				async : false,
 				url : '<c:url value="/check/id"/>', 
-				type : 'get',
+				type : 'get', 
 				data : {
 					id : id
-					
 				}, 
 				success : function (data){
 					res = data? 1 : 0;
@@ -129,7 +129,7 @@ $.validator.addMethod('regex', function(value, element, regex){
 			});
 			return res;
 		}
-		function displayCheckId(result) {
+		function displayCheckId(result){
 			$('#check-id').remove();
 			
 			if(result == 1){
