@@ -103,4 +103,97 @@ public class PostService {
 	public List<FileVO> getFileList(Integer po_num) {
 		return postDao.selectFileList(po_num);
 	}
+
+	public boolean updatePost(PostVO post, int[] fi_nums, MultipartFile[] fileList, MemberVO user) {
+		if(post == null ) {
+			return false;
+		}
+		if(user == null) {
+			return false;
+		}
+		
+		//작성자인지 확인 
+		if(!checkWriter(post.getPo_num(), user.getMe_id())) {
+			return false;
+		}
+		
+		boolean res;
+		
+		try {
+			res = postDao.updatePost(post);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		if(!res) {
+			return false;
+		}
+		
+		//첨부파일 삭제
+		if(fi_nums != null) {
+			for(int fi_num : fi_nums) {
+				deleteFile(fi_num);
+			}
+		}
+		//첨부파일 추가
+		if(fileList == null || fileList.length == 0) {
+			return true;
+		}
+		for(MultipartFile file : fileList) {
+			uploadFile(file, post.getPo_num());
+		}
+		return true;
+	}
+
+	private boolean checkWriter(int po_num, String me_id) {
+		PostVO post = postDao.selectPost(po_num);
+		if(post == null) {
+			return false;
+		}
+		return post.getPo_me_id().equals(me_id);
+	}
+
+	private void deleteFile(int fi_num) {
+		//첨부파일 정보를 가져옴
+		FileVO file = postDao.selectFile(fi_num);
+		deleteFile(file);
+	}
+	private void deleteFile(FileVO file) {
+		if(file == null) {
+			return;
+		}
+		//첨부파일을 서버에서 삭제
+		UploadFileUtils.delteFile(uploadPath, file.getFi_name());
+		//첨부파일 정보를 DB에서 삭제
+		postDao.deleteFile(file.getFi_num());
+	}
+
+	public boolean deletePost(int po_num, MemberVO user) {
+		if(user == null) {
+			return false;
+		}
+		if(!checkWriter(po_num, user.getMe_id())) {
+			return false;
+		}
+		//서버에서 첨부파일 삭제
+		List<FileVO> list = postDao.selectFileList(po_num);
+		for(FileVO file : list) {
+			deleteFile(file);
+		}
+		//DB에서 첨부파일 삭제(구현할 필요가 없음. 왜? 게시글 삭제 시 DB에서 해당 첨부파일을 삭제하기로 했기 때문)
+		
+		return postDao.deletePost(po_num);
+	}
+
+	public boolean insertCommunity(String name) {
+		if(name == null || name.trim().length() == 0) {
+			return false;
+		}
+		try {
+			return postDao.insertCommunity(name);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 }
