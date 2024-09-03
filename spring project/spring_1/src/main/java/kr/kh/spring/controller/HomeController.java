@@ -62,18 +62,24 @@ public class HomeController {
 	public String loginPost(Model model, MemberVO member, HttpSession session) {
 		MemberVO user = memberService.login(member);
 		if(user != null) {
+			user.setAutoLogin(member.isAutoLogin());
 			model.addAttribute("msg", "로그인을 성공 했습니다.");
 			model.addAttribute("url", "/");
 		}else {
 			model.addAttribute("msg", "로그인을 실패 했습니다.");
 			model.addAttribute("url", "/login");
 		}
-		session.setAttribute("user", user);
+		model.addAttribute("user", user);
 		return "/main/message";
 	}
 	
 	@GetMapping("/logout")
 	public String logout(Model model, HttpSession session) {
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		if(user != null) {
+			user.setMe_cookie(null);
+			memberService.updateMemberCookie(user);
+		}
 		//세션에 있는 user를 제거
 		session.removeAttribute("user");
 		model.addAttribute("msg", "로그아웃 했습니다.");
@@ -86,6 +92,16 @@ public class HomeController {
 	@GetMapping("/check/id")
 	public boolean checkId(@RequestParam("id")String id) {
 		boolean res = memberService.checkId(id);
+		return res;
+	}
+	@GetMapping("/find/pw")
+	public String findPw() {
+		return "/member/findPw";
+	}
+	@ResponseBody
+	@PostMapping("/find/pw")
+	public boolean findPwPost(@RequestParam String id) {
+		boolean res = memberService.findPw(id);
 		return res;
 	}
 }
