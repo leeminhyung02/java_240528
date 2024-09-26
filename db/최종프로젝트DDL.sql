@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS RESTAURANT.USER(
 );
 
 CREATE TABLE IF NOT EXISTS RESTAURANT.RESTAURANT(
-	Res_id int primary key auto_increment,
+	Res_id int primary key auto_increment ,
     address varchar(100) not null,
     res_name varchar(20) not null,
     res_type varchar(20),
@@ -27,17 +27,26 @@ CREATE TABLE IF NOT EXISTS RESTAURANT.RESTAURANT(
 CREATE TABLE IF NOT EXISTS RESTAURANT.REVIEW(
 	Rev_id int primary key auto_increment,
     content varchar(100),
-    score int
+    score int,
+    User_id varchar(15),
+    Res_id int,
+    foreign key (User_id) references USER (User_id),
+    foreign key (Res_id) references RESTAURANT (Res_id)
 );
 
 CREATE TABLE IF NOT EXISTS RESTAURANT.REPORT(
 	Rev_id int primary key,
     rep_reason varchar(100),
-    res_state boolean
+    res_state boolean,
+    foreign key (Rev_id) references REVIEW (Rev_id)
 );
 
 CREATE TABLE IF NOT EXISTS RESTAURANT.FAVORITES(
-	Fav_id int primary key auto_increment
+	Fav_id int primary key auto_increment,
+    User_id varchar(15),
+    Res_id int,
+    foreign key (User_id) references USER (User_id),
+    foreign key (Res_id) references RESTAURANT (Res_id)
 );
 
 
@@ -45,7 +54,9 @@ CREATE TABLE IF NOT EXISTS RESTAURANT.FAVORITES(
 CREATE TABLE IF NOT EXISTS RESTAURANT.SEARCH_HISTORY(
 	SH_id int primary key auto_increment,
     history varchar (30) not null,
-    his_date datetime default current_timestamp
+    his_date datetime default current_timestamp,
+    User_id varchar(15),
+    foreign key (User_id) references USER (User_id)
 );
 
 CREATE TABLE IF NOT EXISTS RESTAURANT.REPORT_MANAGE(
