@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html 
-xmlns:th="http://www.thymeleaf.org"
-xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
-layout:decorate="~{layout/layout.html}">
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout.html}">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -10,6 +10,7 @@ layout:decorate="~{layout/layout.html}">
 <body >
 	<main layout:fragment="content">
 		<h2>홈화면</h2>
+		<a class="btn btn-outline-dark" th:href="@{/map/mainmap}">지도 바로가기</a>
 		<p>홈</p>
 	</main>
 </body>
