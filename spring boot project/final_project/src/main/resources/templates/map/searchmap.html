@@ -6,6 +6,95 @@
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=&libraries=services,clusterer,drawing">
 		</script>
+<style>
+.wrap {
+	position: absolute;
+	left: 0;
+	bottom: 40px;
+	width: 200px;
+	height: 132px;
+	margin-left: -100px;
+	text-align: left;
+	overflow: hidden;
+	font-size: 12px;
+	font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;
+	line-height: 1.5;
+}
+
+.wrap * {
+	padding: 0;
+	margin: 0;
+}
+
+.wrap .info {
+	width: 198px;
+	height: 120px;
+	border-radius: 5px;
+	border-bottom: 2px solid #ccc;
+	border-right: 1px solid #ccc;
+	overflow: hidden;
+	background: #fff;
+}
+
+.wrap .info:nth-child(1) {
+	border: 0;
+	box-shadow: 0px 1px 2px #888;
+}
+
+.info .close {
+	position: absolute;
+	top: 5px;
+	right: 20px;
+	color: #5085BB;
+	width: 17px;
+	height: 17px;
+}
+
+.info .title {
+	text-overflow: ellipsis;
+	position: relative;
+	padding: 2px 0 0 10px;
+	height: 30px;
+	background: #eee;
+	border-bottom: 1px solid #ddd;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.info .body {
+	position: relative;
+	overflow: hidden;
+	font-size: 14px;
+}
+
+.info .desc {
+	position: relative;
+	margin: 13px 0 0 px;
+	height: 75px;
+}
+
+.desc .ellipsis {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.desc .jibun {
+	font-size: 11px;
+	color: #888;
+	margin-bottom: 2px;
+}
+
+.info:after {
+	content: '';
+	position: absolute;
+	margin-left: -12px;
+	left: 50%;
+	bottom: 0;
+	width: 22px;
+	height: 12px;
+}
+</style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -72,7 +161,7 @@
 			        });
 			        // 인포윈도우로 장소에 대한 설명을 표시합니다
 			        var infowindow = new kakao.maps.InfoWindow({
-			            content: '<div style="width:150px;text-align:center;padding:2px 0;">검색 지점</div>',
+			            content: '<div style="width:50px;text-align:center;padding:0px 0;">검색 지점</div>',
 		            	removable : true,
 			        });
 			        infowindow.open(map, marker);
@@ -140,30 +229,37 @@
 			            position: coords
 		        });
 				var contents = '<div class="wrap">'+
-								'<div class="title">'+
-								'<h4>'+
-								item.res_name +
-								'&nbsp;'+
-								'&nbsp;'+
-								'&nbsp;'+
-								'&nbsp;'+
-								'&nbsp;'+
-								item.res_score/2 +
-								'</h4>'+
-								'</div>' +
-								'<div>'+
-								item.res_type +
-								'</div>'+
-								'<div>'+
-								item.res_info +
-								'</div>'
+		   		'<div class="info">'+
+					'<div class="title res_name">'+
+						item.res_name +
+						'<div class="close">'+
+							item.res_score/2 +
+						'</div>'+	
+					'</div>'+
+					'<div class="body">'+
+						'<div>'+
+							item.res_type +
+						'</div>'+
+						'<hr class="hr_body">'+
+						'<div>'+
+							item.res_info +
+						'</div>'+
+						'<hr class="hr_body">'+
+						'<div class="desc jibun">'+
+							item.address +
+						'</div>'
+					'</div>'+
+				'</div>'+
+			'</div>'
 								
-		        var infowindow = new kakao.maps.InfoWindow({
-		            content:contents // 인포윈도우에 표시할 내용
+		        var customOverlay = new kakao.maps.CustomOverlay({
+		        	clickable: true,
+		            content:contents,
+		            position: coords,
 		        });
-		        kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
-		        kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
-			    
+				
+		        kakao.maps.event.addListener(marker, 'click', function(){customOverlay.setMap(map);});
+		        kakao.maps.event.addListener(marker, 'mouseout', function(){customOverlay.setMap(null);});
 	}
 </script>
 	</main>
