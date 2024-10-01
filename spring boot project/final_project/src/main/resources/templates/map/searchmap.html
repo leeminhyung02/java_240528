@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout.html}">
+<head>
+<script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=&libraries=services,clusterer,drawing">
+		</script>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<main layout:fragment="content">
+		<h2 th:text="${search}+  검색결과"></h2>
+		<a class="btn btn-info" th:href="@{/map/mainmap}">내 위치로 찾기</a>
+		<div id="map" style="width: 100%; height: 500px;"></div>
+		<div class="container">
+			<div style="width: 100%; height: 300px;">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>가게이름</th>
+							<th>평점</th>
+							<th>정보</th>
+						</tr>
+					</thead>
+					<!-- 					<tbody th:each="item : ${list}">
+						<tr >
+							<td th:text="${item.res_name}"></td>
+							<td th:text="${item.res_score/2.0}"></td>
+							<td th:text="${item.res_type}"></td>
+						</tr>
+						<tr>
+							<td colspan="3" th:text="${item.res_banner}">
+						</tr>
+					</tbody> -->
+					<tbody id="res_list_table">
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<script th:inline="javascript">
+			var search = [[${search}]];
+			var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+			    mapOption = {
+			        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+			        level: 4 // 지도의 확대 레벨
+			    };  
+			
+			// 지도를 생성합니다    
+			var map = new kakao.maps.Map(mapContainer, mapOption); 
+			
+			// 주소-좌표 변환 객체를 생성합니다
+			var geocoder = new kakao.maps.services.Geocoder();
+			var lat;
+			var lng;
+			// 주소로 좌표를 검색합니다
+			geocoder.addressSearch(search, function(result, status) {
+			    // 정상적으로 검색이 완료됐으면 
+			     if (status === kakao.maps.services.Status.OK) {
+			        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+			        lat = coords.getLat();
+			        lng = coords.getLng();
+			        // 결과값으로 받은 위치를 마커로 표시합니다
+			        var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+			        var imageSize = new kakao.maps.Size(24, 35);
+			        var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+			        var marker = new kakao.maps.Marker({
+			            map: map,
+			            position: coords,
+		            	image : markerImage
+			        });
+			        // 인포윈도우로 장소에 대한 설명을 표시합니다
+			        var infowindow = new kakao.maps.InfoWindow({
+			            content: '<div style="width:150px;text-align:center;padding:2px 0;">검색 지점</div>',
+		            	removable : true,
+			        });
+			        infowindow.open(map, marker);
+			        kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+			        kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+			        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+			        map.setCenter(coords);
+			    } 
+			     else{
+			    	 alert("주소로 입력해주세요");
+			     }
+			});    
+			//123
+			function makeOverListener(map, marker, infowindow) {
+				    return function() {
+				        infowindow.open(map, marker);
+				    };
+			}
+			// 인포윈도우를 닫는 클로저를 만드는 함수입니다 
+			function makeOutListener(infowindow) {
+				    return function() {
+				        infowindow.close();
+				    };
+			}
+			//ajax로 동기 통신으로 DB에 저장된 정보들을 가져옴 
+			$.ajax({
+				async : false, //비동기 : true(비동기), false(동기)
+				url : '/map/searchmap', 
+				type : 'post',  
+				dataType : 'json', 
+				success : function (data){
+				var table = document.getElementById('res_list_table')
+					data.list.forEach((item, index)=>{
+
+						geocoder.addressSearch(item.address, function(result, status) {
+						    
+							// 정상적으로 검색이 완료됐으면 
+						     if (status === kakao.maps.services.Status.OK) {
+						        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+						        if(result[0].y < lat +0.01 && result[0].y > lat -0.01 && result[0].x < lng +0.01 && result[0].x > lng - 0.01){
+						        // 결과값으로 받은 위치를 마커로 표시합니다
+						    	display(item, coords, map, makeOverListener, makeOutListener)
+							    
+						        var row = '<tr>'+
+						        			'<td>'+item.res_name+'</td>'+
+						        			'<td>'+item.res_score/2.0+'</td>'+
+						        			'<td>'+item.res_type+'</td>'+
+						        			'</tr>'
+						        table.innerHTML += row
+						    	}
+					    	}	
+						}); 
+					});
+				}, 
+				error : function(jqXHR, textStatus, errorThrown){
+				} 
+			});
+					
+			function display(item , coords, map, makeOverListener, makeOutListener){
+				
+				console.log(item)
+				console.log(coords)
+				 var marker = new kakao.maps.Marker({
+			            map: map,
+			            position: coords
+		        });
+				var contents = '<div class="wrap">'+
+								'<div class="title">'+
+								'<h4>'+
+								item.res_name +
+								'&nbsp;'+
+								'&nbsp;'+
+								'&nbsp;'+
+								'&nbsp;'+
+								'&nbsp;'+
+								item.res_score/2 +
+								'</h4>'+
+								'</div>' +
+								'<div>'+
+								item.res_type +
+								'</div>'+
+								'<div>'+
+								item.res_info +
+								'</div>'
+								
+		        var infowindow = new kakao.maps.InfoWindow({
+		            content:contents // 인포윈도우에 표시할 내용
+		        });
+		        kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+		        kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+			    
+	}
+</script>
+	</main>
+</body>
+</html>

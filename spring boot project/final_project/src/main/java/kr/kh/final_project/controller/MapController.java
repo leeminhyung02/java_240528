@@ -37,4 +37,24 @@ public class MapController {
 		map.put("list", list);
 		return map;
 	}
+	
+	@GetMapping("/map/searchmap")
+	public String searchmap(String search, Model model ) {
+		System.out.println(search);
+		search = search.trim();
+		if(search == null || search == "") {
+			return "/index";
+		}
+		model.addAttribute("search",search);
+		return "/map/searchmap";
+	}
+	
+	@ResponseBody
+	@PostMapping("/map/searchmap")
+	public Map<String, Object> searchmapPost(){
+		List<RestaurantVO> list = restaurantService.show_Restaurant();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		return map;
+	}
 }
