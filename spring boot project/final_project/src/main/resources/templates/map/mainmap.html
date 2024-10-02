@@ -4,7 +4,7 @@
 	layout:decorate="~{layout/layout.html}">
 <head>
 <script type="text/javascript"
-	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=&libraries=services,clusterer,drawing">
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=38513afee0368b5f007034449fd9e220&libraries=services,clusterer,drawing">
 		</script>
 <style>
 
@@ -150,8 +150,8 @@
 				<span id="centerAddr"></span>
 			</div>
 		</div>
-		<div class="container ml-0">
-			<div style="width: 90%; height: 300px; position: relative; ">
+		<div class="container m-0 p-0 min-vw-100">
+			<div style="width: 75%; height: 300px; position: relative; ">
 				<table class="table table-hover">
 					<thead>
 						<tr>
@@ -180,7 +180,7 @@
 				var container = document.getElementById('map');
 				var options = { //37.49923299038047, 127.0327758638022
 					center: new kakao.maps.LatLng(lat, lng),
-					level: 4
+					level: 5
 				};
 				var map = new kakao.maps.Map(container, options);
 				var geocoder = new kakao.maps.services.Geocoder();
