@@ -25,7 +25,9 @@ public class ResController {
 	
 	@GetMapping("/res/detail/{res_id}")
 	public String detail(Model model,@PathVariable int res_id) {
+		//음식점 정보를 가져옴
 		RestaurantVO res = restaurantService.getRes(res_id);
+		//해당 음식점의 리뷰정보(리스트)를 가져옴
 		List<ReviewVO> rev = reviewService.getRev(res_id);
 		System.out.println(rev);
 		model.addAttribute("res", res);
