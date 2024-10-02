@@ -7,6 +7,12 @@
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=&libraries=services,clusterer,drawing">
 		</script>
 <style>
+
+.title {
+	font-weight: bold;
+	display: block;
+}
+
 .wrap {
 	position: absolute;
 	left: 0;
@@ -41,13 +47,18 @@
 	box-shadow: 0px 1px 2px #888;
 }
 
-.info .close {
+.info .score {
 	position: absolute;
-	top: 5px;
-	right: 20px;
+	top: -3px;
+	right: 22px;
 	color: #5085BB;
 	width: 17px;
 	height: 17px;
+	font-size: 24px;
+}
+
+.info .close:hover {
+	cursor: pointer;
 }
 
 .info .title {
@@ -94,15 +105,53 @@
 	width: 22px;
 	height: 12px;
 }
+
+.map_wrap {
+	position: relative;
+	width: 100%;
+	height: 500px;
+}
+
+
+.hAddr {
+	position: absolute;
+	left: 10px;
+	top: 10px;
+	border-radius: 2px;
+	background: #fff;
+	background: rgba(255, 255, 255, 0.8);
+	z-index: 1;
+	padding: 5px;
+}
+
+#centerAddr {
+	display: block;
+	margin-top: 2px;
+	font-weight: normal;
+}
+
+.bAddr {
+	padding: 5px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
 </style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
 	<main layout:fragment="content">
-		<div id="map" style="width: 100%; height: 500px;"></div>
-		<div class="container">
-			<div style="width: 100%; height: 300px;">
+		<div class="map_wrap">
+			<div id="map"
+				style="width: 100%; height: 500px; position: relative; overflow: hidden;"></div>
+			<div class="hAddr">
+				<span class="title">현재 내 위치</span> 
+				<span id="centerAddr"></span>
+			</div>
+		</div>
+		<div class="container ml-0">
+			<div style="width: 90%; height: 300px; position: relative; ">
 				<table class="table table-hover">
 					<thead>
 						<tr>
@@ -111,16 +160,6 @@
 							<th>정보</th>
 						</tr>
 					</thead>
-					<!-- 					<tbody th:each="item : ${list}">
-						<tr th:if="${item.res_id == 1}">
-							<td th:text="${item.res_name}"></td>
-							<td th:text="${item.res_score/2.0}"></td>
-							<td th:text="${item.res_type}"></td>
-						</tr>
-						<tr th:if="${item.res_id == 1}">
-							<td colspan="3" th:text="${item.res_banner}">
-						</tr>
-					</tbody>  -->
 					<tbody id="res_list_table">
 					</tbody>
 				</table>
@@ -139,12 +178,39 @@
 			    const lng = pos.coords.longitude;
 			    console.log(`현위치 : ${lat}, ${lng}`);
 				var container = document.getElementById('map');
-				var options = {
-					center: new kakao.maps.LatLng(37.49923299038047, 127.0327758638022),
+				var options = { //37.49923299038047, 127.0327758638022
+					center: new kakao.maps.LatLng(lat, lng),
 					level: 4
 				};
 				var map = new kakao.maps.Map(container, options);
 				var geocoder = new kakao.maps.services.Geocoder();
+				function searchAddrFromCoords(coords, callback) {
+				    // 좌표로 행정동 주소 정보를 요청합니다
+				    geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);         
+				}
+				function displayCenterInfo(result, status) {
+				    if (status === kakao.maps.services.Status.OK) {
+				        var infoDiv = document.getElementById('centerAddr');
+
+				        for(var i = 0; i < result.length; i++) {
+				            // 행정동의 region_type 값은 'H' 이므로
+				            if (result[i].region_type === 'H') {
+				                infoDiv.innerHTML = result[i].address_name;
+				                break;
+				            }
+				        }
+						 var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+					        var imageSize = new kakao.maps.Size(24, 35);
+					        var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+					        var marker = new kakao.maps.Marker({
+					            map: map,
+					            position: map.getCenter(),
+				            	image : markerImage
+					        }); 
+				    }    
+				}
+				searchAddrFromCoords(map.getCenter(), displayCenterInfo);
+
 				function makeOverListener(map, marker, infowindow) {
 				    return function() {
 				        infowindow.open(map, marker);
@@ -174,12 +240,15 @@
 							        if(result[0].y < lat +0.01 && result[0].y > lat -0.01 && result[0].x < lng +0.01 && result[0].x > lng - 0.01){
 							        // 결과값으로 받은 위치를 마커로 표시합니다
 							    	display(item, coords, map, makeOverListener, makeOutListener)
-								    
+								    function link_res() {
+										
+									}
 							        var row = '<tr>'+
 							        			'<td>'+item.res_name+'</td>'+
 							        			'<td>'+item.res_score/2.0+'</td>'+
 							        			'<td>'+item.res_type+'</td>'+
 							        			'</tr>'
+							        			;
 							        table.innerHTML += row
 							    	}
 						    	}	
@@ -211,7 +280,7 @@
 	   		'<div class="info">'+
 				'<div class="title res_name">'+
 					item.res_name +
-					'<div class="close">'+
+					'<div class="score">'+
 						item.res_score/2 +
 					'</div>'+	
 				'</div>'+
@@ -226,19 +295,32 @@
 					'<hr class="hr_body">'+
 					'<div class="desc jibun">'+
 						item.address +
-					'</div>'
+					'</div>'+
 				'</div>'+
 			'</div>'+
-		'</div>'
-			
+		'</div>';
 		var customOverlay = new kakao.maps.CustomOverlay({
-		clickable: true,
 		content:contents,
 		position: coords,
 		});
-		kakao.maps.event.addListener(marker, 'mouseover', function(){customOverlay.setMap(map);});
-		kakao.maps.event.addListener(marker, 'mouseout', function(){customOverlay.setMap(null);});
+		kakao.maps.event.addListener(marker, 'mouseover', function() {
+		    showOverlay();
+	    });
+	    kakao.maps.event.addListener(marker, 'mouseout', function(){
+	    	closeOverlay();
+	    });		
+	    kakao.maps.event.addListener(marker, 'click', function(){
+	    	location.href="/res/detail/" + item.res_id;
+	    });
+	    
+		function showOverlay(){
+			customOverlay.setMap(map);
 		}
+		function closeOverlay(){
+			customOverlay.setMap(null);
+		}
+
+	}
 		</script>
 	</main>
 </body>

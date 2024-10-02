@@ -17,7 +17,11 @@ public class RestaurantService {
 	private RestaurantDAO RestaurantDao;
 
 	public List<RestaurantVO> show_Restaurant() {
-		return RestaurantDao.selectRestaurant();
+		return RestaurantDao.selectRestaurant_list();
+	}
+
+	public RestaurantVO getRes(int res_id) {
+		return RestaurantDao.selectRestaurant(res_id);
 	}
 
 }
