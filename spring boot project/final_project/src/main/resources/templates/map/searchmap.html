@@ -193,7 +193,7 @@
 			        });
 			        // 인포윈도우로 장소에 대한 설명을 표시합니다
 			        var infowindow = new kakao.maps.InfoWindow({
-			            content: '<div style="width:50px;text-align:center;padding:0px 0;">검색 지점</div>',
+			            content: '<div>검색 지점</div>',
 			        });
 			        kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
 			        kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));

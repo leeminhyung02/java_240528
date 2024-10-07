@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.kh.final_project.model.vo.RestaurantVO;
-import kr.kh.final_project.service.RestaurantService;
+import kr.kh.final_project.service.Restaurantservice;
 
 @Controller
 public class MapController {
 	
 	@Autowired
-	private RestaurantService restaurantService;
+	private Restaurantservice restaurantService;
 	
 	
 	@GetMapping("/map/mainmap")
@@ -45,6 +45,7 @@ public class MapController {
 		if(search == null || search == "") {
 			return "/index";
 		}
+		//로그인 했으면 db에 검색목록 저장
 		model.addAttribute("search",search);
 		return "/map/searchmap";
 	}

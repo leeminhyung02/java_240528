@@ -11,7 +11,7 @@ import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
-public class RestaurantService {
+public class Restaurantservice {
 
 	@Autowired
 	private RestaurantDAO RestaurantDao;

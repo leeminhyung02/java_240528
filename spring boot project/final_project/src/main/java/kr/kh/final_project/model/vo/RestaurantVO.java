@@ -11,7 +11,7 @@ public class RestaurantVO {
 	private String address; 
 	private String res_name; 
 	private String res_type; 
-	private int res_score;
+	private float res_score;
 	private boolean permission; 
 	private String res_info; 
 	private String res_banner; 
