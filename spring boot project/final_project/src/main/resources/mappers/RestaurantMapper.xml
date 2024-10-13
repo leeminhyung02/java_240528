@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.kh.final_project.dao.RestaurantDAO">
+	<select id="selectRestaurant_list" resultType="RestaurantVO">
+		select * from restaurant;
+	</select>
+	<select id="selectRestaurant" resultType="RestaurantVO">
+		select * from restaurant
+		where res_id = #{res_id}
+	</select>
+</mapper>

@@ -20,6 +20,7 @@ public class MessageFormatEx01 {
 		String format3 = "{0}학년 {2}반 {1}번 {3}";
 		String result3 = MessageFormat.format(format3, grade,classNum,num,name);
 		System.out.println(result3);
+		
 	}
 
 }

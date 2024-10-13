@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title th:replace="this :: title">Default Title</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+    <header th:fragment="header">
+		<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+		<div class="collapse navbar-collapse justify-content-end">
+	  		<th:block sec:authorize="isAnonymous()"> 
+				<a class="btn btn-primary mr-2" th:href="@{/user/signup}">회원가입</a>
+				<a class="btn btn-primary mr-2" th:href="@{/user/login}">로그인</a>
+			</th:block>
+			<th:block sec:authorize="hasAuthority('ADMIN')">
+				관리자
+			</th:block>
+			<th:block sec:authorize="hasAuthority('USER')">
+				사용자
+			</th:block>
+			<th:block sec:authorize="hasAuthority('BIZ')">
+				사업자
+			</th:block>
+			<th:block sec:authorize="isAuthenticated()">
+				<a class="btn btn-primary mr-2" th:href="@{/user/logout}">로그아웃</a>
+			</th:block>
+			<form class="form-inline" th:action="@{/map/searchmap}" method="get">
+				<input class="form-control mr-1" type="text" name="search" placeholder="주소 검색">
+				<button class="btn btn-success mr-2" type="submit">검색</button>
+			</form>
+				<a class="btn btn-info" th:href="@{/map/mainmap}">내 위치로 찾기</a>
+		</div>
+		</nav>
+    </header>
+</body>
+</html>
