@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.kh.final_project.dao.Search_historyDAO">
+	<insert id="insert_SH">
+		insert into search_history(User_id, s_history)
+		values(#{username}, #{search});
+	</insert>
+	<select id="is_searched" resultType="Search_historyVO">
+		select * from search_history
+		where User_id = #{username} and s_history = #{search}	
+	</select>
+	<update id="update_SH">
+		update search_history
+			set his_date = now()
+			where User_id = #{username} and s_history = #{search}
+	</update>
+</mapper>

@@ -12,6 +12,13 @@ import kr.kh.final_project.model.vo.RestaurantVO;
 import kr.kh.final_project.model.vo.ReviewVO;
 import kr.kh.final_project.service.Restaurantservice;
 import kr.kh.final_project.service.ReviewService;
+import kr.kh.final_project.service.UserService;
+
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+
 
 
 @Controller
@@ -22,6 +29,9 @@ public class ResController {
 	
 	@Autowired
 	private ReviewService reviewService;
+	
+	@Autowired
+	private UserService userService;
 	
 	@GetMapping("/res/detail/{res_id}")
 	public String detail(Model model,@PathVariable int res_id) {
@@ -35,5 +45,26 @@ public class ResController {
 		System.out.println(res);
 		return "/res/detail";
 	}
-		
+	
+	@GetMapping("/res/rev/{res_id}")
+	public String writereview(Model model, @PathVariable int res_id) {
+		model.addAttribute("res_id", res_id);
+		return "/res/rev";
+	}
+	@PostMapping("/res/rev/{res_id}")
+	public String writereviewPost(ReviewVO review,@PathVariable int res_id) {
+		review.setRes_id(res_id);
+		if(reviewService.insertRev(review)) {
+			return "/map/mainmap";
+		}
+		return "/res/rev/" + res_id;
+	}
+	@GetMapping("/res/fav/{res_id}")
+	public String fav(Model model,String username, @PathVariable int res_id) {
+		if(userService.insert_fav(username, res_id)) {
+			model.addAttribute("res_id", res_id);
+		}
+		return "/res/fav";
+	}
+	
 }

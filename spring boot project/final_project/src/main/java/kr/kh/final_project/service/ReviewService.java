@@ -19,6 +19,10 @@ public class ReviewService {
 	public List<ReviewVO> getRev(int res_id) {
 		return reviewDao.select_all_review(res_id);
 	}
+
+	public boolean insertRev(ReviewVO review) {
+		return reviewDao.insertRev(review);
+	}
 	
 	
 }

@@ -5,4 +5,8 @@
 		select * from review
 		where res_id = #{res_id}
 	</select>
+	<insert id="insertRev">
+		insert into review(content, score, User_id, Res_id)
+		values(#{review.content}, #{review.score}, #{review.User_id}, #{review.Res_id})
+	</insert>
 </mapper>

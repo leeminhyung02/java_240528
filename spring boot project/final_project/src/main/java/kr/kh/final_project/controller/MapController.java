@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.kh.final_project.model.vo.RestaurantVO;
 import kr.kh.final_project.service.Restaurantservice;
+import kr.kh.final_project.service.UserService;
 
 @Controller
 public class MapController {
@@ -20,6 +21,8 @@ public class MapController {
 	@Autowired
 	private Restaurantservice restaurantService;
 	
+	@Autowired
+	private UserService userService;
 	
 	@GetMapping("/map/mainmap")
 	public String mainmap(Model model) {
@@ -39,13 +42,21 @@ public class MapController {
 	}
 	
 	@GetMapping("/map/searchmap")
-	public String searchmap(String search, Model model ) {
+	public String searchmap(String search,boolean is_login,String username, Model model ) {
 		System.out.println(search);
 		search = search.trim();
 		if(search == null || search == "") {
 			return "/index";
 		}
 		//로그인 했으면 db에 검색목록 저장
+		if(is_login) {
+			if(userService.insert_SH(username,search)) {
+				System.out.println("성공");
+			}
+			else {
+				System.out.println("실패");
+			}
+		}
 		model.addAttribute("search",search);
 		return "/map/searchmap";
 	}
