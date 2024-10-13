@@ -9,7 +9,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-import db.community.dao.MemberDAO;
 import db.community.dao.PostDAO;
 import db.community.model.vo.CommentVO;
 import db.community.model.vo.CommunityVO;

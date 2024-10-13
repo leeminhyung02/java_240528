@@ -68,3 +68,4 @@ target/
 
 config.properties
 application.properties
+/.metadata/
