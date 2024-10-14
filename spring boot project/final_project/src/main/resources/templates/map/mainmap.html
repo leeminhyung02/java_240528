@@ -3,8 +3,8 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/layout.html}">
 <head>
-<script type="text/javascript"
-	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=&libraries=services,clusterer,drawing">
+		<script type="text/javascript"
+	th:src="'//dapi.kakao.com/v2/maps/sdk.js?appkey='+${apikey}+'&libraries=services,clusterer,drawing}'">
 		</script>
 <style>
 
@@ -164,7 +164,7 @@
 					</tbody>
 				</table>
 			</div>
-			<div style="width: 20%;">
+			<div style="width: 20%; height: 300px; position: relative; ">
 				<table class="table table-hover">
 					<thead>
 						<tr>
@@ -172,14 +172,14 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td  th:each="item : ${items}"></td>
+						<tr th:each="item : ${sh}">
+							<td  th:text="${item.s_history}"></td>
+							<td  th:text="${item.his_date}"></td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 		</div>
-
 		<script th:inline="javascript">
 	
 	function displayMap() {

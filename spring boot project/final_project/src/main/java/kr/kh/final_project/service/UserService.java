@@ -1,11 +1,14 @@
 package kr.kh.final_project.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import kr.kh.final_project.dao.Search_historyDAO;
 import kr.kh.final_project.dao.UserDAO;
+import kr.kh.final_project.model.vo.FavoritesVO;
 import kr.kh.final_project.model.vo.Search_historyVO;
 import kr.kh.final_project.model.vo.UserVO;
 import lombok.AllArgsConstructor;
@@ -44,5 +47,20 @@ public class UserService {
 
 	public boolean insert_fav(String username, int res_id) {
 		return userDao.insert_fav(username, res_id);
+	}
+
+	public List<Search_historyVO> get_SH(String user_id) {
+		return userDao.select_SH(user_id);
+		
+	}
+
+	public boolean is_fav(String username, int res_id) {
+		List<FavoritesVO> fav_list = userDao.get_fav(username);
+		for(FavoritesVO fav : fav_list) {
+			if(fav.getRes_id() == res_id && fav.getUser_id().equals(username)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

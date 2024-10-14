@@ -13,4 +13,8 @@
 		insert into favorites(User_id, Res_id)
 		values(#{User_id}, #{res_id})
 	</insert>
+	<select id="select_SH" resultType="Search_historyVO">
+		select * from search_history
+		where User_id = #{User_id}
+	</select>
 </mapper>

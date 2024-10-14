@@ -3,11 +3,13 @@ package kr.kh.final_project.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import kr.kh.final_project.model.util.CustomUser;
 import kr.kh.final_project.model.vo.RestaurantVO;
 import kr.kh.final_project.model.vo.ReviewVO;
 import kr.kh.final_project.service.Restaurantservice;
@@ -34,11 +36,19 @@ public class ResController {
 	private UserService userService;
 	
 	@GetMapping("/res/detail/{res_id}")
-	public String detail(Model model,@PathVariable int res_id) {
+	public String detail(Model model,@PathVariable int res_id, @AuthenticationPrincipal CustomUser userDatails) {
 		//음식점 정보를 가져옴
 		RestaurantVO res = restaurantService.getRes(res_id);
 		//해당 음식점의 리뷰정보(리스트)를 가져옴
 		List<ReviewVO> rev = reviewService.getRev(res_id);
+		//즐겨찾기 했는지 안했는지를 가져옴 true/false
+		String username = userDatails.getMember().getUser_id();
+		boolean result = false;
+		if(userService.is_fav(username,res_id)) {
+			result = true;
+			model.addAttribute("result",result);
+		}
+		model.addAttribute("result",result);
 		System.out.println(rev);
 		model.addAttribute("res", res);
 		model.addAttribute("rev", rev);
