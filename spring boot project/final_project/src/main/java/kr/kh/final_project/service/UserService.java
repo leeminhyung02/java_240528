@@ -51,7 +51,6 @@ public class UserService {
 
 	public List<Search_historyVO> get_SH(String user_id) {
 		return userDao.select_SH(user_id);
-		
 	}
 
 	public boolean is_fav(String username, int res_id) {
@@ -62,5 +61,13 @@ public class UserService {
 			}
 		}
 		return false;
+	}
+
+	public boolean delete_fav(String username, int res_id) {
+		return userDao.delete_fav(username, res_id);
+	}
+
+	public List<FavoritesVO> get_favlist(String username) {
+		return userDao.get_fav(username);
 	}
 }

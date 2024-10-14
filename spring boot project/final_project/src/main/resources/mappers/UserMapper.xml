@@ -17,4 +17,12 @@
 		select * from search_history
 		where User_id = #{User_id}
 	</select>
+	<select id="get_fav" resultType="FavoritesVO">
+		select * from favorites
+		where User_id = #{User_id}
+	</select>
+	<delete id="delete_fav">
+		delete from favorites
+		where User_id = #{User_id} and res_id = #{res_id}
+	</delete>
 </mapper>

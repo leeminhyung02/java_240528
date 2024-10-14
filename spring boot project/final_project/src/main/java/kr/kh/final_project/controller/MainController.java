@@ -13,7 +13,6 @@ public class MainController {
 	
 	@GetMapping("/")
 	public String main(Model model) {
-		System.out.println(kakaoAppKey);
 		model.addAttribute("apikey",kakaoAppKey);
 		return "/map/mainmap";
 	}

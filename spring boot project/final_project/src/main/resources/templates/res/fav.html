@@ -11,7 +11,13 @@
 	<main layout:fragment="content">
 		<script type="text/javascript">
 			var res_id = [[${res_id}]];
-			alert('즐겨찾기등록 성공');
+			var result = [[${result}]];
+			if(result){
+				alert("즐겨찾기삭제 성공");
+			}
+			else{
+				alert("즐겨찾기등록 성공");
+			} 
 		  	location.href = "/res/detail/" + res_id;
 		</script>
 	</main>

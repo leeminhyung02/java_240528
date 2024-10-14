@@ -12,4 +12,18 @@ public class AdminController {
 		return "/admin/de";
 	}
 	
+	@GetMapping("/admin/res")
+	public String adminres() {
+		return "/admin/res";
+	}
+	
+	@GetMapping("/admin/rev")
+	public String adminrev() {
+		return "/admin/rev";
+	}
+	
+	@GetMapping("/admin/user")
+	public String adminuser() {
+		return "/admin/user";
+	}
 }

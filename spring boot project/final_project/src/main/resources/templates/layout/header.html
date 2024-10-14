@@ -19,6 +19,7 @@
 			</th:block>
 			<th:block sec:authorize="hasAuthority('USER')">
 				사용자
+				<a class="btn btn-primary mr-2" th:href="@{/res/favList}">즐겨찾기</a>
 			</th:block>
 			<th:block sec:authorize="hasAuthority('BIZ')">
 				<a class="btn btn-primary mr-2" th:href="@{/biz/de}">사업자</a>

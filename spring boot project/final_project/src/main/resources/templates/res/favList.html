@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout.html}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body >
+	<main layout:fragment="content">
+	<h1>즐겨찾기 리스트</h1>
+	 <table class="table">
+    <thead>
+    	<tr>
+			<th>이름</th>    	
+			<th>정보</th>    	
+			<th>위치</th>    	
+			<th>평점</th>    	
+    	</tr>
+    </thead>
+    <tbody>
+   		<tr th:each="item : ${Res_list}">
+			<td  th:text="${item.res_name}"></td>
+			<td  th:text="${item.res_info}"></td>
+			<td  th:text="${item.address}"></td>
+			<td  th:text="${item.res_score}"></td>
+		</tr>
+    </tbody>
+  </table>
+	</main>
+</body>
+</html>

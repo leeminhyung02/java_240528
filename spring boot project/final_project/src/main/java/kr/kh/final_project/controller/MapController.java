@@ -34,7 +34,6 @@ public class MapController {
 	@GetMapping("/map/mainmap")
 	public String mainmap(Model model, @AuthenticationPrincipal CustomUser userDatails) {
 		model.addAttribute("apikey",kakaoAppKey);
-		System.out.println(kakaoAppKey);
 		if(userDatails != null) {
 			System.out.println(userDatails.getMember().getUser_id());
 			//해당 사용자의 최근 검색어를 가져와서 뿌림

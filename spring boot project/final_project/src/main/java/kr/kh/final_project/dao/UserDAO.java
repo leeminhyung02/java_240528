@@ -20,5 +20,7 @@ public interface UserDAO {
 
 	List<FavoritesVO> get_fav(@Param("User_id")String User_id);
 
+	boolean delete_fav(@Param("User_id")String User_id, @Param("res_id")int res_id);
+
 	
 }
