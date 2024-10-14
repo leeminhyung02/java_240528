@@ -11,7 +11,7 @@
 <body>
 	<main layout:fragment="content">
 		<h1>관리자페이지</h1>
-		<h3>미승인 음식점 리스트</h3>
+		<h3>음식점 리스트</h3>
 		<table class="table">
     <thead>
     	<tr>
@@ -19,7 +19,7 @@
 			<th>id</th>    	
 			<th>위치</th>    	
 			<th>평점</th>
-			<th colspan="2">승인정보(0-미승인/1-승인)</th>    	
+			<th colspan="3">승인정보(0-미승인/1-승인)</th>    	
     	</tr>
     </thead>
     <tbody>
@@ -30,6 +30,7 @@
 			<td  th:text="${item.res_score/2}"></td>
 			<td  th:text="${item.permission}"></td>
 			<td><a class="btn btn-primary mr-2" th:href="@{/admin/per/{res_id}(res_id=${item.res_id})}">승인</a></td>
+			<td><a class="btn btn-danger mr-2" th:href="@{/admin/per2/{res_id}(res_id=${item.res_id})}">미승인</a></td>
 		</tr>
     </tbody>
   </table>

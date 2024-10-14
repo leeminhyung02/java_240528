@@ -24,4 +24,22 @@ public class Restaurantservice {
 		return RestaurantDao.selectRestaurant(res_id);
 	}
 
+
+	public List<RestaurantVO> getRes_per_no() {
+		return RestaurantDao.selectRestaurant_list_no_per();
+	}
+
+	public void updatepermission(int res_id) {
+		RestaurantDao.updatepermission(res_id);
+		
+	}
+
+	public List<RestaurantVO> getResall() {
+		return RestaurantDao.selectRestaurant_list();
+	}
+
+	public void updatepermission2(int res_id) {
+		RestaurantDao.updatepermission2(res_id);
+	}
+
 }

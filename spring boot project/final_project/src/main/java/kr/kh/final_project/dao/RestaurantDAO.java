@@ -10,5 +10,11 @@ public interface RestaurantDAO {
 
 	RestaurantVO selectRestaurant(int res_id);
 
+	List<RestaurantVO> selectRestaurant_list_no_per();
+
+	void updatepermission(int res_id);
+
+	void updatepermission2(int res_id);
+
 	
 }
