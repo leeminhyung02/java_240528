@@ -12,5 +12,9 @@ public interface ReviewDAO {
 
 	boolean insertRev(@Param("review")ReviewVO review);
 
+	ReviewVO select_review(int rev_id);
+
+	boolean updateRevAll();
+
 	
 }

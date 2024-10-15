@@ -26,7 +26,7 @@
 			<div>
 				<h4 th:text="'리뷰'"></h4>
 				<div th:each="item : ${rev}" >
-					<div th:text="${item.score}"></div>
+					<div th:text="${item.score/2.0}"></div>
 					<div th:text="${item.content}"></div>
 				</div>
 			</div>

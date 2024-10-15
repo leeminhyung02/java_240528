@@ -9,4 +9,13 @@
 		insert into review(content, score, User_id, Res_id)
 		values(#{review.content}, #{review.score}, #{review.User_id}, #{review.Res_id})
 	</insert>
+	<select id="select_review" resultType="ReviewVO">
+		select * from review
+		where Rev_id = #{rev_id}
+	</select>
+	<update id="updateRevAll">
+		update restaurant , (select res_id, avg(score) as score_avg from review group by Res_id) as rev
+		set restaurant.res_score = rev.score_avg
+	    where restaurant.res_id = rev.res_id
+	</update>
 </mapper>

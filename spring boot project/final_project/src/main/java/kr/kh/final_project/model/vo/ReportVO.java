@@ -5,11 +5,11 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class ReviewVO {
+public class ReportVO {
 
 	private int Rev_id; 
-	private String content; 
-	private float score; 
-	private String User_id; 
-	private int Res_id;
+	private String rep_reason; 
+	private boolean res_state;
+	private String rev_content;
+	private boolean rep_result;
 }

@@ -57,9 +57,8 @@ public class ResController {
 	public String writereviewPost(ReviewVO review, @PathVariable int res_id) {
 		review.setRes_id(res_id);
 		if (reviewService.insertRev(review)) {
-			return "/map/mainmap";
 		}
-		return "/res/rev/" + res_id;
+		return "/map/mainmap";
 	}
 
 	@GetMapping("/res/fav/{res_id}")
