@@ -1,6 +1,5 @@
 package kr.kh.final_project.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,11 +38,16 @@ public class BizController {
 	}
 	
 	@PostMapping("/biz/reg")
-	public String regesterbizPost(RestaurantVO res, @AuthenticationPrincipal CustomUser userDatails) {
+	public String regesterbizPost(Model model, RestaurantVO res, @AuthenticationPrincipal CustomUser userDatails) {
 		String User_id = userDatails.getMember().getUser_id();
+		String say = "등록에 실패했습니다.";
+		String link = "/biz/de";
 		if(restaurantService.insertRes(res, User_id)) {
+			say = "등록하였습니다";
 		}
-		return "/biz/de";
+		model.addAttribute("say", say);
+		model.addAttribute("link", link);
+		return "/message";
 	}
 	
 	@GetMapping("/biz/manage")
@@ -75,9 +79,10 @@ public class BizController {
 	}
 	
 	@PostMapping("/biz/report/{rev_id}")
-	public String postreport_rev(Model model) {
+	public String postreport_rev(Model model, String reason) {
 		String link = "/map/mainmap";
-		String say = "말";
+		String say = "신고처리했습니다.";
+		System.out.println(reason);
 		model.addAttribute("say",say);
 		model.addAttribute("link",link);
 		return "/message";
