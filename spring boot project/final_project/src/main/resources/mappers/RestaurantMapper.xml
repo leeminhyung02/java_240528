@@ -2,15 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.kh.final_project.dao.RestaurantDAO">
 	<select id="selectRestaurant_list" resultType="RestaurantVO">
-		select * from restaurant;
+		select * from restaurant
+		where permission = 1
 	</select>
 	<select id="selectRestaurant" resultType="RestaurantVO">
 		select * from restaurant
 		where res_id = #{res_id}
 	</select>
-	<select id="selectRestaurant_list_no_per" resultType="RestaurantVO">
+	<select id="selectRestaurant_list_all" resultType="RestaurantVO">
 		select * from restaurant
-		where permission = 0
 	</select>
 	<update id="updatepermission">
 		update restaurant
@@ -22,4 +22,12 @@
 			set permission = 0
 			where res_id = #{res_id}
 	</update>
+	<insert id="insertRes">
+		insert into restaurant(address, res_name, res_type, res_score, permission, res_info, res_banner, User_id)
+		values(#{res.address}, #{res.res_name}, #{res.res_type}, #{res.res_score}, false, #{res.res_info}, #{res.res_banner}, #{user_id})
+	</insert>
+	<select id="selectRestaurant_list_user" resultType="RestaurantVO">
+		select * from restaurant
+		where User_id = #{user_id}
+	</select>
 </mapper>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	layout:decorate="~{layout/layout.html}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<main layout:fragment="content">
+		<h1>사업자페이지</h1>
+		<h3>
+		리뷰 신고
+		</h3>
+		<div>내용</div>
+		<div th:text="${rev.content}"></div>
+		<div>점수</div>
+		<div th:text="${rev.score}"></div>
+		<form th:action="@{/biz/report/{rev_id}(rev_id=${rev.Rev_id})}" method="post">
+		<div>신고사유</div>
+			<input type="text" placeholder="신고사유">
+			<button class="btn btn-primary" type="submit">제출</button>
+		</form>
+	</main>
+</body>
+</html>

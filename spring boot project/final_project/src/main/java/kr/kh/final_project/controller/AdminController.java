@@ -32,7 +32,7 @@ public class AdminController {
 	
 	@GetMapping("/admin/res")
 	public String adminres(Model model) {
-		List<RestaurantVO> resList = restaurantService.getResall();
+		List<RestaurantVO> resList = restaurantService.getRes_all();
 		model.addAttribute("resList",resList);
 		return "/admin/res";
 	}

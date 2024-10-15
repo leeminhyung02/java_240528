@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	layout:decorate="~{layout/layout.html}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<main layout:fragment="content">
+		<h1>사업자페이지</h1>
+		<div th:text="'고유번호:'+${res.Res_id}"></div>
+		<div th:text="'주소:'+${res.address}"></div>
+		<div th:text="'가게이름:'+${res.res_name}"></div>
+		<div th:text="'종류:'+${res.res_type}"></div>
+		<div th:text="'평점:'+${res.res_score/2.0}"></div>
+		<a class="btn btn-primary mr-2" th:href="@{/biz/show_rev/{res_id}(res_id=${res.Res_id})}">리뷰 보기</a>
+		<div th:text="'메뉴:'+${res.res_info}"></div>
+		<a class="btn btn-primary mr-2" th:href="@{/biz/addmenu}">메뉴 설정</a>
+		<div th:text="'배너:'+${res.res_banner}"></div>
+		<a class="btn btn-primary mr-2" th:href="@{/biz/chbanner}">배너 변경</a>
+		<div th:text="'사업자ID:'+${res.User_id}"></div>
+		<a class="btn btn-primary mr-2" th:href="@{/biz/de}">사업자 홈</a>
+	</main>
+</body>
+</html>

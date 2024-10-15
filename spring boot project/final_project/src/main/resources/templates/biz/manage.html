@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	layout:decorate="~{layout/layout.html}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<main layout:fragment="content">
+		<h1>사업자페이지</h1>
+		<h4 >가게 목록</h4>
+		<div th:each="item : ${res_list}">
+	   	 	<a class="btn btn-primary ml-2" th:href="@{/biz/manage_detail/{res_id}(res_id=${item.res_id})}" th:text="${item.res_name}"></a>
+	   	 		<div class="ml-2" th:if="${item.permission}" style="font-weight: bold; color: green;" >승인</div>
+	   	 		<div class="ml-2" th:unless="${item.permission}"  style="font-weight: bold; color:  red; ">미승인</div>
+	   	 	
+   	 	</div>
+	</main>
+</body>
+</html>

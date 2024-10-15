@@ -25,8 +25,8 @@ public class Restaurantservice {
 	}
 
 
-	public List<RestaurantVO> getRes_per_no() {
-		return RestaurantDao.selectRestaurant_list_no_per();
+	public List<RestaurantVO> getRes_all() {
+		return RestaurantDao.selectRestaurant_list_all();
 	}
 
 	public void updatepermission(int res_id) {
@@ -34,12 +34,16 @@ public class Restaurantservice {
 		
 	}
 
-	public List<RestaurantVO> getResall() {
-		return RestaurantDao.selectRestaurant_list();
-	}
-
 	public void updatepermission2(int res_id) {
 		RestaurantDao.updatepermission2(res_id);
+	}
+
+	public boolean insertRes(RestaurantVO res, String user_id) {
+		return RestaurantDao.insertRes(res, user_id);
+	}
+
+	public List<RestaurantVO> getRes_user(String user_id) {
+		return RestaurantDao.selectRestaurant_list_user(user_id);
 	}
 
 }
