@@ -30,12 +30,12 @@ public class Restaurantservice {
 	}
 
 	public void updatepermission(int res_id) {
-		RestaurantDao.updatepermission(res_id);
+		RestaurantDao.updatepermission_true(res_id);
 		
 	}
 
 	public void updatepermission2(int res_id) {
-		RestaurantDao.updatepermission2(res_id);
+		RestaurantDao.updatepermission_false(res_id);
 	}
 
 	public boolean insertRes(RestaurantVO res, String user_id) {

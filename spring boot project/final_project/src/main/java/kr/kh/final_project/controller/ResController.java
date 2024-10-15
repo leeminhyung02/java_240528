@@ -54,27 +54,38 @@ public class ResController {
 	}
 
 	@PostMapping("/res/rev/{res_id}")
-	public String writereviewPost(ReviewVO review, @PathVariable int res_id) {
+	public String writereviewPost(Model model, ReviewVO review, @PathVariable int res_id) {
 		review.setRes_id(res_id);
+		String say = "리뷰 작성에 오류가 발생했습니다.";
+		String link = "/map/mainmap";
 		if (reviewService.insertRev(review)) {
+			say = "리뷰를 작성하였습니다.";
 		}
-		return "/map/mainmap";
+		model.addAttribute("say", say);
+		model.addAttribute("link", link);
+		return "/message";
 	}
 
 	@GetMapping("/res/fav/{res_id}")
 	public String fav(Model model, @PathVariable int res_id, @AuthenticationPrincipal CustomUser userDatails) {
 		String username = userDatails.getMember().getUser_id();
+		//즐겨찾기가 되있으면
+		//즐찾삭제, 아니면 추가
 		boolean isfav = userService.is_fav(username, res_id);
+		String say = "";
 		if (isfav) {
 			if (userService.delete_fav(username, res_id)) {
+				say = "즐겨찾기삭제 성공";
 			}
 		} else{
 			if (userService.insert_fav(username, res_id)) {
+				say = "즐겨찾기추가 성공";
 			}
 		}
-		model.addAttribute("result", isfav);
-		model.addAttribute("res_id", res_id);
-		return "/res/fav";
+		String link = "/res/detail/" + res_id;
+		model.addAttribute("say", say);
+		model.addAttribute("link", link);
+		return "/message";
 	}
 	
 	@GetMapping("/res/favList")		

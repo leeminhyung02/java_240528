@@ -38,13 +38,20 @@ public class AdminController {
 	}
 	@GetMapping("/admin/per/{res_id}")
 	public String permission(Model model, @PathVariable int res_id) {
-		restaurantService.updatepermission(res_id);
-		return "/admin/per";
-	}
-	@GetMapping("/admin/per2/{res_id}")
-	public String permission2(Model model, @PathVariable int res_id) {
-		restaurantService.updatepermission2(res_id);
-		return "/admin/per2";
+		RestaurantVO res = restaurantService.getRes(res_id);
+		String say = "";
+		String link = "/admin/res";
+		if(res.isPermission()) {
+			restaurantService.updatepermission2(res_id);
+			say = "미승인처리하였습니다";
+		}
+		else {
+			restaurantService.updatepermission(res_id);
+			say = "승인처리하였습니다.";
+		}
+		model.addAttribute("say", say);
+		model.addAttribute("link", link);
+		return "/message";
 	}
 	
 	@GetMapping("/admin/rev")

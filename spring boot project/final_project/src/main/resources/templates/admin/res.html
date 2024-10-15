@@ -30,7 +30,7 @@
 			<td  th:text="${item.res_score}"></td>
 			<td  th:text="${item.permission}"></td>
 			<td th:unless="${item.permission}"><a class="btn btn-primary mr-2" th:href="@{/admin/per/{res_id}(res_id=${item.res_id})}">승인</a></td>
-			<td th:if="${item.permission}"><a class="btn btn-danger mr-2" th:href="@{/admin/per2/{res_id}(res_id=${item.res_id})}">미승인</a></td>
+			<td th:if="${item.permission}"><a class="btn btn-danger mr-2" th:href="@{/admin/per/{res_id}(res_id=${item.res_id})}">미승인</a></td>
 		</tr>
     </tbody>
   </table>

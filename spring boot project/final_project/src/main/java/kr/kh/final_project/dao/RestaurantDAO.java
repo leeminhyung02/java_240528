@@ -14,9 +14,11 @@ public interface RestaurantDAO {
 
 	List<RestaurantVO> selectRestaurant_list_all();
 
-	void updatepermission(int res_id);
+	//true로 바꾸기
+	void updatepermission_true(int res_id);
 
-	void updatepermission2(int res_id);
+	//false로 바꾸기
+	void updatepermission_false(int res_id);
 
 	boolean insertRes(@Param("res")RestaurantVO res, @Param("user_id")String user_id);
 
