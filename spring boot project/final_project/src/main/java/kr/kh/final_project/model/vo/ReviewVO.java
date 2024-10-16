@@ -12,4 +12,6 @@ public class ReviewVO {
 	private float score; 
 	private String User_id; 
 	private int Res_id;
+	private boolean is_report;
+	private boolean report_result;
 }

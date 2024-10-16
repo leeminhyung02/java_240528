@@ -13,9 +13,21 @@
 		select * from review
 		where Rev_id = #{rev_id}
 	</select>
+	<update id="updateRev0">
+		update restaurant
+		set res_score = 0
+	</update>
 	<update id="updateRevAll">
-		update restaurant , (select res_id, avg(score) as score_avg from review group by Res_id) as rev
+		update restaurant , (select res_id, avg(score) as score_avg from review where report_result = 0 group by Res_id) as rev
 		set restaurant.res_score = rev.score_avg
 	    where restaurant.res_id = rev.res_id
+	</update>
+	<update id="updateRev">
+		update review
+		set content = #{review.content},
+			score = #{review.score},
+			is_report = #{review.is_report},
+			report_result = #{review.report_result}
+		where Rev_id = #{review.Rev_id}
 	</update>
 </mapper>

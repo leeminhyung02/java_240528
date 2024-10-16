@@ -56,14 +56,8 @@ public class AdminController {
 	
 	@GetMapping("/admin/rev")
 	public String adminrev(Model model) {
-		List<ReportVO> Rep_List = reviewService.getReport();
-		List<ReportVO> Rep_List2 = new ArrayList<ReportVO>();
-		for(ReportVO rep : Rep_List) {
-			ReviewVO rev = reviewService.getRev_rep(rep.getRev_id());
-			rep.setRev_content(rev.getContent());
-			Rep_List2.add(rep);
-		}
-		model.addAttribute("rep", Rep_List2);
+		List<ReportVO> rep_List = reviewService.getReport();
+		model.addAttribute("rep", rep_List);
 		return "/admin/rev";
 	}
 
@@ -72,6 +66,15 @@ public class AdminController {
 		//false는 유지 true는 삭제
 		String say = "삭제 처리했습니다.";
 		String link = "/admin/res";
+		ReportVO rep = reviewService.getReport_rev(rev_id); 
+		rep.setRep_result(true);
+		rep.setRes_state("처리 끝");
+		if(reviewService.update_rep(rep)) {
+			ReviewVO rev = reviewService.getRev_rep(rev_id);
+			rev.setReport_result(true);
+			if(reviewService.update_rev(rev)) {
+			}
+		}
 		model.addAttribute("say", say);
 		model.addAttribute("link", link);
 		return "/message";
@@ -85,7 +88,10 @@ public class AdminController {
 		rep.setRep_result(false);
 		rep.setRes_state("처리 끝");
 		if(reviewService.update_rep(rep)) {
-			
+			ReviewVO rev = reviewService.getRev_rep(rev_id);
+			rev.setReport_result(false);
+			if(reviewService.update_rev(rev)) {
+			}
 		}
 		model.addAttribute("say", say);
 		model.addAttribute("link", link);

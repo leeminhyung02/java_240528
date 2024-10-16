@@ -28,7 +28,8 @@ public class ReviewService {
 	public boolean insertRev(ReviewVO review) {
 		review.setScore(review.getScore()*2);
 		reviewDao.insertRev(review);
-		return reviewDao.updateRevAll();  
+		reviewDao.updateRev0();
+		return reviewDao.updateRevAll(); 
 	}
 
 	public List<ReportVO> getReport() {
@@ -51,6 +52,13 @@ public class ReviewService {
 
 	public boolean update_rep(ReportVO rep) {
 		return reportDao.update_report(rep);
+		
+	}
+
+	public boolean update_rev(ReviewVO rev) {
+		reviewDao.updateRev0();
+		reviewDao.updateRevAll();
+		return reviewDao.updateRev(rev);
 		
 	}
 

@@ -86,7 +86,12 @@ public class BizController {
 		String say = "신고처리를 못했습니다.";
 		System.out.println(reason);
 		if(reviewService.insertRep(rev_id, reason)) {
-			say = "신고처리를 했습니다.";
+			ReviewVO rev = reviewService.getRev_rep(rev_id);
+			rev.set_report(true);
+			if(reviewService.update_rev(rev)) {
+				say = "신고처리를 했습니다.";
+				
+			}
 		}
 		model.addAttribute("say",say);
 		model.addAttribute("link",link);

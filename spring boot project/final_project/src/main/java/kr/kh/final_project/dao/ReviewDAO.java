@@ -16,5 +16,7 @@ public interface ReviewDAO {
 
 	boolean updateRevAll();
 
-	
+	boolean updateRev(@Param("review")ReviewVO review);
+
+	boolean updateRev0();
 }
