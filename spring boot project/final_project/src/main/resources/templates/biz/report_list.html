@@ -10,22 +10,27 @@
 </head>
 <body>
 	<main layout:fragment="content">
+	<div class="container">
 		<h1>사업자페이지</h1>
-		<div>
-		- 음식점 등록(위치,종류,이름)(승인전)
-		</div>
-   	 	<a class="btn btn-primary mr-2" th:href="@{/biz/reg}">음식점 등록</a>
-   	 	<div>
-	    - 메뉴, 가격 등록
-	    - 리뷰답글
-	    - 이벤트등록가능
-	    - 부적절 리뷰 신고
-   	 	</div>
-	    <a class="btn btn-primary mr-2" th:href="@{/biz/manage}">음식점 관리</a>
-	    <div>
-	    - 부적절 리뷰 신고 결과
-	    </div>
-	    <a class="btn btn-primary mr-2" th:href="@{/biz/report_list}">신고 리뷰 내역</a>
+		<table class="table">
+		    <thead>
+		    	<tr>
+					<th colspan="1">리뷰 내용</th>    	
+					<th colspan="1">신고 사유</th>    	
+					<th colspan="1">접수 상태</th>    	
+					<th colspan="1">신고 결과</th>    	
+		    	</tr>
+		    </thead>
+		    <tbody>
+		   		<tr th:each="item : ${rep_list}">
+					<td  th:text="${item.rev_content}"></td>
+					<td  th:text="${item.rep_reason}"></td>
+					<td  th:text="${item.res_state}"></td>
+					<td  th:text="${item.rep_result}"></td>
+				</tr>
+		    </tbody>
+  		</table>
+  	</div>
 	</main>
 </body>
 </html>

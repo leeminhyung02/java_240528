@@ -30,4 +30,9 @@
 		select * from restaurant
 		where User_id = #{user_id}
 	</select>
+	<update id="update_Res">
+		update restaurant
+			set res_info = #{res.res_info}, res_banner = #{res.res_banner}
+			where Res_id = #{res.Res_id}
+	</update>
 </mapper>

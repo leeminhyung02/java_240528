@@ -46,4 +46,9 @@ public class Restaurantservice {
 		return RestaurantDao.selectRestaurant_list_user(user_id);
 	}
 
+	public boolean update_Res(RestaurantVO res) {
+		return RestaurantDao.update_Res(res);
+		
+	}
+
 }

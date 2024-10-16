@@ -9,6 +9,7 @@
 </head>
 <body >
 	<main layout:fragment="content">
+	<div class="container">
 		<h2>로그인</h2>
 		<form class="ml-3 w-25 border p-2" th:action="@{/user/login}" method="post">
 		  <div class="form-group">
@@ -26,6 +27,7 @@
 		  </div>
 		  <button type="submit" class="btn btn-primary col-12">로그인</button>
 		</form>
+		</div>
 	</main>
 </body>
 </html>

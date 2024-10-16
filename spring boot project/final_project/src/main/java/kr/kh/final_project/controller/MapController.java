@@ -59,11 +59,14 @@ public class MapController {
 	
 	@GetMapping("/map/searchmap")
 	public String searchmap(String search, Model model , @AuthenticationPrincipal CustomUser userDatails) {
-		System.out.println(search);
 		model.addAttribute("apikey",kakaoAppKey);
 		search = search.trim();
 		if(search == null || search == "") {
-			return "/index";
+			String say = "잘못된 주소입니다.";
+			String link = "/map/mainmap";
+			model.addAttribute("say",say);
+			model.addAttribute("link",link);
+			return "/message";
 		}
 		//로그인 했으면 db에 검색목록 저장
 		if(userDatails != null) {

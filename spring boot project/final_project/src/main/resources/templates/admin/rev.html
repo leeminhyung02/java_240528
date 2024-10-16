@@ -10,6 +10,7 @@
 </head>
 <body>
 	<main layout:fragment="content">
+	<div class="container">
 		<h1>관리자페이지</h1>
 			<h3>- 신고받은 리뷰 확인후 삭제, 경고</h3>
 		<table class="table">
@@ -18,7 +19,7 @@
 			<th>리뷰id</th>    	
 			<th>신고이유</th>    	
 			<th>리뷰 내용</th>    	
-			<th colspan="2">처리(false:검토중 / true: 검토완료)</th>    	
+			<th colspan="3">처리</th>    	
     	</tr>
     </thead>
     <tbody>
@@ -27,13 +28,14 @@
 			<td  th:text="${item.rep_reason}"></td>
 			<td  th:text="${item.rev_content}"></td>
 			<td  th:text="${item.res_state}"></td>
-			<td th:unless="${item.res_state}"><a class="btn btn-primary mr-2" th:href="@{/admin/rep/{rev_id}(rev_id=${item.Rev_id})}">삭제</a></td>
+			<td><a class="btn btn-danger mr-2" th:href="@{/admin/rep_delete/{rev_id}(rev_id=${item.Rev_id})}">경고 및 삭제</a></td>
+			<td><a class="btn btn-primary mr-2" th:href="@{/admin/rep_non/{rev_id}(rev_id=${item.Rev_id})}">유지</a></td>
 		</tr>
     </tbody>
   </table>
 		
 		<a class="btn btn-primary mr-2" th:href="@{/admin/de}">관리자 홈으로</a>
-
+</div>
 	</main>
 </body>
 </html>

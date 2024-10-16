@@ -24,5 +24,7 @@ public interface RestaurantDAO {
 
 	List<RestaurantVO> selectRestaurant_list_user(@Param("user_id")String user_id);
 
+	boolean update_Res(@Param("res")RestaurantVO res);
+
 	
 }

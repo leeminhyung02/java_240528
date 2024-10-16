@@ -5,4 +5,17 @@
 		select * from report
 		where res_state = 0
 	</select>
+	<insert id="insert_report">
+		insert into report(Rev_id, rep_reason, res_state, rev_content, rep_result)
+		values(#{rev.Rev_id}, #{reason}, '접수중', #{rev.content}, false)
+	</insert>
+	<select id="select_report" resultType="ReportVO">
+		select * from report
+		where Rev_id = #{rev_id}
+	</select>
+	<update id="update_report">
+		update report
+		set rep_result = #{rep.rep_result}, res_state = #{rep.res_state}
+		where Rev_id = #{rep.Rev_id}
+	</update>
 </mapper>

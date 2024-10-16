@@ -10,22 +10,14 @@
 </head>
 <body>
 	<main layout:fragment="content">
+		<div class="container">
 		<h1>사업자페이지</h1>
-		<div>
-		- 음식점 등록(위치,종류,이름)(승인전)
+		<h4>배너 변경(최대100자)</h4>
+			<form th:action="@{/biz/chbanner/{res_id}(res_id=${res.Res_id})}" method="post">
+				<textarea rows="10" cols="150" th:text="${res.res_banner}" name="res_banner"></textarea>
+				<button class="btn btn-success ">제출하기</button>
+			</form>
 		</div>
-   	 	<a class="btn btn-primary mr-2" th:href="@{/biz/reg}">음식점 등록</a>
-   	 	<div>
-	    - 메뉴, 가격 등록
-	    - 리뷰답글
-	    - 이벤트등록가능
-	    - 부적절 리뷰 신고
-   	 	</div>
-	    <a class="btn btn-primary mr-2" th:href="@{/biz/manage}">음식점 관리</a>
-	    <div>
-	    - 부적절 리뷰 신고 결과
-	    </div>
-	    <a class="btn btn-primary mr-2" th:href="@{/biz/report}">신고 리뷰 내역</a>
 	</main>
 </body>
 </html>

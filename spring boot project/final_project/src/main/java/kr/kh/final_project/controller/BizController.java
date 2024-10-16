@@ -1,5 +1,6 @@
 package kr.kh.final_project.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import kr.kh.final_project.model.util.CustomUser;
+import kr.kh.final_project.model.vo.ReportVO;
 import kr.kh.final_project.model.vo.RestaurantVO;
 import kr.kh.final_project.model.vo.ReviewVO;
 import kr.kh.final_project.service.Restaurantservice;
@@ -79,10 +81,13 @@ public class BizController {
 	}
 	
 	@PostMapping("/biz/report/{rev_id}")
-	public String postreport_rev(Model model, String reason) {
+	public String postreport_rev(Model model, String reason,@PathVariable int rev_id) {
 		String link = "/map/mainmap";
-		String say = "신고처리했습니다.";
+		String say = "신고처리를 못했습니다.";
 		System.out.println(reason);
+		if(reviewService.insertRep(rev_id, reason)) {
+			say = "신고처리를 했습니다.";
+		}
 		model.addAttribute("say",say);
 		model.addAttribute("link",link);
 		return "/message";
@@ -91,17 +96,58 @@ public class BizController {
 	
 	@GetMapping("/biz/addmenu/{res_id}")
 	public String addmenu(Model model, @PathVariable int res_id) {
-		
+		RestaurantVO res = restaurantService.getRes(res_id);
+		model.addAttribute("res", res);
 		return "/biz/addmenu";
 	}
+	@PostMapping("/biz/addmenu/{res_id}")
+	public String post_addmenu(Model model, @PathVariable int res_id, String res_info) {
+		String link = "/biz/de";
+		String say = "메뉴 변경을 못했습니다.";
+		RestaurantVO res = restaurantService.getRes(res_id);
+		res.setRes_info(res_info);
+		if(restaurantService.update_Res(res)) {
+			say = "메뉴를 변경했습니다.";
+		}
+		model.addAttribute("say",say);
+		model.addAttribute("link",link);
+		return "/message";
+	}
+	
+	
 	@GetMapping("/biz/chbanner/{res_id}")
 	public String chbanner(Model model, @PathVariable int res_id) {
-		
+		RestaurantVO res = restaurantService.getRes(res_id);
+		model.addAttribute("res", res);
 		return "/biz/chbanner";
+	}
+	@PostMapping("/biz/chbanner/{res_id}")
+	public String post_chbanner(Model model, @PathVariable int res_id, String res_banner) {
+		String link = "/biz/de";
+		String say = "배너 변경을 못했습니다.";
+		RestaurantVO res = restaurantService.getRes(res_id);
+		res.setRes_banner(res_banner);
+		if(restaurantService.update_Res(res)) {
+			say = "배너를 변경했습니다.";
+		}
+		model.addAttribute("say",say);
+		model.addAttribute("link",link);
+		return "/message";
 	}
 	
 	@GetMapping("/biz/report_list")
-	public String reportbiz_list() {
+	public String reportbiz_list(Model model, @AuthenticationPrincipal CustomUser userDatails) {
+		String User_id = userDatails.getMember().getUser_id();
+		List<ReportVO> rep_list_all = reviewService.getReport();
+		List<ReportVO> rep_list = new ArrayList<ReportVO>();
+		for(ReportVO rep : rep_list_all) {
+			ReviewVO rev = reviewService.getRev_rep(rep.getRev_id());
+			RestaurantVO res = restaurantService.getRes(rev.getRes_id());
+			if(res.getUser_id().equals(User_id)) {
+				rep_list.add(rep);
+			}
+		}
+		model.addAttribute("rep_list", rep_list);
 		return "/biz/report_list";
 	}
 }

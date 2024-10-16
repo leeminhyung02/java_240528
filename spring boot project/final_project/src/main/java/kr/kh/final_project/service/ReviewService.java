@@ -38,6 +38,22 @@ public class ReviewService {
 	public ReviewVO getRev_rep(int rev_id) {
 		return reviewDao.select_review(rev_id);
 	}
+
+	public boolean insertRep(int rev_id, String reason) {
+		ReviewVO rev = reviewDao.select_review(rev_id);
+		return reportDao.insert_report(rev,reason);
+		
+	}
+
+	public ReportVO getReport_rev(int rev_id) {
+		return reportDao.select_report(rev_id);
+	}
+
+	public boolean update_rep(ReportVO rep) {
+		return reportDao.update_report(rep);
+		
+	}
+
 	
 	
 }

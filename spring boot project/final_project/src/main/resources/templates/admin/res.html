@@ -10,6 +10,7 @@
 </head>
 <body>
 	<main layout:fragment="content">
+			<div class="container">
 		<h1>관리자페이지</h1>
 		<h3>음식점 리스트</h3>
 		<table class="table">
@@ -27,7 +28,7 @@
 			<td  th:text="${item.res_name}"></td>
 			<td  th:text="${item.res_id}"></td>
 			<td  th:text="${item.address}"></td>
-			<td  th:text="${item.res_score}"></td>
+			<td  th:text="${#numbers.formatDecimal(item.res_score/2.0, 1, 2)}"></td>
 			<td  th:text="${item.permission}"></td>
 			<td th:unless="${item.permission}"><a class="btn btn-primary mr-2" th:href="@{/admin/per/{res_id}(res_id=${item.res_id})}">승인</a></td>
 			<td th:if="${item.permission}"><a class="btn btn-danger mr-2" th:href="@{/admin/per/{res_id}(res_id=${item.res_id})}">미승인</a></td>
@@ -36,7 +37,7 @@
   </table>
 		
 		<a class="btn btn-primary mr-2" th:href="@{/admin/de}">관리자 홈으로</a>
-
+</div>
 	</main>
 </body>
 </html>

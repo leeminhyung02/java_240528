@@ -58,7 +58,6 @@ public class AdminController {
 	public String adminrev(Model model) {
 		List<ReportVO> Rep_List = reviewService.getReport();
 		List<ReportVO> Rep_List2 = new ArrayList<ReportVO>();
-		//임시
 		for(ReportVO rep : Rep_List) {
 			ReviewVO rev = reviewService.getRev_rep(rep.getRev_id());
 			rep.setRev_content(rev.getContent());
@@ -67,12 +66,32 @@ public class AdminController {
 		model.addAttribute("rep", Rep_List2);
 		return "/admin/rev";
 	}
-	
-	@GetMapping("/admin/rep/{rev_id}")
-	public String adminrep(@PathVariable int rev_id) {
-		return "/admin/rep";
+
+	@GetMapping("/admin/rep_delete/{rev_id}")
+	public String delete_rev(Model model, @PathVariable int rev_id) {
+		//false는 유지 true는 삭제
+		String say = "삭제 처리했습니다.";
+		String link = "/admin/res";
+		model.addAttribute("say", say);
+		model.addAttribute("link", link);
+		return "/message";
 	}
-	
+	@GetMapping("admin/rep_non/{rev_id}")
+	public String re(Model model, @PathVariable int rev_id) {
+		String say = "유지 처리했습니다.";
+		String link = "/admin/res";
+		ReportVO rep = reviewService.getReport_rev(rev_id); 
+		//false는 유지 true는 삭제
+		rep.setRep_result(false);
+		rep.setRes_state("처리 끝");
+		if(reviewService.update_rep(rep)) {
+			
+		}
+		model.addAttribute("say", say);
+		model.addAttribute("link", link);
+		return "/message";
+		
+	}
 	@GetMapping("/admin/user")
 	public String adminuser() {
 		return "/admin/user";
