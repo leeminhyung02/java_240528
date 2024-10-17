@@ -19,19 +19,16 @@ public class UserDetailservice implements UserDetailsService{
 	@Autowired
 	UserDAO userDao;
 	
-	private UserDetails DisabledException;
-	
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DisabledException {
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DisabledException{
 		UserVO user = userDao.selectUser(username);
-		System.out.println(1);
-		System.out.println(username);
 		Date date = new Date();
 		if(user.getUser_freeze() == null) {
 			return user == null ? null : new CustomUser(user);
 		}
 		else if(user.getUser_freeze().after(date)) {
-			return DisabledException;
+			//예외 던지기
+			return null;
 		}
 		return user == null ? null : new CustomUser(user);
 	}
