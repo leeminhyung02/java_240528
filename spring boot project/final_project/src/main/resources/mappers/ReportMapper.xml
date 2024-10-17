@@ -7,7 +7,7 @@
 	</select>
 	<insert id="insert_report">
 		insert into report(Rev_id, rep_reason, res_state, rev_content, rep_result)
-		values(#{rev.Rev_id}, #{reason}, '접수중', #{rev.content}, false)
+		values(#{rev.Rev_id}, #{reason}, '접수 중', #{rev.content}, false)
 	</insert>
 	<select id="select_report" resultType="ReportVO">
 		select * from report
@@ -18,4 +18,7 @@
 		set rep_result = #{rep.rep_result}, res_state = #{rep.res_state}
 		where Rev_id = #{rep.Rev_id}
 	</update>
+	<select id="select_Report_manage" resultType="Report_manageVO">
+		select * from report_manage
+	</select>
 </mapper>

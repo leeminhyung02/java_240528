@@ -26,7 +26,8 @@
 					<td  th:text="${item.rev_content}"></td>
 					<td  th:text="${item.rep_reason}"></td>
 					<td  th:text="${item.res_state}"></td>
-					<td  th:text="${item.rep_result}"></td>
+					<td  th:if="${item.rep_result}">삭제처리</td>
+					<td  th:unless="${item.rep_result}">유지</td>
 				</tr>
 		    </tbody>
   		</table>

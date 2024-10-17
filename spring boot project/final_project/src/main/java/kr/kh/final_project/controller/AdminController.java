@@ -1,6 +1,5 @@
 package kr.kh.final_project.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,7 @@ import kr.kh.final_project.model.vo.RestaurantVO;
 import kr.kh.final_project.model.vo.ReviewVO;
 import kr.kh.final_project.service.Restaurantservice;
 import kr.kh.final_project.service.ReviewService;
+import kr.kh.final_project.service.UserService;
 
 
 @Controller
@@ -24,6 +24,9 @@ public class AdminController {
 	
 	@Autowired
 	private ReviewService reviewService;
+	
+	@Autowired
+	private UserService userService;
 	
 	@GetMapping("/admin/de")
 	public String admin() {
@@ -73,6 +76,10 @@ public class AdminController {
 			ReviewVO rev = reviewService.getRev_rep(rev_id);
 			rev.setReport_result(true);
 			if(reviewService.update_rev(rev)) {
+			}
+			//유저 경고 처리
+			if(userService.caution(rev.getUser_id())) { 
+				
 			}
 		}
 		model.addAttribute("say", say);

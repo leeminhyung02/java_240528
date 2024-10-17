@@ -28,8 +28,8 @@
 			<td  th:text="${item.rep_reason}"></td>
 			<td  th:text="${item.rev_content}"></td>
 			<td  th:text="${item.res_state}"></td>
-			<td><a class="btn btn-danger mr-2" th:href="@{/admin/rep_delete/{rev_id}(rev_id=${item.Rev_id})}">경고 및 삭제</a></td>
-			<td><a class="btn btn-primary mr-2" th:href="@{/admin/rep_non/{rev_id}(rev_id=${item.Rev_id})}">유지</a></td>
+			<td th:unless="${item.res_state == '처리 끝'}"><a class="btn btn-danger mr-2" th:href="@{/admin/rep_delete/{rev_id}(rev_id=${item.Rev_id})}">경고 및 삭제</a></td>
+			<td th:unless="${item.res_state == '처리 끝'}"><a class="btn btn-primary mr-2" th:href="@{/admin/rep_non/{rev_id}(rev_id=${item.Rev_id})}">유지</a></td>
 		</tr>
     </tbody>
   </table>

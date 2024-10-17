@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import kr.kh.final_project.model.vo.FavoritesVO;
+import kr.kh.final_project.model.vo.Report_manageVO;
 import kr.kh.final_project.model.vo.Search_historyVO;
 import kr.kh.final_project.model.vo.UserVO;
 
@@ -21,6 +22,12 @@ public interface UserDAO {
 	List<FavoritesVO> get_fav(@Param("User_id")String User_id);
 
 	boolean delete_fav(@Param("User_id")String User_id, @Param("res_id")int res_id);
+
+	boolean updatecaution(@Param("user")UserVO user);
+
+	boolean update_report(@Param("user")UserVO user);
+
+	
 
 	
 }

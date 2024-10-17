@@ -57,8 +57,8 @@ public class ReviewService {
 
 	public boolean update_rev(ReviewVO rev) {
 		reviewDao.updateRev0();
-		reviewDao.updateRevAll();
-		return reviewDao.updateRev(rev);
+		reviewDao.updateRev(rev);
+		return reviewDao.updateRevAll();
 		
 	}
 

@@ -25,4 +25,14 @@
 		delete from favorites
 		where User_id = #{User_id} and res_id = #{res_id}
 	</delete>
+	<update id="updatecaution">
+		update user
+			set user_freeze = #{user.user_freeze}
+		where User_id = #{user.User_id}
+	</update>
+	<update id="update_report">
+		update user
+			set user_report = #{user.user_report}
+		where User_id = #{user.User_id}
+	</update>
 </mapper>

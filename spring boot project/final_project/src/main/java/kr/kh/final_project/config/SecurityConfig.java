@@ -12,8 +12,11 @@ import kr.kh.final_project.model.util.UserRole;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig{
+public class SecurityConfig {
 
+	
+	private final FailureHandler failureHandler = new FailureHandler();	
+	
 	@Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf ->csrf.disable())
@@ -28,6 +31,7 @@ public class SecurityConfig{
                 .permitAll()           // 로그인 페이지는 접근 허용
                 .loginProcessingUrl("/user/login")//
                 .defaultSuccessUrl("/map/mainmap")
+                .failureHandler(failureHandler)
             )
             .logout((logout) -> logout
             		.logoutUrl("/user/logout")
@@ -37,6 +41,7 @@ public class SecurityConfig{
             		.permitAll());  // 로그아웃도 모두 접근 가능
         return http.build();
     }
+	
 
     @Bean
     public PasswordEncoder passwordEncoder() {
