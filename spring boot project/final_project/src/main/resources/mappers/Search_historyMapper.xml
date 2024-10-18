@@ -6,8 +6,9 @@
 		values(#{username}, #{search});
 	</insert>
 	<select id="is_searched" resultType="Search_historyVO">
-		select * from search_history
-		where User_id = #{username} and s_history = #{search}	
+		select * from search_history 
+			where User_id = #{username} and s_history = #{search}
+			order by his_date DESC
 	</select>
 	<update id="update_SH">
 		update search_history

@@ -4,6 +4,7 @@
 	<select id="selectRestaurant_list" resultType="RestaurantVO">
 		select * from restaurant
 		where permission = 1
+		order by res_score desc
 	</select>
 	<select id="selectRestaurant" resultType="RestaurantVO">
 		select * from restaurant

@@ -27,7 +27,6 @@ public class UserDetailservice implements UserDetailsService{
 			return user == null ? null : new CustomUser(user);
 		}
 		else if(user.getUser_freeze().after(date)) {
-			//예외 던지기
 			return null;
 		}
 		return user == null ? null : new CustomUser(user);
