@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import kr.kh.final_project.model.vo.MenuVO;
 import kr.kh.final_project.model.vo.RestaurantVO;
 
 public interface RestaurantDAO {
@@ -25,6 +26,10 @@ public interface RestaurantDAO {
 	List<RestaurantVO> selectRestaurant_list_user(@Param("user_id")String user_id);
 
 	boolean update_Res(@Param("res")RestaurantVO res);
+
+	boolean insertMenu(int res_id, @Param("menu")MenuVO menu);
+
+	MenuVO selectMenu(int res_id);
 
 	
 }

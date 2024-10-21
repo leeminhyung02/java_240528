@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.kh.final_project.dao.RestaurantDAO;
+import kr.kh.final_project.model.vo.MenuVO;
 import kr.kh.final_project.model.vo.RestaurantVO;
 import lombok.AllArgsConstructor;
 
@@ -49,6 +50,14 @@ public class Restaurantservice {
 	public boolean update_Res(RestaurantVO res) {
 		return RestaurantDao.update_Res(res);
 		
+	}
+
+	public boolean insertMenu(int res_id, MenuVO menu) {
+		return RestaurantDao.insertMenu(res_id, menu);
+	}
+
+	public MenuVO getMenu(int res_id) {
+		return RestaurantDao.selectMenu(res_id);
 	}
 
 }

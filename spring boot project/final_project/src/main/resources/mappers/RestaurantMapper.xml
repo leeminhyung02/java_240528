@@ -36,4 +36,12 @@
 			set res_info = #{res.res_info}, res_banner = #{res.res_banner}
 			where Res_id = #{res.Res_id}
 	</update>
+	<insert id="insertMenu">
+		insert into menu(Res_id, menu_count, menu1, menu2, menu3, menu4, menu5, menu1_p, menu2_p, menu3_p, menu4_p, menu5_p)
+		values(#{menu.Res_id}, #{menu.menu_count}, #{menu.menu1}, #{menu.menu2}, #{menu.menu3}, #{menu.menu4}, #{menu.menu5}, #{menu.menu1_p}, #{menu.menu2_p}, #{menu.menu3_p}, #{menu.menu4_p}, #{menu.menu5_p})
+	</insert>
+	<select id="selectMenu" resultType="MenuVO">
+		select * from menu
+		where res_id = #{res_id}
+	</select>
 </mapper>

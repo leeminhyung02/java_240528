@@ -18,8 +18,9 @@
 		<div th:text="'종류:'+${res.res_type}"></div>
 		<div th:text="'평점:'+${#numbers.formatDecimal(res.res_score/2.0, 1, 2)}"></div>
 		<a class="btn btn-primary mr-2" th:href="@{/biz/show_rev/{res_id}(res_id=${res.Res_id})}">리뷰 보기</a>
-		<div th:text="'메뉴:'+${res.res_info}"></div>
+		<div th:text="'메뉴:'"></div>
 		<a class="btn btn-primary mr-2" th:href="@{/biz/addmenu/{res_id}(res_id=${res.Res_id})}">메뉴 설정</a>
+		<a class="btn btn-primary mr-2" th:href="@{/biz/addmenu2/{res_id}(res_id=${res.Res_id})}">메뉴 설정(test)</a>
 		<div th:text="'배너:'+${res.res_banner}"></div>
 		<a class="btn btn-primary mr-2" th:href="@{/biz/chbanner/{res_id}(res_id=${res.Res_id})}">배너 변경</a>
 		<div th:text="'사업자ID:'+${res.User_id}"></div>
