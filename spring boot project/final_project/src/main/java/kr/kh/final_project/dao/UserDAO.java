@@ -27,6 +27,12 @@ public interface UserDAO {
 
 	boolean update_report(@Param("user")UserVO user);
 
+	boolean signup_biz(@Param("user")UserVO user);
+
+	UserVO selectUser_id(@Param("value")String value);
+
+	UserVO selectUser_email(@Param("value")String value);
+
 	
 
 	

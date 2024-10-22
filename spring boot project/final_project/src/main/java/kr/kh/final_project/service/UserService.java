@@ -2,12 +2,15 @@ package kr.kh.final_project.service;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 
 import kr.kh.final_project.dao.ReportDAO;
 import kr.kh.final_project.dao.Search_historyDAO;
@@ -98,6 +101,39 @@ public class UserService {
 			}
 		}
 		return userDao.updatecaution(user);
+	}
+
+	public boolean signup_biz(UserVO user) {
+		String pw = passwordEncoder.encode(user.getUser_pw());
+		user.setUser_pw(pw);
+		return userDao.signup_biz(user); 
+		
+	}
+
+	public Map<String, String> validate(Errors errors) {
+		Map<String, String> valRes = new HashMap<>();
+		
+		for(FieldError error : errors.getFieldErrors()) {
+			String validkeyname = String.format("%s", error.getField());
+			valRes.put(validkeyname, error.getDefaultMessage());
+		}
+		return valRes;
+	}
+
+	public boolean check_is_in(String value) {
+		UserVO vo = userDao.selectUser_id(value);
+		if(vo == null) {
+			return true;
+		}
+		return !(vo.getUser_id().equals(value));
+	}
+
+	public boolean check_is_in_email(String value) {
+		UserVO vo = userDao.selectUser_email(value);
+		if(vo == null) {
+			return true;
+		}
+		return !(vo.getUser_email().equals(value));
 	}
 
 }

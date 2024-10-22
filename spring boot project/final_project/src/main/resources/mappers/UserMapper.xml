@@ -5,6 +5,10 @@
 		insert into user(User_id, user_name, user_pw, user_email)
 		values(#{user.User_id}, #{user.user_name}, #{user.user_pw}, #{user.user_email})
 	</insert>
+	<insert id="signup_biz">
+	insert into user(User_id, user_name, user_pw, user_email, user_type)
+		values(#{user.User_id}, #{user.user_name}, #{user.user_pw}, #{user.user_email}, 'BIZ')
+	</insert>
 	<select id="selectUser" resultType="UserVO">
 		select * from user
 			where User_id = #{user_id}
@@ -35,4 +39,12 @@
 			set user_report = #{user.user_report}
 		where User_id = #{user.User_id}
 	</update>
+	<select id="selectUser_id" resultType="UserVO">
+		select * from user
+		where User_id = #{value}
+	</select>
+	<select id="selectUser_email" resultType="UserVO">
+		select * from user
+		where user_email = #{value}
+	</select>
 </mapper>

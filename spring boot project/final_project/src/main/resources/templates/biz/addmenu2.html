@@ -14,7 +14,7 @@
 		<h1>사업자페이지</h1>
 		<h4>메뉴 변경</h4>
 			<form th:action="@{/biz/addmenu2/{res_id}(res_id=${res.Res_id})}" method="post" id="boxWrap">
-				<input id="menu_name" placeholder="메뉴1" name="menu"><input type="text" placeholder="메뉴1-가격" id="menu_price"><input type="hidden" value="1" name="menu_count">
+				<input type="text"  id="menu_name1" placeholder="메뉴1"><input type="text" placeholder="메뉴1-가격" id="menu_price"><input type="hidden" value="1" id="menu_count">
 				<button class="addbutton" type="button">추가하기</button>
 				<button type="button" class="button btn-success ">제출하기</button>
 			</form>
@@ -23,23 +23,25 @@
 	$(document).ready(function() {
 		var i=2;
 	  $(".addbutton").click(function() {
-	    $("#boxWrap").append("<br>"+"<input placeholder="+'(20자)메뉴'+i+" name="+'menu'+">"+"<input placeholder="+'메뉴'+i+'가격'+" name="+'menu_price'+">");
-	    $("#boxWrap").append("<input type="+'hidden'+" value="+i+" name="+'count'+">");
-	    i++; // 함수 내 하단에 증가문 설정
-	    
+	    $("#boxWrap").append("<br>"+"<input placeholder="+'(20자)메뉴'+i+" id="+'menu'+i+" >"+"<input placeholder="+'메뉴'+i+'가격'+" id="+'menu_price'+i+" >");
+	    $("#boxWrap").append("<input type="+'hidden'+" value="+i+" id="+'count'+i+" >");
+	    $("#boxWrap").append("<input type="+'hidden'+" value="+i+" id="+'i_value'+" >");
+	    i++;
 	  });
 	});
+	var menu_list = [];
+	var i = 2;
 	$(".button").click(function() {
-		let menu = {
-				"menu" : $('#menu_name'),
-				"menu_price" : $("#menu_price"),
-				"menu_count" : $("#menu_count")
-		};
+		i = $('#i_value').val(); 
 		
-		menu_list.push(menu);
+		var menuVO = {
+				menu : $("#menu_name"+i).val(),
+				menu_price : $("#menu_price"+i).val(), 
+				menu_count : $("#menu_count"+i).val()
+		};
+		menu_list.push(menuVO);
 		console.log(menu_list);
 	})
-	let menu_list = [];
 	</script>
 	</main>
 </body>
