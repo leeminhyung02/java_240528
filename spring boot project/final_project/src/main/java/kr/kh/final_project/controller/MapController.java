@@ -10,7 +10,10 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.kh.final_project.model.util.CustomUser;
@@ -84,6 +87,77 @@ public class MapController {
 	@ResponseBody
 	@PostMapping("/map/searchmap")
 	public Map<String, Object> searchmapPost(){
+		List<RestaurantVO> list = restaurantService.show_Restaurant();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		return map;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	@GetMapping("/map/testmap")
+	public String testmap(Model model, @AuthenticationPrincipal CustomUser userDatails) {
+		model.addAttribute("apikey",kakaoAppKey);
+		if(userDatails != null) {
+			System.out.println(userDatails.getMember().getUser_id());
+			//해당 사용자의 최근 검색어를 가져와서 뿌림
+			String User_id = userDatails.getMember().getUser_id();
+			List<Search_historyVO> sh = userService.get_SH(User_id);
+			model.addAttribute("sh", sh);
+		}
+		List<RestaurantVO> list = restaurantService.show_Restaurant();
+		model.addAttribute("list", list);
+		
+		return "/map/testmap";
+		
+	}
+	@GetMapping("/map/category/{type}")
+	public String typemap(Model model,@PathVariable String type, @AuthenticationPrincipal CustomUser userDatails) {
+		model.addAttribute("apikey",kakaoAppKey);
+		if(userDatails != null) {
+			System.out.println(userDatails.getMember().getUser_id());
+			//해당 사용자의 최근 검색어를 가져와서 뿌림
+			String User_id = userDatails.getMember().getUser_id();
+			List<Search_historyVO> sh = userService.get_SH(User_id);
+			model.addAttribute("sh", sh);
+		}
+		List<RestaurantVO> list = restaurantService.show_Restaurant(type);
+		model.addAttribute("list", list);
+		
+		return "/map/category";
+		
+	}
+	
+	@ResponseBody
+	@PostMapping("/map/category")
+	public Map<String, Object> typeMapPost(@RequestParam("text") String category){
+		if(category.equals("1")) {
+			category = "카페";
+		} else if(category.equals("2")) {
+			category = "양식";
+		} else if(category.equals("3")) {
+			category = "분식";
+		} else {
+			System.out.println("카테고리에 없어서 전체 목록으로");
+			List<RestaurantVO> list = restaurantService.show_Restaurant();
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("list", list);
+			return map;
+		}
+		List<RestaurantVO> list = restaurantService.show_Restaurant(category);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		return map;
+	}
+	
+	@ResponseBody
+	@PostMapping("/map/testmap")
+	public Map<String, Object> testMapPost(){
 		List<RestaurantVO> list = restaurantService.show_Restaurant();
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);

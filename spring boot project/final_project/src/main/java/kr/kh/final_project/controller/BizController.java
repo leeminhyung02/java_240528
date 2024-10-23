@@ -40,10 +40,14 @@ public class BizController {
 	}
 
 	@PostMapping("/biz/reg")
-	public String regesterbizPost(Model model, RestaurantVO res, @AuthenticationPrincipal CustomUser userDatails) {
+	public String regesterbizPost(Model model, RestaurantVO res, String res_type_direct, @AuthenticationPrincipal CustomUser userDatails) {
 		String User_id = userDatails.getMember().getUser_id();
 		String say = "등록에 실패했습니다.";
 		String link = "/biz/de";
+		System.out.println(res.getRes_type());
+		if(res.getRes_type().equals("direct")) {
+			res.setRes_type(res_type_direct);
+		}
 		if (restaurantService.insertRes(res, User_id)) {
 			say = "등록하였습니다";
 		}

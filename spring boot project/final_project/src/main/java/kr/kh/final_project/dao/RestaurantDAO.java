@@ -31,5 +31,8 @@ public interface RestaurantDAO {
 
 	MenuVO selectMenu(int res_id);
 
+	List<RestaurantVO> selectRestaurant_list_by_type(String type);
+
+
 	
 }

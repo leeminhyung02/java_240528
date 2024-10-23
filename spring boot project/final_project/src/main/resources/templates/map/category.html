@@ -151,6 +151,9 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 	overflow: hidden;
 	white-space: nowrap;
 }
+li{
+	list-style: none;
+}
 </style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -164,19 +167,23 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 				<span class="title">현재 내 위치</span> 
 				<span id="centerAddr"></span>
 			</div>
-			 <div class="category">카테고리 선택기 위치
+			 <div class="category">카테고리
 	       	<ul>
 	            <li id="coffeeMenu" onclick="changeMarker('coffee')">
 	                <span class="ico_comm ico_coffee"></span>
-	                커피숍
+	                카페
 	            </li>
 	            <li id="storeMenu" onclick="changeMarker('store')">
 	                <span class="ico_comm ico_store"></span>
-	                편의점
+	                양식
 	            </li>
 	            <li id="carparkMenu" onclick="changeMarker('carpark')">
 	                <span class="ico_comm ico_carpark"></span>
-	                주차장
+	                분식
+	            </li>
+	            <li id="elseMenu" onclick="changeMarker('else')">
+	                <span class="ico_comm ico_carpark"></span>
+	                전체
 	            </li>
 	        </ul>
     </div>
@@ -215,7 +222,26 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 			</th:block>
 		</div>
 		<script th:inline="javascript">
-	
+		var category = window.location.pathname;
+		category = category.substring(14);
+		function changeMarker(type){
+		    
+		    var coffeeMenu = document.getElementById('coffeeMenu');
+		    var storeMenu = document.getElementById('storeMenu');
+		    var carparkMenu = document.getElementById('carparkMenu');
+		    var def_link = "/map/category/";
+		    // 커피숍 카테고리가 클릭됐을 때
+		    if (type === 'coffee') {
+		    	location.href=def_link+'1';	        
+		    } else if (type === 'store') { // 편의점 카테고리가 클릭됐을 때
+				location.href=def_link+'2';	   
+		    } else if (type === 'carpark') { // 주차장 카테고리가 클릭됐을 때
+				location.href=def_link+'3';	   
+			} else if (type === 'else') { // 주차장 카테고리가 클릭됐을 때
+				location.href=def_link+'999';	   
+		    }  
+		} 
+		
 	function displayMap() {
 
 		if ("geolocation" in navigator) {
@@ -273,8 +299,9 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 				//ajax로 동기 통신으로 DB에 저장된 정보들을 가져옴 
 				$.ajax({
 					async : false, //비동기 : true(비동기), false(동기)
-					url : '/map/mainmap', 
+					url : '/map/category', 
 					type : 'post',  
+					data : {'text' : category},
 					dataType : 'json', 
 					success : function (data){
 					var table = document.getElementById('res_list_table')

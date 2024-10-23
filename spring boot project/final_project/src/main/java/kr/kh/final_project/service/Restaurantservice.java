@@ -60,4 +60,8 @@ public class Restaurantservice {
 		return RestaurantDao.selectMenu(res_id);
 	}
 
+	public List<RestaurantVO> show_Restaurant(String type) {
+		return RestaurantDao.selectRestaurant_list_by_type(type);
+	}
+
 }

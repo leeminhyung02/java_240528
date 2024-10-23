@@ -56,6 +56,7 @@ public class ResController {
 	@PostMapping("/res/rev/{res_id}")
 	public String writereviewPost(Model model, ReviewVO review, @PathVariable int res_id) {
 		review.setRes_id(res_id);
+		review.setScore(review.getScore()/2);
 		String say = "리뷰 작성에 오류가 발생했습니다.";
 		String link = "/map/mainmap";
 		if (reviewService.insertRev(review)) {

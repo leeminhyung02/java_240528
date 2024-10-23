@@ -23,11 +23,14 @@ public class UserDetailservice implements UserDetailsService{
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DisabledException{
 		UserVO user = userDao.selectUser(username);
 		Date date = new Date();
+		if(user == null) {
+			throw new UsernameNotFoundException(username);
+		}
 		if(user.getUser_freeze() == null) {
 			return user == null ? null : new CustomUser(user);
 		}
 		else if(user.getUser_freeze().after(date)) {
-			return null;
+			throw new DisabledException(username);
 		}
 		return user == null ? null : new CustomUser(user);
 	}

@@ -44,4 +44,8 @@
 		select * from menu
 		where res_id = #{res_id}
 	</select>
+	<select id="selectRestaurant_list_by_type" resultType="RestaurantVO">
+		select * from restaurant
+		where res_type = #{type}
+	</select>
 </mapper>
