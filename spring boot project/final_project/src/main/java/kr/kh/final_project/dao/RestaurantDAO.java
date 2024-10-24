@@ -29,9 +29,9 @@ public interface RestaurantDAO {
 
 	boolean insertMenu(int res_id, @Param("menu")MenuVO menu);
 
-	MenuVO selectMenu(int res_id);
-
 	List<RestaurantVO> selectRestaurant_list_by_type(String type);
+
+	List<MenuVO> select_Menu_List(int res_id);
 
 
 	

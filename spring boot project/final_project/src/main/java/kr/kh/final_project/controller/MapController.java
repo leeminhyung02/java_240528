@@ -1,5 +1,6 @@
 package kr.kh.final_project.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +34,7 @@ public class MapController {
 	
 	@Value("${project.kakao.appkey}")
 	private String kakaoAppKey;
+	
 	
 	@GetMapping("/map/mainmap")
 	public String mainmap(Model model, @AuthenticationPrincipal CustomUser userDatails) {

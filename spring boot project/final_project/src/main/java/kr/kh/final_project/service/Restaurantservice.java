@@ -56,12 +56,13 @@ public class Restaurantservice {
 		return RestaurantDao.insertMenu(res_id, menu);
 	}
 
-	public MenuVO getMenu(int res_id) {
-		return RestaurantDao.selectMenu(res_id);
-	}
 
 	public List<RestaurantVO> show_Restaurant(String type) {
 		return RestaurantDao.selectRestaurant_list_by_type(type);
+	}
+
+	public List<MenuVO> get_Menu_List(int res_id) {
+		return RestaurantDao.select_Menu_List(res_id);
 	}
 
 }

@@ -37,15 +37,15 @@
 			where Res_id = #{res.Res_id}
 	</update>
 	<insert id="insertMenu">
-		insert into menu(Res_id, menu_count, menu1, menu2, menu3, menu4, menu5, menu1_p, menu2_p, menu3_p, menu4_p, menu5_p)
-		values(#{menu.Res_id}, #{menu.menu_count}, #{menu.menu1}, #{menu.menu2}, #{menu.menu3}, #{menu.menu4}, #{menu.menu5}, #{menu.menu1_p}, #{menu.menu2_p}, #{menu.menu3_p}, #{menu.menu4_p}, #{menu.menu5_p})
+		insert into menu(Res_id, menu_name, menu_e, menu_price, menu_count)
+		values(#{menu.Res_id}, #{menu.menu_name},#{menu.menu_e},#{menu.menu_price},#{menu.menu_count})
 	</insert>
-	<select id="selectMenu" resultType="MenuVO">
-		select * from menu
-		where res_id = #{res_id}
-	</select>
 	<select id="selectRestaurant_list_by_type" resultType="RestaurantVO">
 		select * from restaurant
 		where res_type = #{type}
+	</select>
+	<select id="select_Menu_List" resultType="MenuVO">
+		select * from menu
+		where Res_id = #{res_id}
 	</select>
 </mapper>

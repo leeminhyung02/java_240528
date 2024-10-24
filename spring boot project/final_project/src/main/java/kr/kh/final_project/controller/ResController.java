@@ -16,6 +16,7 @@ import kr.kh.final_project.model.util.CustomUser;
 import kr.kh.final_project.model.vo.FavoritesVO;
 import kr.kh.final_project.model.vo.RestaurantVO;
 import kr.kh.final_project.model.vo.ReviewVO;
+import kr.kh.final_project.model.vo.Search_historyVO;
 import kr.kh.final_project.service.Restaurantservice;
 import kr.kh.final_project.service.ReviewService;
 import kr.kh.final_project.service.UserService;
@@ -34,6 +35,13 @@ public class ResController {
 
 	@GetMapping("/res/detail/{res_id}")
 	public String detail(Model model, @PathVariable int res_id, @AuthenticationPrincipal CustomUser userDatails) {
+		if(userDatails != null) {
+			System.out.println(userDatails.getMember().getUser_id());
+			//해당 사용자의 최근 검색어를 가져와서 뿌림
+			String User_id = userDatails.getMember().getUser_id();
+			List<Search_historyVO> sh = userService.get_SH(User_id);
+			model.addAttribute("sh", sh);
+		}
 		RestaurantVO res = restaurantService.getRes(res_id);
 		List<ReviewVO> rev = reviewService.getRev(res_id);
 		String username = userDatails.getMember().getUser_id();
@@ -48,7 +56,14 @@ public class ResController {
 	}
 
 	@GetMapping("/res/rev/{res_id}")
-	public String writereview(Model model, @PathVariable int res_id) {
+	public String writereview(Model model, @PathVariable int res_id, @AuthenticationPrincipal CustomUser userDatails) {
+		if(userDatails != null) {
+			System.out.println(userDatails.getMember().getUser_id());
+			//해당 사용자의 최근 검색어를 가져와서 뿌림
+			String User_id = userDatails.getMember().getUser_id();
+			List<Search_historyVO> sh = userService.get_SH(User_id);
+			model.addAttribute("sh", sh);
+		}
 		model.addAttribute("res_id", res_id);
 		return "/res/rev";
 	}
@@ -91,6 +106,13 @@ public class ResController {
 	
 	@GetMapping("/res/favList")		
 	public String favList(Model model, @AuthenticationPrincipal CustomUser userDatails) {
+		if(userDatails != null) {
+			System.out.println(userDatails.getMember().getUser_id());
+			//해당 사용자의 최근 검색어를 가져와서 뿌림
+			String User_id = userDatails.getMember().getUser_id();
+			List<Search_historyVO> sh = userService.get_SH(User_id);
+			model.addAttribute("sh", sh);
+		}
 		String username = userDatails.getMember().getUser_id();
 		List<FavoritesVO> Fav_list = userService.get_favlist(username);
 		List<RestaurantVO> Res_list = new ArrayList<RestaurantVO>();
