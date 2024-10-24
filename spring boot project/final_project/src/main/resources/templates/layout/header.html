@@ -1,39 +1,68 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-		xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <meta charset="UTF-8">
-    <title th:replace="this :: title">Default Title</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}" />
+<meta charset="UTF-8">
+<title th:replace="this :: title">Default Title</title>
+<link rel="stylesheet" th:href="@{/css/style.css}" />
 </head>
 <body>
-    <header th:fragment="header">
+	<header th:fragment="header">
 		<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-		<div class="collapse navbar-collapse justify-content-end">
-	  		<th:block sec:authorize="isAnonymous()"> 
-				<a class="btn btn-primary mr-2" th:href="@{/user/signup}">회원가입</a>
-				<a class="btn btn-primary mr-2" th:href="@{/user/login}">로그인</a>
-			</th:block>
-			<th:block sec:authorize="hasAuthority('ADMIN')">
-				<a class="btn btn-primary mr-2" th:href="@{/admin/de}">관리자</a>
-			</th:block>
-			<th:block sec:authorize="hasAuthority('USER')">
+			<div class="collapse navbar-collapse justify-content-end">
+				<th:block sec:authorize="isAnonymous()">
+					<a class="btn btn-primary mr-2" th:href="@{/user/signup}">회원가입</a>
+					<a class="btn btn-primary mr-2" th:href="@{/user/login}">로그인</a>
+				</th:block>
+				<th:block sec:authorize="hasAuthority('ADMIN')">
+					<a class="btn btn-primary mr-2" th:href="@{/admin/de}">관리자</a>
+				</th:block>
+				<th:block sec:authorize="hasAuthority('USER')">
 				사용자
 				<a class="btn btn-primary mr-2" th:href="@{/res/favList}">즐겨찾기</a>
-			</th:block>
-			<th:block sec:authorize="hasAuthority('BIZ')">
-				<a class="btn btn-primary mr-2" th:href="@{/biz/de}">사업자</a>
-			</th:block>
-			<th:block sec:authorize="isAuthenticated()">
-				<a class="btn btn-primary mr-2" th:href="@{/user/logout}">로그아웃</a>
-			</th:block>
-			<form class="form-inline" th:action="@{/map/searchmap}" method="get">
-					<input class="form-control mr-1" type="text" name="search" placeholder="주소 검색">
-				<button class="btn btn-success mr-2" type="submit">검색</button>
-			</form>
+				</th:block>
+				<th:block sec:authorize="hasAuthority('BIZ')">
+					<a class="btn btn-primary mr-2" th:href="@{/biz/de}">사업자</a>
+				</th:block>
+				<th:block sec:authorize="isAuthenticated()">
+					<a class="btn btn-primary mr-2" th:href="@{/user/logout}">로그아웃</a>
+				</th:block>
+				<th:block sec:authorize="isAnonymous()">
+					<form class="form-inline" th:action="@{/map/searchmap}"
+						method="get">
+						<input class="form-control mr-1" type="text" name="search"
+							placeholder="주소 검색" autocomplete="off">
+						<button class="btn btn-success mr-2" type="submit">검색</button>
+					</form>
+				</th:block>
+				<th:block sec:authorize="isAuthenticated()">
+					<form class="form-inline" th:action="@{/map/searchmap}"
+						method="get">
+						<div class="dropdown">
+							<input class="form-control mr-1 dropdown" type="text" id="search_value"
+								name="search" placeholder="주소 검색-로그인" data-toggle="dropdown"
+								autocomplete="off">
+							<div class="dropdown-menu">
+								<div class="dropdown-header">최근 검색어</div>
+								<div class="dropdown-item" id="search_List" th:each="item : ${sh}"  th:text="${item.s_history}" th:value="${item.s_history}" th:onclick="search_link([[${item.s_history}]])"></div> 
+							</div>
+							<button class="btn btn-success mr-2" type="submit">검색</button>
+						</div>
+					</form>
+				</th:block>
 				<a class="btn btn-info" th:href="@{/map/mainmap}">내 위치로 찾기</a>
-		</div>
+				<th:block sec:authorize="hasAuthority('ADMIN')">
+				<a class="btn btn-info ml-2" th:href="@{/map/testmap}">테스트</a>
+				</th:block>
+			</div>
 		</nav>
-    </header>
+		<script type="text/javascript">
+		function search_link(s_history){
+			var value = s_history;
+			$('#search_value').val(value);
+		}
+		</script>
+	</header>
+	
 </body>
 </html>
