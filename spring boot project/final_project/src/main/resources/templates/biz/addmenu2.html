@@ -31,7 +31,9 @@
 		
 			<form th:action="@{/biz/addmenu2/{res_id}(res_id=${res.Res_id})}" method="post" >
 				<div id="menu-vo">
+				
 					<div class="menu-item" th:each="item : ${menu_list}">
+				<!-- th:name 사용해서 list[]에 값넣고 업데이트문으로 바꾸기 -->	
 						<input type="text" name="list[0].menu" th:value="${item.menu_name}" placeholder="메뉴-!null" >
 						<input type="text" name="list[0].menu_e"th:value="${item.menu_e}" placeholder="메뉴-설명" >
 						<input type="text" name="list[0].menu_price"th:value="${item.menu_price}" placeholder="메뉴-가격" >
