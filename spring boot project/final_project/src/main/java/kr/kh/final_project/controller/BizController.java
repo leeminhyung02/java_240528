@@ -182,6 +182,11 @@ public class BizController {
 			model.addAttribute("sh", sh);
 		}
 		List<MenuVO> menu_list = restaurantService.get_Menu_List(res_id); 
+		System.out.println(menu_list);
+		model.addAttribute("isNull", false);
+		if(menu_list.equals(new ArrayList<MenuVO>())) {
+			model.addAttribute("isNull", true);
+		}
 		model.addAttribute("menu_list", menu_list);
 		RestaurantVO res = restaurantService.getRes(res_id);
 		model.addAttribute("res", res);
@@ -212,6 +217,31 @@ public class BizController {
 				menu_list.getList().get(i).setRes_id(res_id); //가게 설정
 				menu_list.getList().get(i).setMenu_count(i); //메뉴 번호 설정
 				//db로 메뉴 보내기
+				MenuVO menu = menu_list.getList().get(i);
+				if(restaurantService.insertMenu(res_id, menu)) {
+					System.out.println(1);
+				}
+			}
+		}
+		System.out.println(menu_list);
+		RestaurantVO res = restaurantService.getRes(res_id);
+		if (restaurantService.update_Res(res)) {
+			say = "메뉴를 변경했습니다.";
+		}
+		model.addAttribute("say", say);
+		model.addAttribute("link", link);
+		return "/message";
+	}
+	
+	
+	@PostMapping("/biz/updatemenu/{res_id}")
+	public String post_updatemenu_test(Model model, @PathVariable int res_id, MenuListVO menu_list) {
+		String link = "/biz/de";
+		String say = "메뉴 변경을 못했습니다.";
+		if(menu_list != null) {
+			for(int i = 0; i < menu_list.getList().size() ;i++) {
+				menu_list.getList().get(i).setRes_id(res_id); //가게 설정
+				menu_list.getList().get(i).setMenu_count(i); //메뉴 번호 설정
 				MenuVO menu = menu_list.getList().get(i);
 				if(restaurantService.insertMenu(res_id, menu)) {
 					System.out.println(1);

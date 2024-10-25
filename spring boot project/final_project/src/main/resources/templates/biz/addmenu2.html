@@ -13,7 +13,7 @@
 		<div class="container">
 		<h1>사업자페이지</h1>
 		<h4>메뉴 추가</h4>
-		<th:block th:if="${menu_list} == null">
+		<th:block th:if="${isNull} == true">
 			<form th:action="@{/biz/addmenu2/{res_id}(res_id=${res.Res_id})}" method="post" >
 				<div id="menu-vo">
 					<div class="menu-item">
@@ -27,20 +27,18 @@
 				<button id="add_field" class="btn btn-success">제출하기</button>
 			</form>
 		</th:block>
-		<th:block th:if="${menu_list} != null">
-		
-			<form th:action="@{/biz/addmenu2/{res_id}(res_id=${res.Res_id})}" method="post" >
+		<th:block th:if="${isNull} == false">
+			<form th:action="@{/biz/updatemenu/{res_id}(res_id=${res.Res_id})}" method="post" >
 				<div id="menu-vo">
 				
-					<div class="menu-item" th:each="item : ${menu_list}">
+					<div class="menu-item" th:each="item, stat : ${menu_list}">
 				<!-- th:name 사용해서 list[]에 값넣고 업데이트문으로 바꾸기 -->	
-						<input type="text" name="list[0].menu" th:value="${item.menu_name}" placeholder="메뉴-!null" >
-						<input type="text" name="list[0].menu_e"th:value="${item.menu_e}" placeholder="메뉴-설명" >
-						<input type="text" name="list[0].menu_price"th:value="${item.menu_price}" placeholder="메뉴-가격" >
+						<input type="text" th:name="'list['+${stat.count-1} +'].menu'" th:value="${item.menu_name}" placeholder="메뉴-!null" >
+						<input type="text" th:name="'list['+${stat.count-1} +'].menu'" th:value="${item.menu_e}" placeholder="메뉴-설명" >
+						<input type="text" th:name="'list['+${stat.count-1} +'].menu'" th:value="${item.menu_price}" placeholder="메뉴-가격" >
 					</div>
 				</div>
 				<button type="button" id="add_field" class="btn btn-dark">추가하기</button>
-				
 				<button id="add_field" class="btn btn-success">제출하기</button>
 			</form>
 		</th:block>
@@ -55,9 +53,7 @@
 						<input type="text" name="list[${count}].menu_price" placeholder="메뉴-가격">
 					</div>`);
 		});
-		
 		</script>
 	</main>
-	
 </body>
 </html>
