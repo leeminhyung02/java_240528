@@ -1,7 +1,6 @@
 package kr.kh.final_project.controller;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import kr.kh.final_project.model.util.CustomUser;
 import kr.kh.final_project.model.vo.FavoritesVO;
+import kr.kh.final_project.model.vo.MenuVO;
 import kr.kh.final_project.model.vo.RestaurantVO;
 import kr.kh.final_project.model.vo.ReviewVO;
 import kr.kh.final_project.model.vo.Search_historyVO;
@@ -49,6 +49,7 @@ public class ResController {
 		if (userService.is_fav(username, res_id)) {
 			result = true;
 		}
+		model.addAttribute("Menu_List",restaurantService.get_Menu_List(res_id));
 		model.addAttribute("result", result);
 		model.addAttribute("res", res);
 		model.addAttribute("rev", rev);
@@ -64,16 +65,27 @@ public class ResController {
 			List<Search_historyVO> sh = userService.get_SH(User_id);
 			model.addAttribute("sh", sh);
 		}
+		model.addAttribute("Menu_List",restaurantService.get_Menu_List(res_id));
 		model.addAttribute("res_id", res_id);
 		return "/res/rev";
 	}
 
 	@PostMapping("/res/rev/{res_id}")
-	public String writereviewPost(Model model, ReviewVO review, @PathVariable int res_id) {
+	public String writereviewPost(Model model, ReviewVO review, @PathVariable int res_id, String menu_code) {
 		review.setRes_id(res_id);
 		review.setScore(review.getScore()/2);
 		String say = "리뷰 작성에 오류가 발생했습니다.";
 		String link = "/map/mainmap";
+		System.out.println(menu_code);
+		String[]Menu_Code = menu_code.split(",");
+		List<String>Menu_name_List = new ArrayList<String>();
+		for(int i = 0; i < Menu_Code.length; i++) {
+			Menu_name_List.add(restaurantService.get_Menu_name(Menu_Code[i]));
+		}
+		//그냥 service에서 해당 코드의 메뉴 이름을 가져와
+		System.out.println(Menu_name_List);
+		review.setContent(review.getContent()+"\n [[주문한 메뉴]]\n"+Menu_name_List);
+		System.out.println(review.getContent());
 		if (reviewService.insertRev(review)) {
 			say = "리뷰를 작성하였습니다.";
 		}

@@ -48,4 +48,19 @@
 		select * from menu
 		where Res_id = #{res_id}
 	</select>
+	<update id="update_Menu">
+		update menu
+			set Res_id = #{menu.Res_id}, menu_name = #{menu.menu_name},
+				menu_e = #{menu.menu_e}, menu_price = #{menu.menu_price},
+				menu_count = #{menu.menu_count}
+			where menu_code = #{menu.menu_code}
+	</update>
+	<delete id="deleteMenu">
+		delete from menu
+			where menu_code = #{code} 
+	</delete>
+	<select id="select_Menu_name" resultType="MenuVO">
+		select * from menu
+		where menu_code = #{i}
+	</select>
 </mapper>

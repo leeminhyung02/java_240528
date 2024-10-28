@@ -65,4 +65,29 @@ public class Restaurantservice {
 		return RestaurantDao.select_Menu_List(res_id);
 	}
 
+	public boolean updateMenu(int res_id, MenuVO menu) {
+		// menu_code를 이용하여 update
+		List<MenuVO> menu_list = RestaurantDao.select_Menu_List(res_id);
+		if(menu.getMenu_code() != 0) {
+			//이미 있는 메뉴일경우 update
+			return RestaurantDao.update_Menu(res_id, menu);
+		}
+		else {
+			//없는 메뉴는 추가
+			return RestaurantDao.insertMenu(res_id, menu);
+		}
+		
+	}
+
+	public boolean remove(Integer code) {
+		return RestaurantDao.deleteMenu(code);
+		
+	}
+
+	public String get_Menu_name(String string) {
+		Integer i = Integer.parseInt(string);
+		MenuVO m = RestaurantDao.select_Menu_name(i);
+		return m.getMenu_name();
+	}
+
 }

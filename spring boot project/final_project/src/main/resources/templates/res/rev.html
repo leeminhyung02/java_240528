@@ -34,6 +34,9 @@
 	width: 500px;
 	height: 500px;
 }
+
+.menu {
+	font-size: 20px;}
 </style>
 </head>
 <body>
@@ -55,8 +58,11 @@
 						</span>
 					</div>
 				</div>
-				<div class="form-group">먹은 메뉴</div>
-				<div th:text="'메뉴 개선후 나중에 추가'"></div>
+				<h3  th:text="'드신 메뉴를 선택해주세요(중복 가능)'"></h3>
+				<div class="menu form-group" th:each="item, stat : ${Menu_List}" >
+					<span  th:text="${item.menu_name}"></span>
+					<input type="checkbox"  name="menu_code" th:value="${item.menu_code}">
+				</div>
 				<br>
 				<div class="form-group">
 					<label for="content">내용</label>

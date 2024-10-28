@@ -33,6 +33,12 @@ public interface RestaurantDAO {
 
 	List<MenuVO> select_Menu_List(int res_id);
 
+	boolean update_Menu(int res_id, @Param("menu")MenuVO menu);
+
+	boolean deleteMenu(Integer code);
+
+	MenuVO select_Menu_name(Integer i);
+
 
 	
 }

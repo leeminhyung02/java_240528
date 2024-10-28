@@ -8,6 +8,45 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+.star {
+	position: relative;
+	font-size: 2rem;
+	color: #ddd;
+}
+
+
+.star span {
+	width: 0;
+	position: absolute;
+	left: 0;
+	color: #57D3F7;  
+	overflow: hidden;
+	pointer-events: none;
+}
+
+.text-area {
+	width: 500px;
+	height: 500px;
+}
+
+
+.star-rev {
+	position: relative;
+	font-size: 1rem;
+	color: #ddd;
+}
+
+
+.star-rev span {
+	width: 0;
+	position: absolute;
+	left: 0;
+	color: red;  
+	overflow: hidden;
+	pointer-events: none;
+}
+</style>
 </head>
 <body >
 	<main layout:fragment="content">
@@ -16,21 +55,26 @@
 				<h2 th:text="${res.res_banner}"></h2>
 			</div>
 				<hr>
-			<div>
-				<h3 th:text="${res.res_name}"></h3>
-				<h4 th:text="'평점 : '+ ${#numbers.formatDecimal(res.res_score/2.0, 1, 2)}"></h4>
-			</div>
+					<div class="wrap">
+				<h4 th:text="'평점'"></h4>
+						<span class="star"> ★★★★★ <span th:style="'width:'+${res.res_score * 10}+'%'">★★★★★</span></span>
+					</div>
 				<hr>
 			<div>
 				<h4 th:text="'메뉴'"></h4>
+				
+				<div th:each="M, stat : ${Menu_List}" >
+				<h5 th:text="${M.menu_name}+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+${M.menu_price}+'원'"></h5>
+				<h6 class="mb-4" th:text="${M.menu_e}"></h6>
 				<hr>
-				<h5 th:text="${res.res_info}"></h5>
-				<hr>
+				</div>
 			</div>
 			<div>
 				<h4 th:text="'리뷰'"></h4>
 				<hr>
 				<div th:each="item : ${rev}" th:unless="${item.report_result}" >
+				
+					<span class="star-rev"> ★★★★★ <span th:style="'width:'+${item.score * 10}+'%'">★★★★★</span></span>
 					<div th:text="${#numbers.formatDecimal(item.score/2.0, 1, 1)}"></div>
 					<div th:text="${item.content}"></div>
 					<hr>
