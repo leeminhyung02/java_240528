@@ -16,7 +16,7 @@
 		<th:block th:if="${isNull} == true">
 			<form th:action="@{/biz/addmenu2/{res_id}(res_id=${res.Res_id})}" method="post" >
 				<div id="menu-vo">
-					<div class="menu-item">
+					<div class="menu-item0 mb-3 menu-count">
 						<input type="text" name="list[0].menu_name" placeholder="메뉴" >
 						<input type="text" name="list[0].menu_e" placeholder="메뉴-설명" >
 						<input type="text" name="list[0].menu_price" placeholder="메뉴-가격" >

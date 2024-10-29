@@ -14,6 +14,7 @@ import kr.kh.final_project.model.vo.ReportVO;
 import kr.kh.final_project.model.vo.RestaurantVO;
 import kr.kh.final_project.model.vo.ReviewVO;
 import kr.kh.final_project.model.vo.Search_historyVO;
+import kr.kh.final_project.service.MailService;
 import kr.kh.final_project.service.Restaurantservice;
 import kr.kh.final_project.service.ReviewService;
 import kr.kh.final_project.service.UserService;
@@ -30,6 +31,9 @@ public class AdminController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private MailService mailService;
 	
 	@GetMapping("/admin/de")
 	public String admin(Model model, @AuthenticationPrincipal CustomUser userDatails) {
@@ -152,6 +156,11 @@ public class AdminController {
 	}
 	@GetMapping("/admin/user")
 	public String adminuser() {
+		try {
+			mailService.sendMail();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return "/admin/user";
 	}
 	

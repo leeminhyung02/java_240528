@@ -39,6 +39,8 @@ public interface RestaurantDAO {
 
 	MenuVO select_Menu_name(Integer i);
 
+	String select_category(String category);
+
 
 	
 }

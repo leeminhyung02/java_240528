@@ -90,4 +90,8 @@ public class Restaurantservice {
 		return m.getMenu_name();
 	}
 
+	public String get_category(String category) {
+		return RestaurantDao.select_category(category);
+	}
+
 }

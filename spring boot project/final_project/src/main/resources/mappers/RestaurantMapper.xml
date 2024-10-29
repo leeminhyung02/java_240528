@@ -63,4 +63,8 @@
 		select * from menu
 		where menu_code = #{i}
 	</select>
+	<select id="select_category">
+		select category_name from category
+			where category_num = #{category}
+	</select>
 </mapper>

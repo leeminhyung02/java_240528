@@ -82,7 +82,6 @@ public class ResController {
 		for(int i = 0; i < Menu_Code.length; i++) {
 			Menu_name_List.add(restaurantService.get_Menu_name(Menu_Code[i]));
 		}
-		//그냥 service에서 해당 코드의 메뉴 이름을 가져와
 		System.out.println(Menu_name_List);
 		review.setContent(review.getContent()+"\n [[주문한 메뉴]]\n"+Menu_name_List);
 		System.out.println(review.getContent());
