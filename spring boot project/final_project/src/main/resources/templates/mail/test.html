@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	layout:decorate="~{layout/layout.html}">
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+	<main layout:fragment="content">
+		<div class="container">
+			<p>메일 테스트용 양식</p>
+			
+			<a class="btn btn-primary mr-2" th:href="@{/mail/test1}">메일 테스트용1(계정 정지시)</a>
+			<a class="btn btn-primary mr-2" th:href="@{/mail/test2}">메일 테스트용2(비밀 번호 찾기)</a>
+		</div>
+
+	</main>
+</body>
+</html>

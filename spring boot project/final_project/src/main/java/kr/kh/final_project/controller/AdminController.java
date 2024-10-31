@@ -32,8 +32,7 @@ public class AdminController {
 	@Autowired
 	private UserService userService;
 	
-	@Autowired
-	private MailService mailService;
+	
 	
 	@GetMapping("/admin/de")
 	public String admin(Model model, @AuthenticationPrincipal CustomUser userDatails) {
@@ -131,8 +130,6 @@ public class AdminController {
 	@GetMapping("admin/rep_non/{rev_id}")
 	public String re(Model model, @PathVariable int rev_id, @AuthenticationPrincipal CustomUser userDatails) {
 		if(userDatails != null) {
-			System.out.println(userDatails.getMember().getUser_id());
-			//해당 사용자의 최근 검색어를 가져와서 뿌림
 			String User_id = userDatails.getMember().getUser_id();
 			List<Search_historyVO> sh = userService.get_SH(User_id);
 			model.addAttribute("sh", sh);
@@ -153,15 +150,6 @@ public class AdminController {
 		model.addAttribute("link", link);
 		return "/message";
 		
-	}
-	@GetMapping("/admin/user")
-	public String adminuser() {
-		try {
-			mailService.sendMail();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return "/admin/user";
 	}
 	
 }

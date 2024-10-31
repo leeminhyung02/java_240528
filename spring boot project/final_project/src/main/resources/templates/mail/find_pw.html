@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>메일 테스트</title>
+</head>
+<body>
+<div>
+<!-- 비밀번호 찾기 양식쓰기 -->
+<div th:text="${user_name}+'님의 임시 비밀번호 요청'"></div>
+<div th:text="'임시 비밀번호는'+${temp_pw}+'입니다.'"></div>
+</div>
+</body>
+</html>

@@ -39,12 +39,21 @@
 			set user_report = #{user.user_report}
 		where User_id = #{user.User_id}
 	</update>
-	<select id="selectUser_id" resultType="UserVO">
+	<select id="selectUser_name" resultType="UserVO">
 		select * from user
-		where User_id = #{value}
+		where user_name = #{value}
 	</select>
 	<select id="selectUser_email" resultType="UserVO">
 		select * from user
 		where user_email = #{value}
 	</select>
+	<select id="selectUser_by_freeze" resultType="UserVO">
+		select * from user
+		where user_freeze >= now()
+	</select>
+	<update id="update_pw">
+		update user
+			set user_pw = #{user.user_pw}
+			where User_id = #{user.User_id}
+	</update>
 </mapper>

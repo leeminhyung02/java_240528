@@ -1,34 +1,33 @@
 package kr.kh.final_project.service;
 
-import org.springframework.mail.SimpleMailMessage;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.scheduling.annotation.Async;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
+import kr.kh.final_project.model.vo.Mail;
 import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
 public class MailService {
 
-	private final JavaMailSender jMailSender;
-	
-	
-	@Async
-	public boolean sendMail() throws Exception {
-		boolean msg = false;
-		SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-		
-		simpleMailMessage.setTo("mi087033@gmail.com"); //상대방 이메일 주소
-		simpleMailMessage.setSubject("제목");
-		simpleMailMessage.setText("내용");
+	@Autowired
+	public JavaMailSender mailSender;
+
+	public void mailSend(Mail mail) {
+		MimeMessage msg = mailSender.createMimeMessage();
 		try {
-			jMailSender.send(simpleMailMessage);
-		} catch (Exception e) {
+			MimeMessageHelper msg_Helper = new MimeMessageHelper(msg, false, "UTF-8");
+			msg_Helper.setTo(mail.getTo());
+			msg_Helper.setSubject(mail.getTitle());
+			msg_Helper.setText(mail.getContent(), true);
+			mailSender.send(msg);
+		} catch (MessagingException e) {
 			e.printStackTrace();
-			return msg;
 		}
-	
-		return true;
+		
 	}
 }

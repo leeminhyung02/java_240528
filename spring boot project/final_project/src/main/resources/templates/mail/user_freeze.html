@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>메일 테스트</title>
+</head>
+<body>
+<div>
+<!-- 계정 정지 이메일 양식쓰기 -->
+  <h3>계정이 정지당했습니다.</h3>
+  <div>신고당한 횟수</div>
+  <div th:text="${user.user_report}+'회'"></div>
+  <div>정지 기간</div>
+  <div th:text="${#dates.format(user.user_freeze, 'yyyy-MM-dd')}+'까지'"></div>
+  
+</div>
+</body>
+</html>

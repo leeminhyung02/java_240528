@@ -29,9 +29,13 @@ public interface UserDAO {
 
 	boolean signup_biz(@Param("user")UserVO user);
 
-	UserVO selectUser_id(@Param("value")String value);
+	UserVO selectUser_name(@Param("value")String value);
 
 	UserVO selectUser_email(@Param("value")String value);
+
+	List<UserVO> selectUser_by_freeze();
+
+	boolean update_pw(@Param("user")UserVO user);
 
 	
 

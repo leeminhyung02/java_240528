@@ -5,13 +5,16 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 
+import kr.kh.final_project.controller.MailController;
 import kr.kh.final_project.dao.ReportDAO;
 import kr.kh.final_project.dao.Search_historyDAO;
 import kr.kh.final_project.dao.UserDAO;
@@ -36,7 +39,8 @@ public class UserService {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-
+	
+	
 	public boolean signup_user(UserVO user) {
 		String pw = passwordEncoder.encode(user.getUser_pw());
 		user.setUser_pw(pw);
@@ -98,6 +102,7 @@ public class UserService {
 				Date date = cal.getTime();
 				System.out.println(date);
 				user.setUser_freeze(date);
+				//정지 메일 보내기(user)
 			}
 		}
 		return userDao.updatecaution(user);
@@ -121,7 +126,7 @@ public class UserService {
 	}
 
 	public boolean check_is_in(String value) {
-		UserVO vo = userDao.selectUser_id(value);
+		UserVO vo = userDao.selectUser(value);
 		if(vo == null) {
 			return true;
 		}
@@ -134,6 +139,27 @@ public class UserService {
 			return true;
 		}
 		return !(vo.getUser_email().equals(value));
+	}
+
+	public List<UserVO> get_freeze_user() {
+		return userDao.selectUser_by_freeze();
+	}
+
+	public String set_temp_pw(String user_name) {
+		//임시 비밀번호 설정하고 그 임시비밀번호 리턴
+		String temp_pw = RandomStringUtils.randomAlphanumeric(10);
+		System.out.println("암호화전"+temp_pw);
+		UserVO user = userDao.selectUser_name(user_name);
+		if(user == null) {
+			return null;
+		}
+		String pw = passwordEncoder.encode(temp_pw);
+		user.setUser_pw(pw);
+		System.out.println("암호화후"+pw);
+		if(!userDao.update_pw(user)) {
+			return null;
+		}
+		return temp_pw;
 	}
 
 }
