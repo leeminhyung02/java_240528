@@ -56,4 +56,9 @@
 			set user_pw = #{user.user_pw}
 			where User_id = #{user.User_id}
 	</update>
+	<update id="update_name">
+		update user
+			set user_name = #{user.user_name}
+			where User_id = #{user.User_id}
+	</update>
 </mapper>

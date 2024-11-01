@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	layout:decorate="~{layout/layout.html}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<main layout:fragment="content">
+		<div class="container">
+			<form th:action="@{/user/check_pw_by_name}" method="post">
+				<div class="form-group">
+				    <label for="User_id">본인확인을 위해 비밀번호를 입력해주세요</label>
+					<input type="password" class="form-control" placeholder="비밀번호 입력" id="pw" name="pw">
+				</div>
+				<button class="btn btn-outline-dark col-12">제출</button>
+			</form>
+		</div>
+	</main>
+</body>
+</html>

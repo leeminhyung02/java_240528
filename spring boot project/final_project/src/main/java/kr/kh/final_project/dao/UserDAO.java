@@ -37,6 +37,8 @@ public interface UserDAO {
 
 	boolean update_pw(@Param("user")UserVO user);
 
+	boolean update_name(@Param("user")UserVO user);
+
 	
 
 	

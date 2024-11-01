@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	layout:decorate="~{layout/layout.html}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<main layout:fragment="content">
+		<div class="container mt-2">
+			<div th:text="${user.user_name}+'님'">?</div>
+			<div th:text="'신고횟수 : '+${user.user_report}">?</div>
+			<div th:text="'이메일 주소 : '+${user.user_email}">?</div>
+			<a class="btn btn-primary mr-2" th:href="@{/user/check_pw_by_name}">이름 변경하기</a>
+			<a class="btn btn-primary mr-2" th:href="@{/user/check_pw_by_pw}">비밀번호 변경하기</a>
+	
+		</div>
+	</main>
+</body>
+</html>

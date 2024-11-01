@@ -13,12 +13,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
 
 import kr.kh.final_project.controller.MailController;
 import kr.kh.final_project.dao.ReportDAO;
 import kr.kh.final_project.dao.Search_historyDAO;
 import kr.kh.final_project.dao.UserDAO;
 import kr.kh.final_project.model.vo.FavoritesVO;
+import kr.kh.final_project.model.vo.Mail;
 import kr.kh.final_project.model.vo.Report_manageVO;
 import kr.kh.final_project.model.vo.Search_historyVO;
 import kr.kh.final_project.model.vo.UserVO;
@@ -38,12 +41,16 @@ public class UserService {
 	ReportDAO reportDao;
 
 	@Autowired
+	MailService mailService;
+	@Autowired
+	private TemplateEngine templateEngine;
+	
+	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
 	
 	public boolean signup_user(UserVO user) {
-		String pw = passwordEncoder.encode(user.getUser_pw());
-		user.setUser_pw(pw);
+		user.setUser_pw(set_pwEncoder(user.getUser_pw()));
 		return userDao.signup(user);
 	}
 
@@ -103,6 +110,15 @@ public class UserService {
 				System.out.println(date);
 				user.setUser_freeze(date);
 				//정지 메일 보내기(user)
+				Context context = new Context();
+				context.setVariable("user", user);
+				String htmlTemplate = templateEngine.process("mail/user_freeze", context);
+				Mail mail = new Mail();
+				mail.setTitle("계정이 정지당했습니다.");
+				//mail.setTo(user.getUser_email());
+				mail.setTo("mi087033@gmail.com");
+				mail.setContent(htmlTemplate);
+				mailService.mailSend(mail);
 			}
 		}
 		return userDao.updatecaution(user);
@@ -160,6 +176,29 @@ public class UserService {
 			return null;
 		}
 		return temp_pw;
+	}
+
+	public UserVO get_user(String user_id) {
+		UserVO user = userDao.selectUser(user_id);
+		if(user == null) {
+			return null;
+		}
+		return user;
+	}
+
+	public String set_pwEncoder(String pw) {
+		return passwordEncoder.encode(pw);
+	}
+	public boolean check_pw(String input_pw,String user_pw) {
+		return passwordEncoder.matches(input_pw, user_pw);
+	}
+
+	public boolean updatePW(UserVO user) {
+		return userDao.update_pw(user);
+	}
+
+	public boolean updateName(UserVO user) {
+		return userDao.update_name(user);
 	}
 
 }

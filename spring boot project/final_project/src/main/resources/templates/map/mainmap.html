@@ -151,6 +151,9 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 	overflow: hidden;
 	white-space: nowrap;
 }
+li{
+	list-style: none;
+}
 </style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -202,23 +205,6 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 					</tbody>
 				</table>
 			</div>
-		  <th:block sec:authorize="isAuthenticated()">
-			<div style="width: 25%; height: 300px;">
-				<table class="table table-hover tablech">
-					<thead>
-						<tr>
-							<th class="text-center"  colspan="2">최근 검색어</th>	
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="item : ${sh}">
-							<td  th:text="${item.s_history}"></td>
-							<td  th:text="${#dates.format(item.his_date, 'yyyy-MM-dd일 HH시mm분')}"></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			</th:block>
 		</div>
 		<script th:inline="javascript">
 		var category = '';
