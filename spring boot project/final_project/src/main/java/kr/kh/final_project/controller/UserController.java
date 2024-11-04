@@ -181,11 +181,6 @@ public class UserController {
 		return "/message";
 	}
 	
-	
-	
-	
-	
-	
 	@GetMapping("/user/check_pw_by_pw")
 	public String check_pw_pw() {
 		return "/user/check_pw_by_pw";

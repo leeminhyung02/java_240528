@@ -115,7 +115,8 @@ public class UserService {
 				String htmlTemplate = templateEngine.process("mail/user_freeze", context);
 				Mail mail = new Mail();
 				mail.setTitle("계정이 정지당했습니다.");
-				//mail.setTo(user.getUser_email());
+				mail.setTo(user.getUser_email());
+				//테스트용 이메일
 				mail.setTo("mi087033@gmail.com");
 				mail.setContent(htmlTemplate);
 				mailService.mailSend(mail);

@@ -61,6 +61,8 @@ public class MailController {
 		String htmlTemplate = templateEngine.process("mail/user_freeze", context);
 		Mail mail = new Mail();
 		mail.setTitle("계정이 정지당했습니다.");
+		mail.setTo(user.getUser_email());
+		//테스트용 이메일
 		mail.setTo("mi087033@gmail.com");
 		mail.setContent(htmlTemplate);
 		mailService.mailSend(mail);
@@ -95,6 +97,8 @@ public class MailController {
 			String htmlTemplate = templateEngine.process("mail/find_pw", context);
 			Mail mail = new Mail();
 			mail.setTitle("임시 비밀번호 입니다.");
+			mail.setTo(user.getUser_email());
+			//테스트용 이메일
 			mail.setTo("mi087033@gmail.com");
 			mail.setContent(htmlTemplate);
 			mailService.mailSend(mail);
