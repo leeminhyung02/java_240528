@@ -20,15 +20,15 @@ public class Restaurantservice {
 	public List<RestaurantVO> show_Restaurant() {
 		return RestaurantDao.selectRestaurant_list();
 	}
+	public List<RestaurantVO> getRes_all() {
+		return RestaurantDao.selectRestaurant_list_all();
+	}
 
 	public RestaurantVO getRes(int res_id) {
 		return RestaurantDao.selectRestaurant(res_id);
 	}
 
 
-	public List<RestaurantVO> getRes_all() {
-		return RestaurantDao.selectRestaurant_list_all();
-	}
 
 	public void updatepermission(int res_id) {
 		RestaurantDao.updatepermission_true(res_id);

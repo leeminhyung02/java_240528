@@ -38,7 +38,6 @@ public class AdminController {
 	public String admin(Model model, @AuthenticationPrincipal CustomUser userDatails) {
 		if(userDatails != null) {
 			System.out.println(userDatails.getMember().getUser_id());
-			//해당 사용자의 최근 검색어를 가져와서 뿌림
 			String User_id = userDatails.getMember().getUser_id();
 			List<Search_historyVO> sh = userService.get_SH(User_id);
 			model.addAttribute("sh", sh);

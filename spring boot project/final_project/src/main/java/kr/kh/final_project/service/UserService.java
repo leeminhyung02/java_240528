@@ -165,14 +165,12 @@ public class UserService {
 	public String set_temp_pw(String user_name) {
 		//임시 비밀번호 설정하고 그 임시비밀번호 리턴
 		String temp_pw = RandomStringUtils.randomAlphanumeric(10);
-		System.out.println("암호화전"+temp_pw);
 		UserVO user = userDao.selectUser_name(user_name);
 		if(user == null) {
 			return null;
 		}
 		String pw = passwordEncoder.encode(temp_pw);
 		user.setUser_pw(pw);
-		System.out.println("암호화후"+pw);
 		if(!userDao.update_pw(user)) {
 			return null;
 		}
